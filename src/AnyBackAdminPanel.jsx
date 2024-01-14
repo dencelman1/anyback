@@ -1,49 +1,69 @@
-import './App.scss'
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
+import './AnyBackAdminPanel.scss'
+import LeftSideBar from './components/LeftSideBar/LeftSideBar'
+import Main from './components/Main/Main'
+import RightSideBar from './components/RightSideBar/RightSideBar'
+import { AdminPanelContext } from './hooks/useAdminPanel'
+import AuthForm from './components/AuthForm/AuthForm'
 
 
 
-var adminSections = [
-  { name: "Database", },
-  { name: "Analytics", },
-]
+var adminPanelReducer = (prevState, action) => {
+  var [stateKey, key, value] = action
+  var setCurrentState = prevState[stateKey][1]
 
+  setCurrentState(prev => ({...prev, [key]: value}))
+}
 
 
 function AnyBackAdminPanel({
   options,
 }) {
+
+ 
+
+  var adminPanelState = useReducer(
+    adminPanelReducer,
+    {
+      authed: true,
+
+      current: useState({
+        section: '',
+
+        table: '',
+        database: '',
+        entryId: '',
+      }),
+
+      opened: useState({
+        leftSideBar: true,
+        main: false,
+        rightSideBar: false,
+      }),
+
+      
+    }
+  )
+
+  var adminState = adminPanelState[0]
   
-  var [current, setCurrent] = useState({
-    section: '',
-  })
-  var [opened, setOpened] = useState({
-    sections: true,
-  })
 
   return (
-    <div
-      style={{
-        width:
-          current.section === "" ? "100%": opened.sections
-      }}
-    >
+    <AdminPanelContext.Provider value={adminPanelState}>
+      
       {
-        adminSections.map((section, i) => {
-          return (
-            <div
-              key={i}
-              onClick={() => setCurrent(p => ({...p, section: section.name}))}
-              
-
-            >
-              {section.name}
-            </div>
-          )
-        })
+        adminState.authed
+        ? <>
+          <LeftSideBar />
+          <Main />
+          <RightSideBar />
+        </>
+        : <AuthForm />
       }
-    </div>
+    </AdminPanelContext.Provider>
+    
   )
+
 }
 
 export default AnyBackAdminPanel

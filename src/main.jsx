@@ -26,12 +26,10 @@ var options = {
   }
 }
 
-var AdminPanelElement = (
+var rootElement = document.querySelector('#root')
+var root = ReactDOM.createRoot(rootElement)
+root.render(
   <AnyBackAdminPanel
     options={options}
   />
 )
-
-var rootElement = document.getElementById('root')
-var root = ReactDOM.createRoot(rootElement)
-root.render(AdminPanelElement)
