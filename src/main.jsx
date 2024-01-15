@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
-import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
+// import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
+import AuthForm from './components/AuthForm/AuthForm.jsx'
 
 
 
@@ -8,7 +9,7 @@ var options = {
   
   auth: (login, password) => {
 
-    return (login === 'Masha' && password === "1234")
+    return (login === 'Masha' && password === '1234')
     
     // return Promise((res, rej) => {
     //   fetch("url", {
@@ -26,10 +27,13 @@ var options = {
   }
 }
 
+
 var rootElement = document.querySelector('#root')
 var root = ReactDOM.createRoot(rootElement)
 root.render(
-  <AnyBackAdminPanel
-    options={options}
-  />
+  // <AnyBackAdminPanel
+  //   options={options}
+  // />
+  <AuthForm />
 )
+export default options;
