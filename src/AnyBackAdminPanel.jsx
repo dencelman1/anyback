@@ -53,7 +53,6 @@ function AnyBackAdminPanel({
       
       }
     </AdminPanelContext.Provider>
-    </AuthlContext.Provider>
   )
 
 }
