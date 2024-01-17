@@ -1,0 +1,13 @@
+
+.adminSpace {
+    --adminSpace__padding: 50px;
+    width: calc(100% - var(--adminSpace__padding));
+    height: calc(100% - var(--adminSpace__padding));
+    display: flex;
+    
+    // TODO: clear
+    // outline: 1px solid black;
+    gap: 10px;
+
+    border-radius: 5px;
+}

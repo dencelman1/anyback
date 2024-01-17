@@ -1,0 +1,53 @@
+.leftSideBar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    
+    transition: .2s width, .1s box-shadow, .2s margin;
+
+    --leftSideBar__width: 100%;
+    --leftSideBar__background-color: none;
+
+    --sectionButtons__flex-direction: row;
+
+    --openingLever__display: none;
+    
+
+    width: var(--leftSideBar__width);
+    background-color: var(--leftSideBar__background-color);
+    
+    outline: 1px solid gray;
+
+    &:hover {
+        outline: 2px solid black;
+    }
+
+    &.withChosenSection {
+        --sectionButtons__flex-direction: column;
+        --leftSideBar__width: 20%;
+        --openingLever__display: block;
+
+        &.closed {
+            margin-left: calc(-20% + 30px);
+            outline: none !important;
+        }
+    }
+
+    .openingLever {
+        display: var(--openingLever__display);
+    }
+
+    .sectionButtons {
+        display: flex;
+        flex-direction: var(--sectionButtons__flex-direction);
+        width: fit-content;
+        height: fit-content;
+        gap: 5px;
+
+    }
+    
+}

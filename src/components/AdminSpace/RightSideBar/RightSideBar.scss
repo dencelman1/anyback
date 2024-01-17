@@ -1,0 +1,31 @@
+
+.rightSideBar {
+    height: 100%;
+    width: 20%;
+    border-radius: 10px;
+    margin-left: auto;
+    outline: 1px solid gray;
+    position: relative;
+
+    &:hover {
+        outline: 1px solid black;
+    }
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    transition: .1s margin;
+
+    &.closed {
+        margin-right: calc(-20% + 30px);
+        
+        outline: none;
+    }
+
+    .openingLever {
+        top: 50%;
+        transform: translate(0, -50%);
+        left: 5px;
+    }
+}

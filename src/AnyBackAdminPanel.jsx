@@ -1,72 +1,56 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
-import LeftSideBar from './components/LeftSideBar/LeftSideBar'
-import Main from './components/Main/Main'
-import RightSideBar from './components/RightSideBar/RightSideBar'
-import { AdminPanelContext } from './hooks/useAdminPanel'
+
 import AuthForm from './components/AuthForm/AuthForm'
-import { AuthlContext,useAuth } from './hooks/authContext'
-
-
-var adminPanelReducer = (prevState, action) => {
-  var [stateKey, key, value] = action
-  var setCurrentState = prevState[stateKey][1]
-
-  setCurrentState(prev => ({...prev, [key]: value}))
-}
-
-
+import AdminSpace from './components/AdminSpace/AdminSpace'
+import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 
 
 function AnyBackAdminPanel({
   options,
 }) {
 
-   
-  const [islogin, setislogin] = useState(false)
+  var [userData, setUserData] = useState({
+    authed: true,
+  })
+
+  var [current, setCurrent] = useState({
+    section: '',
+
+    table: '',
+    database: '',
+    entryId: '',
+  })
   
-  var adminPanelState = useReducer(
-    adminPanelReducer,
-    {
-      
+  var [opened, setOpened] = useState({
+    leftSideBar: true,
+    main: false,
+    rightSideBar: false,
+  })
 
-      current: useState({
-        section: '',
-
-        table: '',
-        database: '',
-        entryId: '',
-      }),
-
-      opened: useState({
-        leftSideBar: true,
-        main: false,
-        rightSideBar: false,
-      }),
-
-      
+  var adminCtx = useMemo(() => {
+    var adminCtx = {
+      userData, setUserData,
+      current, setCurrent,
+      opened, setOpened,
     }
-  )
-
+    Object.setPrototypeOf(adminCtx, adminCtxProto)
+    return adminCtx
+  }, [
+    userData,
+    current,
+    opened,
+  ])
   
 
-  var adminState = adminPanelState[0]
-  console.log(adminState)
-  
   return (
-   
-    <AuthlContext.Provider value={{islogin,setislogin}} >
-      
-    <AdminPanelContext.Provider value={adminPanelState}>
-      
+    <AdminPanelContext.Provider value={adminCtx}>
       {
-        islogin
-        ? <>
-          <LeftSideBar />
-          <Main />
-          <RightSideBar />
-        </>
+        
+        userData.authed
+        ? <AdminSpace />
         : <AuthForm />
+      
       }
     </AdminPanelContext.Provider>
     </AuthlContext.Provider>
