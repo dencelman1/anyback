@@ -1,39 +1,48 @@
 import ReactDOM from 'react-dom/client'
 import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
-// import AuthForm from './components/AuthForm/AuthForm.jsx'
-
-
 
 
 var options = {
-  
-  auth: (login, password) => {
+  name: 'Admin authorization',
 
-    return (login === 'Masha' && password === '1234')
+  auth: (login, password) => {
+    return true
+
+    // 1
+    // return (login === 'Masha' && password === '1234')
     
+    // 2
     // return Promise((res, rej) => {
-    //   fetch("url", {
-    //     method: "POST",
-    //     body: JSON.stringify({ login, password })
-    //   })
-    //   .then(r => r.json())
-    //   .then(data => {
-    //     res(data.success)
-    //   })
-    //   .then(error => {
-    //     res(false)
-    //   })
+    //   res(true)
     // })
-  }
+
+    // 3
+    // return Promise((res, rej) => {
+    //   res("AUTH_TOKEN")
+    // })
+
+    // 4
+    // return Promise((res, rej) => {
+    //   rej("Error: invalid password")
+    // })
+
+  },
+
+
+
+
+
 }
 
 
-var rootElement = document.querySelector('#root')
-var root = ReactDOM.createRoot(rootElement)
+var rootElement = document.querySelector('#root');
+var root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <AnyBackAdminPanel
     options={options}
   />
 )
+
 export default options;
