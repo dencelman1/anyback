@@ -1,0 +1,18 @@
+.Button {
+    font-size: 25px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: none;
+    transition: .1s background-color;
+    color: rgb(31, 31, 31);
+    &:hover {
+        color: black;
+    }
+
+    
+    &.current {
+        color: black;
+        background-color: rgb(201, 201, 201);
+        box-shadow: inset 0 0 2px black;
+    }
+}

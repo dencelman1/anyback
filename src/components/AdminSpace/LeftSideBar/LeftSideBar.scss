@@ -1,0 +1,67 @@
+.leftSideBar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    
+    transition: .2s width, .1s box-shadow, .2s margin;
+
+    --leftSideBar__width: 100%;
+    --leftSideBar__background-color: none;
+
+    --sectionButtons__flex-direction: row;
+
+    --openingLever__display: none;
+    
+
+    width: var(--leftSideBar__width);
+    background-color: var(--leftSideBar__background-color);
+    
+    outline: 1px solid gray;
+
+    &:hover {
+        outline: 2px solid black;
+    }
+
+    &.withChosenSection {
+        --sectionButtons__flex-direction: column;
+        --leftSideBar__width: 20%;
+        --openingLever__display: block;
+
+        &.closed {
+            margin-left: calc(-20% + 30px);
+            outline: none !important;
+        }
+    }
+
+    .openingLever {
+        width: 15px;
+        height: 40px;
+        background-color: gray;
+        position: absolute;
+        right: 5px;
+        border-radius: 10px;
+
+        display: var(--openingLever__display);
+        transition: .1s background-color;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(74, 74, 74);
+        }
+    }
+
+    .sectionButtons {
+        display: flex;
+        flex-direction: var(--sectionButtons__flex-direction);
+        width: fit-content;
+        height: fit-content;
+        gap: 5px;
+
+    }
+    
+}

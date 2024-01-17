@@ -1,17 +1,10 @@
 import React, { useContext } from "react"
 
-var defaultUserData = {
-    currentTable: '',
-    currentDatabase: '',
-    currentEntryData: {},
-    
-    
-}
-
-var UserDataContext = React.createContext(defaultUserData)
+var UserDataContext = React.createContext(null)
 
 var useUserData = () => {
-  return useContext(UserDataContext)
+  var ctx = useContext(UserDataContext);
+  return ctx;
 }
 
 export {
@@ -19,4 +12,4 @@ export {
     defaultUserData,
 }
 
-// """Redux + JWT authorization"""
+// """JWT authorization"""

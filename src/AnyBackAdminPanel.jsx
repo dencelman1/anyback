@@ -1,64 +1,57 @@
-import { useReducer, useState } from 'react'
+import { useState } from 'react'
 import './AnyBackAdminPanel.scss'
-import LeftSideBar from './components/LeftSideBar/LeftSideBar'
-import Main from './components/Main/Main'
-import RightSideBar from './components/RightSideBar/RightSideBar'
-import { AdminPanelContext } from './hooks/useAdminPanel'
+
 import AuthForm from './components/AuthForm/AuthForm'
-
-
-
-var adminPanelReducer = (prevState, action) => {
-  var [stateKey, key, value] = action
-  var setCurrentState = prevState[stateKey][1]
-
-  setCurrentState(prev => ({...prev, [key]: value}))
-}
+import AdminSpace from './components/AdminSpace/AdminSpace'
+import { AdminPanelContext } from './hooks/useAdminPanel'
 
 
 function AnyBackAdminPanel({
   options,
 }) {
 
- 
+  var [userData, setUserData] = useState({
+    authed: true,
+  })
 
-  var adminPanelState = useReducer(
-    adminPanelReducer,
-    {
-      authed: true,
+  var [current, setCurrent] = useState({
+    section: '',
 
-      current: useState({
-        section: '',
+    table: '',
+    database: '',
+    entryId: '',
+  })
+  
+  var [opened, setOpened] = useState({
+    leftSideBar: true,
+    main: false,
+    rightSideBar: false,
 
-        table: '',
-        database: '',
-        entryId: '',
-      }),
+  })
 
-      opened: useState({
-        leftSideBar: true,
-        main: false,
-        rightSideBar: false,
-      }),
-
-      
-    }
-  )
-
-  var adminState = adminPanelState[0]
+  var adminCtxProto = {
+    isSectionChosen() {
+      return this.current.section !== ""
+    }  
+  }
   
 
+  var adminCtx = {
+    userData, setUserData,
+    current, setCurrent,
+    opened, setOpened,
+    
+  }
+  Object.setPrototypeOf(adminCtx, adminCtxProto)
+
   return (
-    <AdminPanelContext.Provider value={adminPanelState}>
-      
+    <AdminPanelContext.Provider value={adminCtx}>
       {
-        adminState.authed
-        ? <>
-          <LeftSideBar />
-          <Main />
-          <RightSideBar />
-        </>
+        
+        userData.authed
+        ? <AdminSpace />
         : <AuthForm />
+      
       }
     </AdminPanelContext.Provider>
     

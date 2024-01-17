@@ -1,9 +1,11 @@
 import './RightSideBar.scss'
 
 var RightSideBar = () => {
-    // return (
-    //     1
-    // )
+    return (
+        <div className='rightSideBar'>
+
+        </div>
+    )
 }
 
 export default RightSideBar;
