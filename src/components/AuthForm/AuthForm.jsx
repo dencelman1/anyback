@@ -1,65 +1,74 @@
-import Button from '../../UI/Button/Button';
 import styles  from './AuthForm.module.scss';
 import { useState } from 'react';
-import options from '../../main';
-import { AuthlContext,useAuth } from '../../hooks/authContext'
+import { useAdminPanel } from '../../hooks/useAdminPanel';
+import Button from '../../base/builtIn/Button/Button';
 
 
 
-var AuthForm = () => {
-
-  var {islogin,setislogin} = useAuth()
-
+var AuthForm = ({
+  options,
+}) => {
   
-    const [state, setState] = useState({
-        login: "",
-        password: ""
-      });
+  var adminPanel = useAdminPanel()
 
-      const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setState((prevProps) => ({
-          ...prevProps,
-          [name]: value
-        }));
-      };
+  var [inputValue, setInputValue] = useState({
+    login: "",
+    password: ""
+  });
 
-    const handleSubmit = function(event)  {
-        event.preventDefault();
-        console.log(state);
-        let check = options.auth(state.login, state.password)
-        console.log("check",check)
-        setislogin(check)
-    }
+  var handleInputChange = (event) => {
+    var name = event.target.name
+    var value = event.target.value
 
-    return (
-        <>
-            <form  onSubmit={handleSubmit} className={styles['wrap-form']}>
-                   <span>
-                    <p>Sign In</p>
-                   </span>
-                   <div className={styles['inputs']}>
-                        <input onChange={handleInputChange}
-                                type="text"
-                                name="login" 
-                                placeholder='Email'
-                                value={state.login}
-                                />
-                                
-                        <input onChange={handleInputChange}
-                         type="password"
-                         name="password"
-                         placeholder='Password'
-                         value={state.password} 
-                         />
-                   </div>
-                   <div className={styles['btn-cover']} >
-                        <Button name={'Sign In'} /> 
-                        <Button name={'Registration'} /> 
-                   </div>
-            </form>
-        </>
-    )
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  var handleSubmit = function(event) {
+    event.preventDefault();
+    let result = options.auth(inputValue.login, inputValue.password)
+    adminPanel.setUserData((prev) => ({
+      ...prev,
+      authed: result,
+    }));
+  }
+
+  return (
+      <>
+        <form  onSubmit={handleSubmit} className={styles['wrap-form']}>
+          <span>
+            <p>Sign In</p>
+          </span>
+          <div className={styles['inputs']}>
+            <input onChange={handleInputChange}
+              type="text"
+              name="login" 
+              placeholder='Email'
+              value={inputValue.login}
+            />
+                      
+            <input onChange={handleInputChange}
+              type="password"
+              name="password"
+              placeholder='Password'
+              value={inputValue.password}
+            />
+          </div>
+          <div className={styles['btn-cover']} >
+            <Button
+              name={"Log in"}
+              style={{
+                background: 'white'
+              }}
+            >
+              Log in
+            </Button>
+          </div>
+        </form>
+      </>
+  )
 }
 
 export default AuthForm;

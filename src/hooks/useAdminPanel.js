@@ -7,10 +7,11 @@ var useAdminPanel = () => {
 
   return ctx
 }
+
 var adminCtxProto = {
   isSectionChosen() {
     return this.current.section !== ""
-  }  
+  },
 }
 
 

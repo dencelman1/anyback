@@ -11,7 +11,7 @@ function AnyBackAdminPanel({
 }) {
 
   var [userData, setUserData] = useState({
-    authed: true,
+    authed: false,
   })
 
   var [current, setCurrent] = useState({
@@ -34,8 +34,10 @@ function AnyBackAdminPanel({
       current, setCurrent,
       opened, setOpened,
     }
-    Object.setPrototypeOf(adminCtx, adminCtxProto)
-    return adminCtx
+    
+    Object.setPrototypeOf(adminCtx, adminCtxProto);
+    return adminCtx;
+
   }, [
     userData,
     current,
@@ -49,7 +51,7 @@ function AnyBackAdminPanel({
         
         userData.authed
         ? <AdminSpace />
-        : <AuthForm />
+        : <AuthForm options={options} />
       
       }
     </AdminPanelContext.Provider>

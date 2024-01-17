@@ -35,7 +35,5 @@ root.render(
   <AnyBackAdminPanel
     options={options}
   />
-  
-  // <AuthForm />
 )
 export default options;
