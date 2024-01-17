@@ -1,4 +1,5 @@
 import Button from '../../../base/builtIn/Button/Button'
+import OpeningLever from '../../../base/components/OpeningLever'
 import { useAdminPanel } from '../../../hooks/useAdminPanel'
 import './LeftSideBar.scss'
 
@@ -43,8 +44,7 @@ var LeftSideBar = () => {
                 }
             </div>
 
-            <div
-                className="openingLever"
+            <OpeningLever
                 onClick={() =>
                     adminPanel.setOpened(prev => ({
                         ...prev,

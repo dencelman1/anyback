@@ -7,9 +7,16 @@ var useAdminPanel = () => {
 
   return ctx
 }
+var adminCtxProto = {
+  isSectionChosen() {
+    return this.current.section !== ""
+  }  
+}
+
 
 
 export {
   AdminPanelContext,
+  adminCtxProto,
   useAdminPanel,
 }

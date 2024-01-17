@@ -38,21 +38,7 @@
     }
 
     .openingLever {
-        width: 15px;
-        height: 40px;
-        background-color: gray;
-        position: absolute;
-        right: 5px;
-        border-radius: 10px;
-
         display: var(--openingLever__display);
-        transition: .1s background-color;
-
-        cursor: pointer;
-
-        &:hover {
-            background-color: rgb(74, 74, 74);
-        }
     }
 
     .sectionButtons {

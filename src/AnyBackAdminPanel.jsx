@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AuthForm from './components/AuthForm/AuthForm'
 import AdminSpace from './components/AdminSpace/AdminSpace'
-import { AdminPanelContext } from './hooks/useAdminPanel'
+import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 
 
 function AnyBackAdminPanel({
@@ -26,23 +26,22 @@ function AnyBackAdminPanel({
     leftSideBar: true,
     main: false,
     rightSideBar: false,
-
   })
 
-  var adminCtxProto = {
-    isSectionChosen() {
-      return this.current.section !== ""
-    }  
-  }
+  var adminCtx = useMemo(() => {
+    var adminCtx = {
+      userData, setUserData,
+      current, setCurrent,
+      opened, setOpened,
+    }
+    Object.setPrototypeOf(adminCtx, adminCtxProto)
+    return adminCtx
+  }, [
+    userData,
+    current,
+    opened,
+  ])
   
-
-  var adminCtx = {
-    userData, setUserData,
-    current, setCurrent,
-    opened, setOpened,
-    
-  }
-  Object.setPrototypeOf(adminCtx, adminCtxProto)
 
   return (
     <AdminPanelContext.Provider value={adminCtx}>
