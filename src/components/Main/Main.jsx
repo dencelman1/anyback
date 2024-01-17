@@ -1,9 +1,11 @@
 import './Main.scss'
 
 var Main = () => {
-    // return (
-    //     1
-    // )
+    return (
+        <>
+        <h1>Hello</h1>
+        </>
+    )
 }
 
 export default Main;

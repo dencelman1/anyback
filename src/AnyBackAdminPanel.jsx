@@ -1,11 +1,11 @@
-import { useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 import LeftSideBar from './components/LeftSideBar/LeftSideBar'
 import Main from './components/Main/Main'
 import RightSideBar from './components/RightSideBar/RightSideBar'
 import { AdminPanelContext } from './hooks/useAdminPanel'
 import AuthForm from './components/AuthForm/AuthForm'
-
+import { AuthlContext,useAuth } from './hooks/authContext'
 
 
 var adminPanelReducer = (prevState, action) => {
@@ -16,16 +16,19 @@ var adminPanelReducer = (prevState, action) => {
 }
 
 
+
+
 function AnyBackAdminPanel({
   options,
 }) {
 
- 
-
+   
+  const [islogin, setislogin] = useState(false)
+  
   var adminPanelState = useReducer(
     adminPanelReducer,
     {
-      authed: true,
+      
 
       current: useState({
         section: '',
@@ -45,14 +48,19 @@ function AnyBackAdminPanel({
     }
   )
 
-  var adminState = adminPanelState[0]
   
 
+  var adminState = adminPanelState[0]
+  console.log(adminState)
+  
   return (
+   
+    <AuthlContext.Provider value={{islogin,setislogin}} >
+      
     <AdminPanelContext.Provider value={adminPanelState}>
       
       {
-        adminState.authed
+        islogin
         ? <>
           <LeftSideBar />
           <Main />
@@ -61,7 +69,7 @@ function AnyBackAdminPanel({
         : <AuthForm />
       }
     </AdminPanelContext.Provider>
-    
+    </AuthlContext.Provider>
   )
 
 }

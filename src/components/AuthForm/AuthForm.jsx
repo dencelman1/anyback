@@ -2,8 +2,15 @@ import Button from '../../UI/Button/Button';
 import styles  from './AuthForm.module.scss';
 import { useState } from 'react';
 import options from '../../main';
+import { AuthlContext,useAuth } from '../../hooks/authContext'
+
+
 
 var AuthForm = () => {
+
+  var {islogin,setislogin} = useAuth()
+
+  
     const [state, setState] = useState({
         login: "",
         password: ""
@@ -21,7 +28,8 @@ var AuthForm = () => {
         event.preventDefault();
         console.log(state);
         let check = options.auth(state.login, state.password)
-        console.log(check)
+        console.log("check",check)
+        setislogin(check)
     }
 
     return (

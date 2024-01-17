@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client'
-// import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
+import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
-import AuthForm from './components/AuthForm/AuthForm.jsx'
+// import AuthForm from './components/AuthForm/AuthForm.jsx'
+
 
 
 
@@ -31,9 +32,10 @@ var options = {
 var rootElement = document.querySelector('#root')
 var root = ReactDOM.createRoot(rootElement)
 root.render(
-  // <AnyBackAdminPanel
-  //   options={options}
-  // />
-  <AuthForm />
+  <AnyBackAdminPanel
+    options={options}
+  />
+  
+  // <AuthForm />
 )
 export default options;
