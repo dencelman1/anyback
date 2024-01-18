@@ -4,7 +4,9 @@ import subprocess
 
 
 branch = "dencelman"
-dir_path = os.path.join("C:\\", "Users", "dencelman", "Desktop", "prod_comp", "anyback")
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
+
 
 available_args = ['pull', 'merge']
 
