@@ -4,7 +4,7 @@ import subprocess
 
 
 branch = "dencelman"
-dir_path = os.path.join("Users", "dencelman", "Desktop", "prod_comp", "anyback")
+dir_path = os.path.join("C:\\", "Users", "dencelman", "Desktop", "prod_comp", "anyback")
 
 available_args = ['pull', 'merge']
 
