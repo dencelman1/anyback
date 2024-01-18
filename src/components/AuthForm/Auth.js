@@ -8,7 +8,8 @@ function setUserResult(
     onError,
 ) {
 
-    var setResult = v => setUserResult(v, onAuth, onError)
+    var setResult = (r) =>
+        setUserResult(r, onAuth, onError)
 
     if (result instanceof Promise) {
         result
@@ -19,6 +20,8 @@ function setUserResult(
             onError(error)
         })
     }
+
+    
     else if (typeof result === "boolean") {
         onAuth(result)
     }

@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    user-select: none;
     
     transition: .2s width, .1s box-shadow, .2s margin;
 

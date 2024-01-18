@@ -45,6 +45,7 @@ var AuthForm = ({
     var result = options.auth(inputValue.login, inputValue.password)
 
     Auth.setUserResult(result, setAuthed)
+    
   }
 
   return (

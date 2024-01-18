@@ -13,6 +13,10 @@ function AnyBackAdminPanel({
     authed: false,
   })
 
+  // var [l;jkl;ada;jklaskjl;dasdjkllljkasddasfjkla] = useState({
+
+  // })
+
   var [current, setCurrent] = useState({
     section: '',
 
@@ -45,7 +49,9 @@ function AnyBackAdminPanel({
   
 
   return (
-    <AdminPanelContext.Provider value={adminCtx}>
+    <AdminPanelContext.Provider
+      value={adminCtx}
+    >
 
       <AdminSpace
         options={options}
