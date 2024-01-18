@@ -42,18 +42,19 @@
         top: 25%;
         font-size: 1.2em;
         padding: 0 5px;
-        left: 20px;
+        left: 5px;
         color: grey;
         position: absolute;
         transition: .2s top, .2s font-size;
         background: none;
+        border-radius: 5px;
     }
 
     &.filled {
         label {
-            top: -25%;
+            top: -55%;
             // font-size: 1em;
-            background-color: var(--FormInput_label__background-color_hover);
+            // background-color: var(--FormInput_label__background-color_hover);
         }
     }
     &.focused {
@@ -62,7 +63,6 @@
         }
         label {
             color: #1a73e8;
-            
             
         }
     }

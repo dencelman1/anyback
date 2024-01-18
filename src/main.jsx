@@ -3,14 +3,25 @@ import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
 
 
+
+
 var options = {
   name: 'Admin authorization',
 
-  auth: (login, password) => {
+  checkAuth: (
+    result, // token
+  ) => { // Promise<boolean> or boolean возвращает
     return true
 
+  },
+
+  auth: (login, password) => {
+    // return true
+
     // 1
-    // return (login === 'Masha' && password === '1234')
+    return new Promise((res, rej) => res("myToken"))
+    // return "myToken"
+    return (login === 'Masha' && password === '1234')
     
     // 2
     // return Promise((res, rej) => {

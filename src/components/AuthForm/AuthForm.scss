@@ -6,10 +6,11 @@
     height: 100%;
     
     padding: 10px 30px;
+    background-color: none;
     
     &, .inputs {
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
     }
     
     &, .inputs, .buttons {

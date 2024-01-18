@@ -2,6 +2,7 @@ import './AuthForm.scss';
 import { useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import { Button, FormInput, Input } from '../../base/builtIn';
+import Auth from './Auth';
 
 
 
@@ -30,39 +31,20 @@ var AuthForm = ({
     }));
   };
 
+  var setAuthed = (newValue) => {
 
-  function setAuth(result) {
-    var setAuthed = (value) => {
-      adminPanel.setUserData((prev) => ({
-        ...prev,
-        authed: value,
-      }));
-    }
+    adminPanel.setUserData((prev) => ({
+      ...prev,
+      authed: newValue,
+    }));
 
-    if (result instanceof Promise) {
-      result
-      .then((value) => {
-        setAuthed(value)
-      })
-      .catch(error => {
-        setAlertMessage(error)
-      })
-    }
-    else if (typeof result === "boolean") {
-      setAuthed(result)
-    }
-    else if (typeof result === "string") {
-      setAuthed(true);
-      localStorage.setItem("authToken", result); // TODO: change to cookie CRUD
-    }
-    
   }
 
   var handleSubmit = function(event) {
     event.preventDefault();
     var result = options.auth(inputValue.login, inputValue.password)
-    setAuth(result)
-    
+
+    Auth.setUserResult(result, setAuthed)
   }
 
   return (

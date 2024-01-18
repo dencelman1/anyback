@@ -1,6 +1,6 @@
 
 
-function create(
+function update(
     name,
     value,
     days,
@@ -37,14 +37,14 @@ function get(
 }
 
 function delete_(name) {
-	create(name,"",-1);
+	update(name, "", -1);
 }
 
 
 var Cookie = {
     get,
     delete: delete_,
-    create,
+    update,
 }
 
 export default Cookie;
