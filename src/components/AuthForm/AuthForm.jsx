@@ -1,10 +1,11 @@
 import styles  from './AuthForm.module.scss';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import Button from '../../base/builtIn/Button/Button';
-import { isPromise } from 'util/types';
-import { set } from 'immutable';
+import { Cookies } from 'react-cookie';
 
+
+const cookies = new Cookies();
 
 
 var AuthForm = ({
@@ -38,7 +39,9 @@ var AuthForm = ({
       adminPanel.setUserData((prev) => ({
         ...prev,
         authed: value,
+        
       }));
+   
     }
 
     if (result instanceof Promise) {
@@ -56,6 +59,7 @@ var AuthForm = ({
     else if (typeof result === "string") {
       setAuthed(true);
       localStorage.setItem("authToken", result); // TODO: change to cookie CRUD
+     
     }
     
   }
@@ -63,6 +67,7 @@ var AuthForm = ({
   var handleSubmit = function(event) {
     event.preventDefault();
     var result = options.auth(inputValue.login, inputValue.password)
+   
     setAuth(result)
     
   }
