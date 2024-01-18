@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import {  useMemo } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';

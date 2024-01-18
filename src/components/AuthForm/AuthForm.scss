@@ -19,5 +19,14 @@
         justify-content: center;
         
     }
+    .buttons{
+        flex-direction: column;
+    }
+    .error-message{
+        height: 40px;
+        white-space: nowrap;
+        line-height: 40px;
+        width: fit-content;
+    }
 
 }

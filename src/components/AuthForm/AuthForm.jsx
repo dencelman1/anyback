@@ -1,11 +1,12 @@
 import './AuthForm.scss';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import { Button, FormInput, Input } from '../../base/builtIn';
 import Auth from './Auth';
+import { Cookie } from "../../base/utils";
 
 
-const cookies = new Cookies();
+
 
 
 var AuthForm = ({
@@ -21,7 +22,7 @@ var AuthForm = ({
 
   var [alertMessage, setAlertMessage] = useState("")// TODO: render to JSX element down
 
-  // useEffect(() => {}, [alertMessage])
+  
 
   var handleInputChange = (event) => {
     var name = event.target.name
@@ -33,11 +34,11 @@ var AuthForm = ({
     }));
   };
 
-  var setAuthed = (newValue) => {
+  var setAuthed = (isAuthed) => {
 
     adminPanel.setUserData((prev) => ({
       ...prev,
-      authed: newValue,
+      authed: isAuthed,
     }));
 
   }
@@ -45,8 +46,9 @@ var AuthForm = ({
   var handleSubmit = function(event) {
     event.preventDefault();
     var result = options.auth(inputValue.login, inputValue.password)
-
-    Auth.setUserResult(result, setAuthed)
+    Auth.set(result, setAuthed, setAlertMessage )
+    console.log(alertMessage)
+    console.log(document.cookie)
   }
 
   return (
@@ -80,10 +82,11 @@ var AuthForm = ({
               onChange={handleInputChange}
             />
           </div>
-
           <div
             className='buttons'
           >
+          <p className='error-message' style={{color:"red"}}>{alertMessage}</p>
+
             <Button
               name={"Log in"}
               style={{
@@ -93,7 +96,6 @@ var AuthForm = ({
               Log in
             </Button>
           </div>
-
         </form>
 
   )
