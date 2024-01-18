@@ -1,8 +1,8 @@
-import styles  from './AuthForm.module.scss';
-import {  useState } from 'react';
+import './AuthForm.scss';
+import { useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
-import Button from '../../base/builtIn/Button/Button';
-import { Cookies } from 'react-cookie';
+import { Button, FormInput, Input } from '../../base/builtIn';
+import Auth from './Auth';
 
 
 const cookies = new Cookies();
@@ -33,69 +33,57 @@ var AuthForm = ({
     }));
   };
 
+  var setAuthed = (newValue) => {
 
-  function setAuth(result) {
-    var setAuthed = (value) => {
-      adminPanel.setUserData((prev) => ({
-        ...prev,
-        authed: value,
-        
-      }));
-   
-    }
+    adminPanel.setUserData((prev) => ({
+      ...prev,
+      authed: newValue,
+    }));
 
-    if (result instanceof Promise) {
-      result
-      .then((value) => {
-        setAuthed(value)
-      })
-      .catch(error => {
-        setAlertMessage(error)
-      })
-    }
-    else if (typeof result === "boolean") {
-      setAuthed(result)
-    }
-    else if (typeof result === "string") {
-      setAuthed(true);
-      localStorage.setItem("authToken", result); // TODO: change to cookie CRUD
-     
-    }
-    
   }
 
   var handleSubmit = function(event) {
     event.preventDefault();
     var result = options.auth(inputValue.login, inputValue.password)
-   
-    setAuth(result)
-    
+
+    Auth.setUserResult(result, setAuthed)
   }
 
   return (
-      <>
-        <form  onSubmit={handleSubmit} className={styles['wrap-form']}>
+      
+        <form
+          onSubmit={handleSubmit}
+          className="AuthForm"
+        >
 
-          <span>
-            <p>{options.name}</p>
-          </span>
+          <h1
+            className="title"
+          >
+            {options.name}
+          </h1>
 
-          <div className={styles['inputs']}>
-            <input onChange={handleInputChange}
+          <div
+            className="inputs"
+          >
+            <FormInput
+              label="login"
               type="text"
-              name="login" 
-              placeholder='Email'
               value={inputValue.login}
+              onChange={handleInputChange}
+
             />
-                      
-            <input onChange={handleInputChange}
-              type="password"
-              name="password"
-              placeholder='Password'
+
+            <FormInput
+              type="text"
+              label="password"
               value={inputValue.password}
+              onChange={handleInputChange}
             />
           </div>
-          <div className={styles['btn-cover']} >
+
+          <div
+            className='buttons'
+          >
             <Button
               name={"Log in"}
               style={{
@@ -105,8 +93,9 @@ var AuthForm = ({
               Log in
             </Button>
           </div>
+
         </form>
-      </>
+
   )
 }
 

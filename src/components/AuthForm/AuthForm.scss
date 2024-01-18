@@ -1,0 +1,23 @@
+.AuthForm {
+    
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    
+    padding: 10px 30px;
+    background-color: none;
+    
+    &, .inputs {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    &, .inputs, .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+
+}

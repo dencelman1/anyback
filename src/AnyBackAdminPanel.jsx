@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
-import AuthForm from './components/AuthForm/AuthForm'
 import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 
@@ -47,13 +46,11 @@ function AnyBackAdminPanel({
 
   return (
     <AdminPanelContext.Provider value={adminCtx}>
-      {
-        
-        userData.authed
-        ? <AdminSpace />
-        : <AuthForm options={options} />
-      
-      }
+
+      <AdminSpace
+        options={options}
+      />
+
     </AdminPanelContext.Provider>
   )
 

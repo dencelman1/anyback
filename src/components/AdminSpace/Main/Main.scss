@@ -1,12 +1,8 @@
 
 .mainContent {
     height: 100%;
-    outline: 1px solid gray;
+    
     flex: 1;
     border-radius: 5px;
-
-    &:hover {
-        outline: 1px solid black;
-    }
-
+    
 }

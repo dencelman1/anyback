@@ -1,9 +1,16 @@
 @import url("./globals.scss");
 
+@font-face {
+  font-family: 'Jost';
+  src: url('/font/jost/Jost-VariableFont_wght.ttf') format('truetype');
+}
+
+
 
 body {
   
   position: fixed;
+  font-family: 'Jost', sans-serif;
   
   &, #root {
     margin: 0;
