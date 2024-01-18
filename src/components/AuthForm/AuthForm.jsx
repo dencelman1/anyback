@@ -1,9 +1,7 @@
-import styles  from './AuthForm.module.scss';
-import { useEffect, useState } from 'react';
+import './AuthForm.scss';
+import { useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
-import Button from '../../base/builtIn/Button/Button';
-import { isPromise } from 'util/types';
-import { set } from 'immutable';
+import { Button, FormInput, Input } from '../../base/builtIn';
 
 
 
@@ -68,29 +66,40 @@ var AuthForm = ({
   }
 
   return (
-      <>
-        <form  onSubmit={handleSubmit} className={styles['wrap-form']}>
+      
+        <form
+          onSubmit={handleSubmit}
+          className="AuthForm"
+        >
 
-          <span>
-            <p>{options.name}</p>
-          </span>
+          <h1
+            className="title"
+          >
+            {options.name}
+          </h1>
 
-          <div className={styles['inputs']}>
-            <input onChange={handleInputChange}
+          <div
+            className="inputs"
+          >
+            <FormInput
+              label="login"
               type="text"
-              name="login" 
-              placeholder='Email'
               value={inputValue.login}
+              onChange={handleInputChange}
+
             />
-                      
-            <input onChange={handleInputChange}
-              type="password"
-              name="password"
-              placeholder='Password'
+
+            <FormInput
+              type="text"
+              label="password"
               value={inputValue.password}
+              onChange={handleInputChange}
             />
           </div>
-          <div className={styles['btn-cover']} >
+
+          <div
+            className='buttons'
+          >
             <Button
               name={"Log in"}
               style={{
@@ -100,8 +109,9 @@ var AuthForm = ({
               Log in
             </Button>
           </div>
+
         </form>
-      </>
+
   )
 }
 

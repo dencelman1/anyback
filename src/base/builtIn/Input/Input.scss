@@ -1,0 +1,19 @@
+.Input {
+    border: none;
+    height: 55px;
+    padding: 0 10px;
+    overflow: hidden;
+    border-radius: 4px;
+    
+    outline: 1px solid gray;
+    font-size: 1.2em;
+    
+    &.with-hover-outline:hover {
+        outline: 1px solid black;
+    }
+    &:active,
+    &:focus {
+        outline: 2px solid #1a73e8;
+
+    }
+}

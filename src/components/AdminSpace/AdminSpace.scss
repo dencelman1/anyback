@@ -1,13 +1,30 @@
 
 .adminSpace {
     --adminSpace__padding: 50px;
+
     width: calc(100% - var(--adminSpace__padding));
     height: calc(100% - var(--adminSpace__padding));
+
+    transition: width .5s ease, height .5s ease, box-shadow 1s ease;
+
+    &.notAuthed {
+        width: 400px;
+        height: 60%;
+        box-shadow: inset 0 0 50px gray;
+    }
+    box-shadow: none;
+    
+    
     display: flex;
     
-    // TODO: clear
-    // outline: 1px solid black;
     gap: 10px;
 
     border-radius: 5px;
+    background-color: whitesmoke;
+    
+
+    overflow: hidden;
+
+    // TODO: clear
+    
 }

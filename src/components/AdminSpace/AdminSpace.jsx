@@ -1,4 +1,6 @@
+import { useEffect, useMemo } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
+import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';
 import {
     RightSideBar,
@@ -8,23 +10,47 @@ import {
 
 
 
-var AdminSpace = () => {
+var AdminSpace = ({
+    options,
+}) => {
     var adminPanel = useAdminPanel()
 
-
+    var authed = useMemo(
+        () => {
+            return adminPanel.userData.authed
+        },
+        [adminPanel.userData]
+    )
     
     
     return (
-        <div className="adminSpace">
-            <LeftSideBar />
+        <div 
+            className={(
+                "adminSpace"+
+                (authed ? "": " notAuthed")
+            )}
+        >
             {
-                adminPanel.isSectionChosen() && (
-                    <>
-                        <Main />
-                        <RightSideBar />
-                    </>
+                authed
+                ? (<>
+                    <LeftSideBar />
+                    {
+                        adminPanel.isSectionChosen() && (
+                            <>
+                                <Main />
+                                <RightSideBar />
+                            </>
+                        )
+                    }
+                </>)
+                : (
+                    <AuthForm
+                        options={options}
+                    />
                 )
             }
+            
+
         </div>
     )
 }

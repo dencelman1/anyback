@@ -2,14 +2,8 @@
 .rightSideBar {
     height: 100%;
     width: 20%;
-    border-radius: 10px;
     margin-left: auto;
-    outline: 1px solid gray;
     position: relative;
-
-    &:hover {
-        outline: 1px solid black;
-    }
 
     display: flex;
 
@@ -17,7 +11,26 @@
     align-items: center;
     transition: .1s margin;
 
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+
+        left: -10px;
+        top: 50%;
+        transform: translate(0, -50%);
+
+        height: 90%;
+        border-left: 2px solid gray;
+        border-radius: 100%;
+    }
+    
+
     &.closed {
+        &::before {
+            display: none;
+        }
+        border-left: none;
         margin-right: calc(-20% + 30px);
         
         outline: none;

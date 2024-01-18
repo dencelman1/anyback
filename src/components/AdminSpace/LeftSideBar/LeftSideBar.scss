@@ -4,8 +4,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
-    border-radius: 10px;
     
     transition: .2s width, .1s box-shadow, .2s margin;
 
@@ -19,22 +17,40 @@
 
     width: var(--leftSideBar__width);
     background-color: var(--leftSideBar__background-color);
+
     
-    outline: 1px solid gray;
-
-    &:hover {
-        outline: 2px solid black;
+    
+    &::before {
+        display: none;
     }
-
     &.withChosenSection {
         --sectionButtons__flex-direction: column;
         --leftSideBar__width: 20%;
         --openingLever__display: block;
 
-        &.closed {
-            margin-left: calc(-20% + 30px);
-            outline: none !important;
+        &::before {
+            z-index: 100;
+            content: "";
+            position: absolute;
+            display: block;
+    
+            right: -10px;
+            top: 50%;
+            transform: translate(0, -50%);
+    
+            height: 90%;
+            border-right: 2px solid gray;
+            border-radius: 100%;
         }
+
+        
+    }
+    &.closed {
+        &::before {
+            display: none;
+        }
+        margin-left: calc(-20% + 30px);
+        outline: none !important;
     }
 
     .openingLever {

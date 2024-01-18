@@ -47,13 +47,7 @@ function AnyBackAdminPanel({
 
   return (
     <AdminPanelContext.Provider value={adminCtx}>
-      {
-        
-        userData.authed
-        ? <AdminSpace />
-        : <AuthForm options={options} />
-      
-      }
+      <AdminSpace options={options}/>
     </AdminPanelContext.Provider>
   )
 
