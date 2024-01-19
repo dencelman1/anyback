@@ -1,21 +1,57 @@
-import { useMemo, useState } from 'react'
+import {useEffect, useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
+import LoadingBar from './components/svg/LoadingBar'
+import Auth from './components/AuthForm/Auth'
+import { Cookie } from './base/utils'
 
 
 function AnyBackAdminPanel({
   options,
 }) {
-
+  
   var [userData, setUserData] = useState({
     authed: false,
+    haveLoading: true,
   })
 
-  // var [l;jkl;ada;jklaskjl;dasdjkllljkasddasfjkla] = useState({
+  
+  useEffect(() => {
+    var resultValue = Auth.token.get() // token + and etc
+    var checkResult = options.checkAuth(resultValue)
 
-  // })
+    var setAuthed = (authed) => (
+      
+      setUserData(prev => ({
+        ...prev,
+        authed,
+      }))
+
+    )
+
+    var checkOperation = (
+      Auth.check(
+        checkResult,
+        setAuthed,
+        (error) => {
+          setAuthed(false)
+        }
+      )
+    )
+
+    var finishLoading = () => setUserData(p => ({...p, haveLoading: false}))
+
+    if (checkOperation instanceof Promise) {
+      checkOperation.finally(() => {
+        finishLoading()
+      })
+    }
+    else {
+      finishLoading()
+    }
+  }, [])
 
   var [current, setCurrent] = useState({
     section: '',
@@ -46,6 +82,10 @@ function AnyBackAdminPanel({
     current,
     opened,
   ])
+
+
+  if (userData.haveLoading)
+    return <LoadingBar />
   
 
   return (

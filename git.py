@@ -10,7 +10,6 @@ dir_path = os.path.dirname(os.path.abspath(__file__))
 
 available_args = ['pull', 'merge']
 
-
 def cmd(command: str) -> str:
     print(f"> {command}")
 
@@ -25,20 +24,19 @@ def cmd(command: str) -> str:
 
 def pull():
     # load updates from dencelman
-    cmd(f"git checkout {branch}")
-    cmd(f"git pull origin {branch}")
+    cmd(f"/usr/bin/git checkout {branch}")
+    cmd(f"/usr/bin/git pull origin {branch}")
 
     # load from main to dencelman
-    cmd("git merge main")
-    cmd(f"git push origin {branch}")
-
+    cmd("/usr/bin/git merge main")
+    cmd(f"/usr/bin/git push origin {branch}")
 
 def merge():
     # from dencelman to main
-    cmd("git checkout main")
-    cmd(f"git merge {branch}")
-    cmd(f'git commit -m "update from {branch} to main"')
-    cmd("git push origin main")
+    cmd("/usr/bin/git checkout main")
+    cmd(f"/usr/bin/git merge {branch}")
+    cmd(f'/usr/bin/git commit -m "update from {branch} to main"')
+    cmd("/usr/bin/git push origin main")
 
 
 def warn_available_args():
@@ -48,21 +46,20 @@ def warn_available_args():
     sys.exit(0)
 
 
-def check_arg(arg):
-    if (
-        (len(sys.argv) <= 1)
-        or 
-        (arg not in available_args)
-    ):
+def check_arg():
+    if len(sys.argv) <= 1:
         warn_available_args()
     
-    
+    arg = sys.argv[1]
+
+    if (arg not in available_args):
+        warn_available_args()
+
 
 def main():
-    arg = sys.argv[1]
-    check_arg(arg)
+    check_arg()
     os.chdir(dir_path)
-
+    arg = sys.argv[1]
     method = globals()[arg]
     method()
     

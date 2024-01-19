@@ -1,43 +1,47 @@
 
 
 function update(
-    name,
+    key,
     value,
     days,
 ) {
 	if (days) {
 		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
+		date.setTime(date.getTime()+(days * 24 * 60 * 60 * 1000));
 		var expires = "; expires="+date.toGMTString();
 	}
 	else {
         var expires = "";
     }
 
-	document.cookie = name + "=" + value + expires + "; path=/";
+	document.cookie = key + "=" + value + expires + "; path=/";
 }
 
 function get(
-    name
+    key,
 ) {
-	var nameEQ = name + "=";
+	
+	var nameEQ = key + "=";
 	var ca = document.cookie.split(';');
 
 	for(var i=0;i < ca.length;i++) {
 		var c = ca[i];
-
-		while (c.charAt(0)==' ')
+		
+		while (c.charAt(0)==' ') {
             c = c.substring(1,c.length);
+		}
 
-		if (c.indexOf(nameEQ) == 0)
-            return c.substring(nameEQ.length,c.length);
+		if (c.indexOf(nameEQ) == 0) {
+			var findValue = c.substring(nameEQ.length,c.length)
+			return findValue;
+		}
 
 	}
-	return null;
+	return undefined;
 }
 
-function delete_(name) {
-	update(name, "", -1);
+function delete_(key) {
+	update(key, "", -1);
 }
 
 
