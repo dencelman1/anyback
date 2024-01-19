@@ -36,6 +36,7 @@ function AnyBackAdminPanel({
         checkResult,
         setAuthed,
         (error) => {
+          Auth.token.delete();
           setAuthed(false)
         }
       )

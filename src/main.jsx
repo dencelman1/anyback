@@ -29,10 +29,10 @@ var options = {
   },
 
   auth: (login, password) => {
-    // return true
+    return true
 
     // 1
-    return new Promise((res, rej) => res("myToken"))
+    // return new Promise((res, rej) => res("myToken"))
     // return "myToken"
     // return (login === 'Masha' && password === '1234')
     

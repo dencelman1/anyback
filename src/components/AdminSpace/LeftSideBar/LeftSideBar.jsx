@@ -1,5 +1,5 @@
 import Button from '../../../base/builtIn/Button/Button'
-import OpeningLever from '../../../base/components/OpeningLever'
+import { OpeningLever } from '../../../base/components'
 import { useAdminPanel } from '../../../hooks/useAdminPanel'
 import './LeftSideBar.scss'
 
