@@ -5,7 +5,11 @@ import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 import LoadingBar from './components/svg/LoadingBar'
 import Auth from './components/AuthForm/Auth'
-import { Cookie } from './base/utils'
+import adminSections from './components/AdminSpace/content/adminSections'
+
+
+
+
 
 
 function AnyBackAdminPanel({
@@ -61,6 +65,18 @@ function AnyBackAdminPanel({
     database: '',
     entryId: '',
   })
+
+  var currentSection = useMemo(() => {
+    return (
+      adminSections
+      .filter(s => s.name === current.section)
+      [0]
+    )
+  },
+  [
+    current,
+    adminSections,
+  ])
   
   var [opened, setOpened] = useState({
     leftSideBar: true,
@@ -73,6 +89,9 @@ function AnyBackAdminPanel({
       userData, setUserData,
       current, setCurrent,
       opened, setOpened,
+      options,
+      sections: adminSections,
+      currentSection,
     }
     
     Object.setPrototypeOf(adminCtx, adminCtxProto);
@@ -82,6 +101,9 @@ function AnyBackAdminPanel({
     userData,
     current,
     opened,
+    options,
+    adminSections,
+    currentSection,
   ])
 
 
@@ -94,9 +116,7 @@ function AnyBackAdminPanel({
       value={adminCtx}
     >
 
-      <AdminSpace
-        options={options}
-      />
+      <AdminSpace />
 
     </AdminPanelContext.Provider>
   )

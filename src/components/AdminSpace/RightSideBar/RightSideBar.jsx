@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import OpeningLever from '../../../base/components/OpeningLever/OpeningLever';
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 import './RightSideBar.scss'
-import RightSideContent from './RightSideContent/RightSideContent';
+
 
 var RightSideBar = () => {
 
@@ -12,6 +12,11 @@ var RightSideBar = () => {
     var onOpeningLeverClick = useCallback(() => {
         adminPanel.setOpened(prev => ({...prev, rightSideBar: !(prev.rightSideBar)}))
     }, [])
+
+    var currentSection = adminPanel.currentSection
+
+    if (!currentSection)
+        return null
 
     return (
         <div
@@ -24,7 +29,7 @@ var RightSideBar = () => {
                 onClick={onOpeningLeverClick}
             />
 
-            <RightSideContent />
+            {<currentSection.element.right />}
         </div>
     )
 }

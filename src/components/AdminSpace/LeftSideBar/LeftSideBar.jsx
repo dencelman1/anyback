@@ -1,16 +1,17 @@
 import Button from '../../../base/builtIn/Button/Button'
 import { OpeningLever } from '../../../base/components'
+import Text from '../../../base/utils/Text'
 import { useAdminPanel } from '../../../hooks/useAdminPanel'
 import './LeftSideBar.scss'
 
-var adminSections = [
-    { name: "database", },
-    { name: "analytics", },
-]
+
+
+
 
 var LeftSideBar = () => {
     var adminPanel = useAdminPanel()
-
+    var sections = adminPanel.sections
+    
     return (
         <div
             className={(
@@ -22,10 +23,11 @@ var LeftSideBar = () => {
         >
             <div className="sectionButtons">
                 {
-                    adminSections.map((section, i) => (
+                    sections.map((section, i) => (
                         
                         <Button
                             key={i}
+                            title={section.title}
                             className={(
                                 `sectionButton `+
                                 `${adminPanel.current.section === section.name ? "current": ''}`
@@ -37,7 +39,11 @@ var LeftSideBar = () => {
                                         prev.section === section.name ? "": section.name
                                 }))}
                         >
-                            {section.name}
+                            {
+                                adminPanel.isSectionChosen()
+                                ? Text.getLimited(section.title, 16)
+                                : section.title
+                            }
                         </Button>
                         
                     ))

@@ -1,19 +1,17 @@
 import './AuthForm.scss';
 import { useEffect,useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
-import { Button, FormInput, Input } from '../../base/builtIn';
+import { Button, FormInput } from '../../base/builtIn';
 import Auth from './Auth';
-import { Cookie } from "../../base/utils";
 
 
 
 
 
-var AuthForm = ({
-  options,
-}) => {
+var AuthForm = () => {
   
   var adminPanel = useAdminPanel()
+  var options = adminPanel.options
 
   var [inputValue, setInputValue] = useState({
     login: "",

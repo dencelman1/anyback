@@ -12,6 +12,15 @@ var adminCtxProto = {
   isSectionChosen() {
     return this.current.section !== ""
   },
+  currentSection() {
+
+    return (
+      this.sections
+      .filter(s => s.name === this.current.section)
+      [0]
+    )
+    
+  }
 }
 
 

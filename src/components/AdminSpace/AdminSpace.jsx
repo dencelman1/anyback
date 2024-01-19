@@ -1,4 +1,3 @@
-import {  useMemo } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';
@@ -10,18 +9,9 @@ import {
 
 
 
-var AdminSpace = ({
-    options,
-}) => {
+var AdminSpace = () => {
     var adminPanel = useAdminPanel()
-
-    var authed = useMemo(
-        () => {
-            return adminPanel.userData.authed
-        },
-        [adminPanel.userData]
-    )
-    
+    var authed = adminPanel.userData.authed
     
     return (
         <div 
@@ -44,9 +34,7 @@ var AdminSpace = ({
                     }
                 </>)
                 : (
-                    <AuthForm
-                        options={options}
-                    />
+                    <AuthForm />
                 )
             }
             
