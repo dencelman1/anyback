@@ -159,7 +159,7 @@ function AnyBackAdminPanel({
 
 }
 
-export default AnyBackAdminPanel
+export default AnyBackAdminPanel;
 
 // TODO:
 // DbManag:
