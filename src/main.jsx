@@ -6,10 +6,23 @@ import './index.scss'
 var options = {
   name: 'Admin authorization',
 
+  read() {
+    
+  },
+  update() {
+
+  },
+  delete() {
+
+  },
+  create() {
+
+  },
+
   checkAuth: (
     result, // token
   ) => { // Promise<boolean> or boolean возвращает
-    return result === 'myToken'
+    return new Promise((res) => res(result === 'myToken'))
     // 1 true
       // pass to admin panel
     
@@ -29,10 +42,10 @@ var options = {
   },
 
   auth: (login, password) => {
-    return true
+    // return true
 
     // 1
-    // return new Promise((res, rej) => res("myToken"))
+    return new Promise((res, rej) => res(true))
     // return "myToken"
     // return (login === 'Masha' && password === '1234')
     

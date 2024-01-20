@@ -1,21 +1,52 @@
+import { useEffect, useMemo, useState } from 'react';
 import './LoadingBar.scss'
 
-var LoadingBar = () => {
+
+
+var LoadingBar = ({
+    loadingMessage,
+}) => {
+
+    var [loaded, setLoaded] = useState(loadingMessage === "")
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoaded(loadingMessage === "")
+        }, 500)
+    }, [loadingMessage])
+
+    if (loaded)
+        return null
     
     return (
         <div
-            className="LoadingBar"
+            className={(
+                "LoadingLayout"+
+                (loadingMessage === "" ? " loaded": "")
+            )}
         >
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div
+                className="LoadingBar"
+            >
+
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+
+            </div>
+
+            <h1
+                className="loadingMessage"
+            >{
+                loadingMessage || "Loading"
+            }</h1>
         </div>
     )
 }

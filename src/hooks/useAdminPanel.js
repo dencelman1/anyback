@@ -9,9 +9,11 @@ var useAdminPanel = () => {
 }
 
 var adminCtxProto = {
+
   isSectionChosen() {
     return this.current.section !== ""
   },
+
   currentSection() {
 
     return (
@@ -20,7 +22,27 @@ var adminCtxProto = {
       [0]
     )
     
-  }
+  },
+
+  withLoading(
+    loadingMessage,
+    cb,
+  ) {
+    var finishLoading = () => this.setUserData(p => ({...p, loadingMessage: ''}))
+
+    this.setUserData(p => ({...p, loadingMessage }))
+
+    if (cb instanceof Promise) {
+      cb
+      .finally(finishLoading)
+    }
+    else {
+      cb()
+      finishLoading()
+    }
+
+  },
+
 }
 
 

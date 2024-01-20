@@ -25,6 +25,10 @@
     }
     .buttons{
         flex-direction: column;
+
+        button {
+            background: none !important;
+        }
     }
     .error-message{
         height: 40px;

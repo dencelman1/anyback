@@ -18,7 +18,7 @@ function AnyBackAdminPanel({
   
   var [userData, setUserData] = useState({
     authed: false,
-    haveLoading: true,
+    loadingMessage: "Entering",
   })
 
   
@@ -46,12 +46,10 @@ function AnyBackAdminPanel({
       )
     )
 
-    var finishLoading = () => setUserData(p => ({...p, haveLoading: false}))
+    var finishLoading = () => setUserData(p => ({...p, loadingMessage: ""}))
 
     if (checkOperation instanceof Promise) {
-      checkOperation.finally(() => {
-        finishLoading()
-      })
+      checkOperation.finally(finishLoading)
     }
     else {
       finishLoading()
@@ -94,6 +92,7 @@ function AnyBackAdminPanel({
       currentSection,
     }
     
+    
     Object.setPrototypeOf(adminCtx, adminCtxProto);
     return adminCtx;
 
@@ -107,14 +106,16 @@ function AnyBackAdminPanel({
   ])
 
 
-  if (userData.haveLoading)
-    return <LoadingBar />
+  
   
 
   return (
     <AdminPanelContext.Provider
       value={adminCtx}
     >
+      <LoadingBar
+        loadingMessage={userData.loadingMessage}
+      />
 
       <AdminSpace />
 

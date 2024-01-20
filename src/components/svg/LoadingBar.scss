@@ -2,43 +2,89 @@
 
 @keyframes bounceRotateAnimation {
     0%, 10%, 20%, 30%, 50%, 60%, 70%, 80%, 90%, 100% {
-       transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+        background-color: gray;
     }
  
     50% {
-       transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
+        background-color: black;
+        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
     }
 }
 
-.LoadingBar {
+
+
+.LoadingLayout {
+
+    .loadingMessage {
+        position: relative;
+        font-size: 25px;
+        font-weight: 500;
+        user-select: none;
+        text-align: center;
+    }
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    width: 9px;
-    height: 9px;
+    
+    background-color: white !important;
+    z-index: 10000;
 
-    div {
-        position: absolute;
-        width: 50%;
-        height: 150%;
-        background: #474bff;
-        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
-        animation: bounceRotateAnimation 1s calc(var(--delay) * 1s) infinite ease;
+    transition: .5s opacity;
+    opacity: 1;
 
-        --translation: 150;
 
-        @for $i from 1 through 10 {
 
-            &:nth-child(#{$i}) {
-                --delay: 0.1 * #{$i};
-                --rotation: (36 + 36 * (#{$i} - 1));
-            }
+    &.loaded {
+        opacity: 0;
+    }
+    
+    .LoadingBar {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        div {
+            position: absolute;
+            width: 10px;
+            height: 30px;
+            background-color: gray;
+    
+            transition: 1s background-color ease;
+            transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+            animation: bounceRotateAnimation 1s calc(var(--delay) * 1s) infinite ease;
+            border-radius: 5px;
+    
+            --translation: 150;
+    
             
+            
+    
+            @for $i from 1 through 10 {
+    
+                &:nth-child(#{$i}) {
+                    
+    
+                    --delay: 0.1 * #{$i};
+                    --rotation: (36 + 36 * (#{$i} - 1));
+                }
+                
+            }
         }
     }
 
+    
+
+
+    
+
+
 }
- 
- 
- 
- 
- 
- 
