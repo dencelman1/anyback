@@ -3,6 +3,13 @@ import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
 
 
+
+
+var cachedToken = "MY_TOKEN"
+
+
+var errorMessage = "Error: invalid password"
+
 var options = {
   name: 'Admin authorization',
 
@@ -22,7 +29,7 @@ var options = {
   checkAuth: (
     result, // token
   ) => { // Promise<boolean> or boolean возвращает
-    return new Promise((res) => res(result === 'AUTH_TOKEN'))
+    return new Promise((res) => res(result === cachedToken))
     // 1 true
       // pass to admin panel
     
@@ -55,14 +62,18 @@ var options = {
     // })
 
     // 3
-    return new Promise((res, rej) => {
-      res("AUTH_TOKEN")
-    })
-
-    // 4
     // return new Promise((res, rej) => {
-    //   rej("Error: invalid password")
+    //   res("AUTH_TOKEN")
     // })
+
+    return new Promise((res, rej) => {
+
+      var authed = (login === "Masha" && password === "1234")
+      if (authed)
+        return res(cachedToken)
+
+      rej(errorMessage)
+    })
 
   },
 

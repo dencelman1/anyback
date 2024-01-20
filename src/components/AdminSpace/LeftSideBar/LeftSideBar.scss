@@ -20,7 +20,41 @@
     width: var(--leftSideBar__width);
     background-color: var(--leftSideBar__background-color);
 
-    
+    .logoutButton {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+
+        bottom: 10px;
+
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        height: 50px;
+        padding: 0;
+        margin: 0;
+
+        padding: 0 10px;
+        
+        svg {
+            line-height: 45px;
+            margin: auto;
+        }
+
+        color: black;
+        background-color: none;
+        transition: .2s color, .2s background-color;
+        
+
+
+        span {
+            display: block;
+            line-height: 50px;
+            margin-left: 10px;
+            white-space: nowrap;
+            font-size: 20px;
+        }
+    }
     
     &::before {
         display: none;

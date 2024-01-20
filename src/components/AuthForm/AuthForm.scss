@@ -25,16 +25,23 @@
     }
     .buttons{
         flex-direction: column;
+        
 
         button {
             background: none !important;
         }
     }
     .error-message{
-        height: 40px;
+        height: 10px;
+        font-size: 15px;
+        line-height: 10px;
+
         white-space: nowrap;
-        line-height: 40px;
+        
         width: fit-content;
+        color: red;
+        cursor: pointer;
+        
     }
 
 }

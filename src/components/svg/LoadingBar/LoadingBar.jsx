@@ -7,17 +7,6 @@ var LoadingBar = ({
     loadingMessage,
 }) => {
 
-    var [loaded, setLoaded] = useState(loadingMessage === "")
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoaded(loadingMessage === "")
-        }, 500)
-    }, [loadingMessage])
-
-    if (loaded)
-        return null
-    
     return (
         <div
             className={(
@@ -45,7 +34,7 @@ var LoadingBar = ({
             <h1
                 className="loadingMessage"
             >{
-                loadingMessage || "Loading"
+                loadingMessage || "Loaded"
             }</h1>
         </div>
     )

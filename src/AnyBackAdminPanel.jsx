@@ -68,7 +68,7 @@ function AnyBackAdminPanel({
     database: '',
     entryId: '',
   })
-
+  
   var currentSection = useMemo(() => {
     return (
       adminSections

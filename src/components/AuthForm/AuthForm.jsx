@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import { Button, FormInput } from '../../base/builtIn';
 import Auth from './Auth';
+import Text from '../../base/utils/Text';
 
 
 
@@ -19,8 +20,6 @@ var AuthForm = () => {
   });
 
   var [alertMessage, setAlertMessage] = useState("")// TODO: render to JSX element down
-
-  
 
   var handleInputChange = (event) => {
     var name = event.target.name
@@ -44,9 +43,18 @@ var AuthForm = () => {
   var handleSubmit = function(event) {
     event.preventDefault();
     var result = options.auth(inputValue.login, inputValue.password)
-    Auth.set(result, setAuthed, setAlertMessage )
-    console.log(alertMessage)
-    console.log(document.cookie)
+    Auth.set(
+      result,
+      
+      function(authed) {
+        if (authed)
+          setAlertMessage("")
+        setAuthed(authed)
+      },
+      
+      setAlertMessage,
+    )
+    
   }
 
   return (
@@ -54,6 +62,9 @@ var AuthForm = () => {
         <form
           onSubmit={handleSubmit}
           className="AuthForm"
+          action="https://google.com"
+          method="get"
+          
         >
 
           <h1
@@ -66,26 +77,38 @@ var AuthForm = () => {
             className="inputs"
           >
             <FormInput
+              name="login"
               label="login"
               type="text"
               value={inputValue.login}
               onChange={handleInputChange}
-
+              autocomplete="login"
+              required
             />
 
             <FormInput
-              type="text"
+              autocomplete="password"
+              name="password"
               label="password"
+              type="password"
               value={inputValue.password}
               onChange={handleInputChange}
+              required
             />
+
           </div>
           <div
             className='buttons'
           >
-          <p className='error-message' style={{color:"red"}}>{alertMessage}</p>
+            <p
+              className='error-message'
+              title={alertMessage}
+            >
+              {Text.getLimited(alertMessage, 40)}
+            </p>
 
             <Button
+              type="submit"
               name={"Log in"}
               style={{
                 background: 'white'

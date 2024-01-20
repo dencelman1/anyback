@@ -12,9 +12,21 @@
     }
 }
 
+@keyframes startLoadingLayout {
+    0% {
+        opacity: 0;
+        
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 
 
 .LoadingLayout {
+
+    // animation: startLoadingLayout 1s ease;
 
     .loadingMessage {
         position: relative;
@@ -43,6 +55,7 @@
 
     &.loaded {
         opacity: 0;
+        pointer-events: none;
     }
     
     .LoadingBar {

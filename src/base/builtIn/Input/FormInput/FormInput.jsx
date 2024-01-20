@@ -5,12 +5,14 @@ import "./FormInput.scss"
 import Input from "../input"
 
 
+var count = 0
 
 var FormInput = ({
     label,
     value,
     style,
     darkTheme,
+    name,
     ...props
 },) => {
 
@@ -18,13 +20,17 @@ var FormInput = ({
     style ||= {}
     value ||= ""
 
+    name ||= `formInput__${++count}`
+
     var [focused, setFocused] = useState(false)
     var [filled, setFilled] = useState(value !== '')
     
     var labelElement =
         typeof label === "string"
         ? (
-            <label>
+            <label
+                htmlFor={name}
+            >
                 {label}
             </label>
         )
@@ -44,6 +50,8 @@ var FormInput = ({
 
             <Input
                 {...props}
+                
+                name={name}
 
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}

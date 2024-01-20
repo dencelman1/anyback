@@ -46,20 +46,26 @@ var adminCtxProto = {
 
   logout() {
     console.log(JSON.stringify(this))
-    this.withLoading("Logout", () => {
 
+    this.withLoading("Logout", () => {
+      
       Auth.token.delete();
+
       this.setUserData(p => ({...p, authed: false}))
-      this.setCurrent(p => ({
-        ...p,
-        section: '',
-      }))
+      
+      this.setCurrent(p => {
+        return {
+          ...p,
+          section: '',
+        }
+      })
+      
 
     })
+
+    
     
   },
-
-  
 
 }
 

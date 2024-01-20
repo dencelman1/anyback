@@ -63,31 +63,14 @@ var LeftSideBar = () => {
 
             <Button
                 onClick={() => adminPanel.logout()}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    position: 'absolute',
-
-                    bottom: "10px",
-
-                    left: '50%',
-                    transform: 'translate(-50%, 0)',
-
-                    height: '39px',
-                    padding: '0',
-                    margin: '0'
-                }}
+                className="logoutButton"
+                
             >
-                <LogOutIcon side={39} />
+                <LogOutIcon side={40} />
                 <span
-                    style={{
-                        display: 'block',
-                        lineHeight: '39px',
-                        marginLeft: '10px',
-                        whiteSpace: 'nowrap',
-                        fontSize: '20px',
-                    }}
-                >Log out</span>
+                >
+                    Log out
+                </span>
             </Button>
 
         </div>
