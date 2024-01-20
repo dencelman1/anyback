@@ -6,6 +6,7 @@
     position: relative;
     user-select: none;
     
+    
     transition: .2s width, .1s box-shadow, .2s margin;
 
     --leftSideBar__width: 100%;
@@ -66,5 +67,6 @@
         gap: 5px;
 
     }
+    
     
 }

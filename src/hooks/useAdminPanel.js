@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Auth from "../components/AuthForm/Auth";
 
 var AdminPanelContext = React.createContext(null)
 
@@ -42,6 +43,23 @@ var adminCtxProto = {
     }
 
   },
+
+  logout() {
+    console.log(JSON.stringify(this))
+    this.withLoading("Logout", () => {
+
+      Auth.token.delete();
+      this.setUserData(p => ({...p, authed: false}))
+      this.setCurrent(p => ({
+        ...p,
+        section: '',
+      }))
+
+    })
+    
+  },
+
+  
 
 }
 

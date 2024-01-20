@@ -3,7 +3,7 @@ import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
-import LoadingBar from './components/svg/LoadingBar'
+import LoadingBar from './components/svg/LoadingBar/LoadingBar'
 import Auth from './components/AuthForm/Auth'
 import adminSections from './components/AdminSpace/content/adminSections'
 
@@ -36,14 +36,19 @@ function AnyBackAdminPanel({
     )
 
     var checkOperation = (
+
       Auth.check(
         checkResult,
+
         setAuthed,
+
         (error) => {
           Auth.token.delete();
           setAuthed(false)
         }
+
       )
+
     )
 
     var finishLoading = () => setUserData(p => ({...p, loadingMessage: ""}))

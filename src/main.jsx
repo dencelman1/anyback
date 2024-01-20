@@ -22,7 +22,7 @@ var options = {
   checkAuth: (
     result, // token
   ) => { // Promise<boolean> or boolean возвращает
-    return new Promise((res) => res(result === 'myToken'))
+    return new Promise((res) => res(result === 'AUTH_TOKEN'))
     // 1 true
       // pass to admin panel
     
@@ -45,7 +45,7 @@ var options = {
     // return true
 
     // 1
-    return new Promise((res, rej) => res(true))
+    // return new Promise((res, rej) => res(true))
     // return "myToken"
     // return (login === 'Masha' && password === '1234')
     
@@ -55,9 +55,9 @@ var options = {
     // })
 
     // 3
-    // return Promise((res, rej) => {
-    //   res("AUTH_TOKEN")
-    // })
+    return new Promise((res, rej) => {
+      res("AUTH_TOKEN")
+    })
 
     // 4
     // return new Promise((res, rej) => {

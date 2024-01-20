@@ -12,7 +12,7 @@ var Text = {
         
         return (
             text.length > maxLength
-            ? text.slice(0, maxLength -4 ) + '....'
+            ? text.slice(0, maxLength - 2 ) + '..'
             : text
         )
     }

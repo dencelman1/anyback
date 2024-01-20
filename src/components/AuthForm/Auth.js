@@ -77,6 +77,8 @@ function setUserResult(
 }
 
 
+
+
 var Auth = {
     set: setUserResult,
     check: checkUserResult,
