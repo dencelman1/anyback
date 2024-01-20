@@ -2,6 +2,7 @@
 
 var CrossIcon = ({
     side,
+    ...props
 }) => {
     side ||= 25
 
@@ -9,6 +10,7 @@ var CrossIcon = ({
 
     return (
         <svg
+            {...props}
             className="CrossIcon"
             xmlns="http://www.w3.org/2000/svg"
             width={sidePx} height={sidePx}

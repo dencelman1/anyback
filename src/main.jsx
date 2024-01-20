@@ -12,6 +12,9 @@ var errorMessage = "Error: invalid password"
 
 var options = {
   name: 'Admin authorization',
+  flags: {
+    useDefaultHotkeys: true,
+  },
 
   read() {
     

@@ -1,44 +1,51 @@
 import { useState } from 'react';
 import './DbManagEntryView.scss';
-import CrossIcon from '../../../../../svg/Cross/Cross';
 import { useAdminPanel } from '../../../../../../hooks/useAdminPanel';
+import { TabWidgetPanel } from '../../../../../../base/components';
 
-var testData =  Array.from({length: 210}, (v, id) => ({id, name: `${id}`}))
+
+var testData =  Array.from({length: 50   }, (v, id) => ({id, name: `${id}`}))
+
 
 var DbManagEntryView = () => {
     var [chosenEntries, setChosenEntries] = useState(testData)
+    var currentEntryKey = 'name'
     var adminPanel = useAdminPanel()
-    
+
+    var currentEntry = adminPanel.current.entry
+
     return (
         <article
             className="DbManag__entryView"
         >
-            <div
-                className="chosenEntries"
-            >
-                {
-                    chosenEntries
-                    .map(e => (
-                        <div
-                            className={(
-                                "tabWidget"+
-                                (adminPanel.current.entry === e ? 1: 1)
-                            )}
-                            
-                        >
-                            <span>
-                                {"Lambada" + e.name}
-                            </span>
+            {
+                TabWidgetPanel(
+                    chosenEntries,
+                    currentEntryKey,
+                    (entry, event) => {
+                        adminPanel.setCurrent(p => ({...p, entry }));
+                        // TODO: до того елемента который выбран скролл
+                    },
+                    (entry, event) => {
+                        var isDeletingChosen = currentEntry.id === entry.id
 
-                            <CrossIcon
-                                side={16}
-                            />
+                        var newChosenEntries = chosenEntries.filter(e => e !== entry)
+                        
+                        if (isDeletingChosen) {
+                            adminPanel.setCurrent(p => ({
+                                ...p,
+                                entry: (newChosenEntries[0]),
+                            }));
+                            event.currentTarget.parentElement.parentElement.    scroll(0, 0)
+                        }
 
-                        </div>
-                    ))
-                }
-            </div>
-            
+                        setChosenEntries(newChosenEntries);
+                        
+                        
+                    },
+                    currentEntry,
+                )
+            } 
         </article>
     )
 

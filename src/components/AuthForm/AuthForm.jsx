@@ -51,7 +51,7 @@ var AuthForm = () => {
           setAlertMessage("")
         setAuthed(authed)
       },
-      
+
       setAlertMessage,
     )
     
@@ -82,12 +82,12 @@ var AuthForm = () => {
               type="text"
               value={inputValue.login}
               onChange={handleInputChange}
-              autocomplete="login"
+              autoComplete="login"
               required
             />
 
             <FormInput
-              autocomplete="password"
+              autoComplete="password"
               name="password"
               label="password"
               type="password"

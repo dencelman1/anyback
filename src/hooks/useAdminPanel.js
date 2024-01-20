@@ -11,6 +11,16 @@ var useAdminPanel = () => {
 
 var adminCtxProto = {
 
+  setHotkeyHandler(hotkeyHandler) {
+
+    if (typeof hotkeyHandler === 'function')
+      this.setCurrent(p => ({...p, hotkeyHandler }))
+    else {
+      console.error("typeof hotkeyHandler !== 'function'");
+    }
+
+  },
+  
   isSectionChosen() {
     return this.current.section !== null
   },
