@@ -5,7 +5,7 @@ import './Main.scss'
 var Main = () => {
     var adminPanel = useAdminPanel()
 
-    var currentSection = adminPanel.currentSection
+    var currentSection = adminPanel.current.section
 
     if (!currentSection)
         return null

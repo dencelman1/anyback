@@ -1,7 +1,26 @@
+import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
+import './DbManagMain.scss';
+import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
 
 
 var DbManagMain = () => {
-    return <>hello_world</>
+
+    return (
+        <div
+            className="DbManagMain__main"
+        >
+
+            <DbManagToolbar
+
+            />
+
+            <DbManagEntryView
+
+            />
+
+        </div>
+    )
+
 }
 
 export default DbManagMain;

@@ -17,7 +17,7 @@ var LeftSideBar = () => {
         <div
             className={(
                 `leftSideBar `+
-                `${adminPanel.current.section === "" ? "": " withChosenSection"}`+
+                `${adminPanel.isSectionChosen() ? " withChosenSection": "" }`+
                 `${adminPanel.opened.leftSideBar ? "": ' closed'}`
             )}
             
@@ -31,13 +31,13 @@ var LeftSideBar = () => {
                             title={section.title}
                             className={(
                                 `sectionButton `+
-                                `${adminPanel.current.section === section.name ? "current": ''}`
+                                `${adminPanel.current.section === section ? "current": ''}`
                             )}
                             onClick={() => 
                                 adminPanel.setCurrent(prev => ({
                                     ...prev,
                                     section:
-                                        prev.section === section.name ? "": section.name
+                                        prev.section === section ? null: section
                                 }))}
                         >
                             {

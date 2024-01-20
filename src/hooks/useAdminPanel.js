@@ -12,14 +12,14 @@ var useAdminPanel = () => {
 var adminCtxProto = {
 
   isSectionChosen() {
-    return this.current.section !== ""
+    return this.current.section !== null
   },
 
   currentSection() {
 
     return (
       this.sections
-      .filter(s => s.name === this.current.section)
+      .filter(s => s === this.current.section)
       [0]
     )
     
@@ -56,7 +56,7 @@ var adminCtxProto = {
       this.setCurrent(p => {
         return {
           ...p,
-          section: '',
+          section: null,
         }
       })
       

@@ -13,7 +13,7 @@ var RightSideBar = () => {
         adminPanel.setOpened(prev => ({...prev, rightSideBar: !(prev.rightSideBar)}))
     }, [])
 
-    var currentSection = adminPanel.currentSection
+    var currentSection = adminPanel.current.section
 
     if (!currentSection)
         return null

@@ -62,17 +62,17 @@ function AnyBackAdminPanel({
   }, [])
 
   var [current, setCurrent] = useState({
-    section: '',
+    section: null,
 
-    table: '',
-    database: '',
-    entryId: '',
+    table: null,
+    database: null,
+    entry: null,
   })
   
   var currentSection = useMemo(() => {
     return (
       adminSections
-      .filter(s => s.name === current.section)
+      .filter(s => s === current.section)
       [0]
     )
   },

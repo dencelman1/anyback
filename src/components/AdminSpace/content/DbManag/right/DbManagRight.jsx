@@ -1,7 +1,13 @@
 
 
 var DbManagRight = () => {
-    return <></>
+    return (
+        <div
+            className="DbManagMain__right"
+        >
+            
+        </div>
+    )
 }
 
 export default DbManagRight;
