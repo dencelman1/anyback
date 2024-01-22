@@ -1,9 +1,10 @@
 import './AuthForm.scss';
-import { useEffect,useState } from 'react';
+import { useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import { Button, FormInput } from '../../base/builtIn';
 import Auth from './Auth';
 import Text from '../../base/utils/Text';
+import AnybackLogo from '../svg/AnybackLogo/AnybackLogo';
 
 
 
@@ -67,11 +68,27 @@ var AuthForm = () => {
           
         >
 
-          <h1
-            className="title"
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}
           >
-            {options.name}
-          </h1>
+            <AnybackLogo
+              href={import.meta.env.VITE__ANYBACK_PROJECT_URL}
+              side="46px"
+              
+              style={{
+                margin: "auto 10px auto auto",
+              }}
+            />
+            
+            <h1
+              className="title"
+            >
+              {Text.getLimited(options.name, 15)}
+            </h1>
+          </div>
 
           <div
             className="inputs"

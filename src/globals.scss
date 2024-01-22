@@ -12,3 +12,32 @@ button {
     background: none;
     cursor: pointer;
 }
+
+.default-scroll-bar {
+    --width: 20px;
+    
+    &.thin {
+        --width: 5px;
+    }
+
+    &.row::-webkit-scrollbar {
+        overflow-x: auto;
+        height: var(--width);
+    }
+    &.column::-webkit-scrollbar {
+        overflow-y: auto;
+        width: var(--width);
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+        &:hover {
+            background: #555;
+        }
+    }
+}

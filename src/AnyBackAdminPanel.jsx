@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {useEffect, useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
@@ -8,37 +8,12 @@ import Auth from './components/AuthForm/Auth'
 import adminSections from './components/AdminSpace/content/adminSections'
 
 
-function documentOnKeyDown (event) {
-  // default hotkeys:
-  // F11 - fullscreen
-  // F12 - open browser dev tools (console, etc.)
-  
-}
 
-var setFlagsSettings = (options) => {
-  var flags = options.flags
-  
-
-  useEffect(() => {
-    if (!(flags.useDefaultHotkeys))
-      return
-
-    document.addEventListener("keydown", documentOnKeyDown)
-    return () => {
-      document.removeEventListener("keydown", documentOnKeyDown)
-    }
-
-  }, [
-    options,
-  ])
-}
 
 function AnyBackAdminPanel({
   options,
 }) {
 
-  setFlagsSettings(options)
-  
   var [userData, setUserData] = useState({
     authed: false,
     loadingMessage: "Entering",
@@ -92,7 +67,6 @@ function AnyBackAdminPanel({
     database: null,
     entry: null,
 
-    hotkeyHandler: null,
   })
 
   
@@ -108,7 +82,7 @@ function AnyBackAdminPanel({
     )
   },
   [
-    current,
+    current.section,
     adminSections,
   ])
   

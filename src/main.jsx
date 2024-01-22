@@ -2,20 +2,17 @@ import ReactDOM from 'react-dom/client'
 import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
 
-
+// default hotkeys:
+  // F11 - fullscreen
+  // F12 - open browser dev tools (console, etc.)
 
 
 var cachedToken = "MY_TOKEN"
-
-
 var errorMessage = "Error: invalid password"
 
 var options = {
-  name: 'Admin authorization',
-  flags: {
-    useDefaultHotkeys: true,
-  },
-
+  name: 'Log in',
+  
   read() {
     
   },

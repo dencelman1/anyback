@@ -1,31 +1,9 @@
 .TabWidgetPanel {
-    width: calc(100% + 1px);
+    width: 100%;
     min-height: 30px;
     display: flex;
     flex-direction: row;
     overflow: auto;
-    
-
-    &::-webkit-scrollbar {
-        height: 5px;
-        
-        
-    }
-    
-    &::-webkit-scrollbar-track {
-        background: none;
-        
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        
-        background: #888;
-        // border-radius: 10px;
-        &:hover {
-            background: #555;
-        }
-    }
-
 
     .tabWidget {
         &:nth-child(1) {

@@ -11,13 +11,7 @@ var DbManagMain = () => {
         <div
             className="DbManagMain__main"
         >
-            <input
-                className="globalHotkeyListenerInput"
-                style={{
-                    display: "none"
-                }}
-            />
-
+            
             <DbManagToolbar
 
             />

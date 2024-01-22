@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from 'react';
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 import './Main.scss'
 
@@ -9,7 +10,7 @@ var Main = () => {
 
     if (!currentSection)
         return null
-
+    
     return (
         <main
             className="mainContent"
