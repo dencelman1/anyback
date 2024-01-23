@@ -6,6 +6,7 @@ import './LoadingBar.scss'
 var LoadingBar = ({
     loadingMessage,
 }) => {
+    
 
     return (
         <div

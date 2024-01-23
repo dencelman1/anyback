@@ -13,14 +13,14 @@ function HotkeyDescription ({
                 marginBottom: '50px',
             }}
         >
-            {hotkeys.map((hotkey, i) => (
+            {hotkeys.map((hotkey, index) => (
                 <p
                     style={{
                         margin: '0',
                         padding: '0',
                         marginTop: '10px',
                     }}
-                    key={i}
+                    key={index}
                 >
                     <span>
                         {hotkey.desc}
@@ -32,21 +32,31 @@ function HotkeyDescription ({
                         }}
                     >
                         {
-                            hotkey.keys.map((k, index) => (<>
+                            hotkey.keys.map((k, index) => (
                                 <span
                                     key={index}
-                                    style={{
-                                        background: 'gray',
-                                        color: 'white',
-                                        padding: '0 5px',
-                                        borderRadius: '5px'
-                                    }}
                                 >
-                                    {k}
+                                    <span
+                                        style={{
+                                            background: 'gray',
+                                            color: 'white',
+                                            padding: '0 5px',
+                                            borderRadius: '5px'
+                                        }}
+                                    >
+                                        {k}
+                                    </span>
+
+                                    {
+                                        (
+                                            (hotkey.keys.length - 1)
+                                            !== index
+                                        )
+                                        && " + "
+                                    }
+                                    
                                 </span>
-                                {((hotkey.keys.length - 1) !== index) && " + "}
-                                
-                            </>))
+                            ))
                         }
                     </span>
                 </p>

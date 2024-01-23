@@ -4,9 +4,9 @@ import './AnyBackAdminPanel.scss'
 import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 import LoadingBar from './components/svg/LoadingBar/LoadingBar'
-import Auth from './components/AuthForm/Auth'
+import Auth from './api/local/Auth/Auth'
 import adminSections from './components/AdminSpace/content/adminSections'
-import CacheData from './components/CacheData/CacheData'
+import CacheData from './api/local/CacheData/CacheData'
 
 
 
@@ -20,7 +20,40 @@ function AnyBackAdminPanel({
     loadingMessage: "Entering",
   })
 
-  
+  var [current, setCurrent] = useState({
+    section: adminSections[CacheData.sectionIndex] || null,
+    entry: null,
+
+    tableName: "",
+    databaseName: "",
+  })
+
+  var [opened, setOpened] = useState({
+    leftSideBar: Boolean(
+      current.section ? CacheData.opened__leftSideBar: true
+    ),
+    rightSideBar: Boolean(CacheData.opened__rightSideBar),
+  })
+
+  useEffect(() => {
+    CacheData.sectionIndex = adminSections.indexOf(current.section)
+
+    console.log("AnyBackAdminPanel")
+    if (current.section)
+      setUserData(p => ({...p, loadingMessage: current.section.loadingMessage}))
+    
+  }, [
+    current.section,
+  ])
+
+  useEffect(() => {
+    CacheData.opened__leftSideBar = opened.leftSideBar
+    CacheData.opened__rightSideBar = opened.rightSideBar
+  }, [
+    opened,
+  ])
+
+
   useEffect(() => {
     var resultValue = Auth.token.get() // token + and etc
     var checkResult = options.checkAuth(resultValue)
@@ -49,8 +82,17 @@ function AnyBackAdminPanel({
       )
 
     )
+    
+    var finishLoading = () => setUserData(p => ({
+      ...p,
+      loadingMessage: (
+        (
+          current.section &&
+          current.section.loadingMessage
+        ) || ""
+      ),
 
-    var finishLoading = () => setUserData(p => ({...p, loadingMessage: ""}))
+    }))
 
     if (checkOperation instanceof Promise) {
       checkOperation.finally(finishLoading)
@@ -60,27 +102,8 @@ function AnyBackAdminPanel({
     }
   }, [])
 
+
   
-  var [current, setCurrent] = useState({
-    section: adminSections[CacheData.sectionIndex] || null,
-    entry: null,
-
-    tableName: "",
-    databaseName: "",
-  })
-
-  useEffect(() => {
-    CacheData.sectionIndex = adminSections.indexOf(current.section)
-    
-  }, [
-    current.section,
-  ])
-
-  var [opened, setOpened] = useState({
-    leftSideBar: true,
-    rightSideBar: false,
-  })
-
   var adminCtx = useMemo(() => {
     var adminCtx = {
       userData, setUserData,

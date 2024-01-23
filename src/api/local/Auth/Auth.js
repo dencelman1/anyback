@@ -1,4 +1,4 @@
-import { Cookie } from "../../base/utils";
+import { Cookie } from "../../../base/utils";
 
 
 

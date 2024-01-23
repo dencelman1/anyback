@@ -5,6 +5,7 @@ import { TabWidgetPanel } from '../../../../../../base/components';
 import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
 import adminSections from '../../../adminSections';
 import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
+import useAdminSection from '../../../../../../hooks/useAdminSection';
 
 
 
@@ -14,8 +15,6 @@ var moveEntryKeysWithCtrl = [
 ]
 
 
-
-
 var DbManagEntryView = () => {
     var [chosenEntries, setChosenEntries] = useState(
         Array.from({ length: 1 }, (v, id) => ({id, name: `${id}`}))
@@ -23,7 +22,8 @@ var DbManagEntryView = () => {
     var currentEntryKey = 'name'
     var adminPanel = useAdminPanel()
 
-
+    
+        
     var currentEntry = 
         adminPanel.current.entry
     
@@ -34,6 +34,7 @@ var DbManagEntryView = () => {
             return
         
         if (event.key === "Enter") {
+
             setChosenEntries(prev => {
                 var newEntry = {
                     id: prev.length,
@@ -47,6 +48,7 @@ var DbManagEntryView = () => {
 
                 return [...prev, newEntry]
             })
+
         }
         else if (event.key === "Backspace") {
 

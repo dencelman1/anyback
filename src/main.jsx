@@ -5,14 +5,17 @@ import './index.scss'
 // default hotkeys:
   // F11 - fullscreen
   // F12 - open browser dev tools (console, etc.)
-
+// 1 нужно указывать useAdminSection().finishLoad() чтобы ваша секция бьла загружена, загрузите все данные секции до выполнения этого метода
 
 var cachedToken = "MY_TOKEN"
 var errorMessage = "Error: invalid password"
 
+
+
+
 var options = {
-  name: 'Log in',
-  
+  authTitle: 'Log in',
+
   read() {
     
   },
@@ -77,6 +80,10 @@ var options = {
 
   },
 
+  onLogout() {
+    console.log("logouted")
+  },
+
 
 
 
@@ -92,5 +99,3 @@ root.render(
     options={options}
   />
 )
-
-export default options;

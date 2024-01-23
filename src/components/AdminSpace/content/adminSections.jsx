@@ -32,6 +32,8 @@ var adminSections = [
             { keys: ["Ctrl", "Enter"], desc: 'Create new', },
         ],
 
+        loadingMessage: 'Loading databases data ⌛',
+
     },
 
     {
@@ -40,6 +42,7 @@ var adminSections = [
         element: Analytics,
         Logo: null,
         hotkeys: [],
+        loadingMessage: 'Getting statistic and analytics 📃',
     },
 ]
 
