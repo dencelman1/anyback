@@ -6,6 +6,7 @@ import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 import LoadingBar from './components/svg/LoadingBar/LoadingBar'
 import Auth from './components/AuthForm/Auth'
 import adminSections from './components/AdminSpace/content/adminSections'
+import CacheData from './components/CacheData/CacheData'
 
 
 
@@ -61,34 +62,22 @@ function AnyBackAdminPanel({
 
   
   var [current, setCurrent] = useState({
-    section: null,
-
-    table: null,
-    database: null,
+    section: adminSections[CacheData.sectionIndex] || null,
     entry: null,
 
+    tableName: "",
+    databaseName: "",
   })
 
-  
-
-
-
-  
-  var currentSection = useMemo(() => {
-    return (
-      adminSections
-      .filter(s => s === current.section)
-      [0]
-    )
-  },
-  [
+  useEffect(() => {
+    CacheData.sectionIndex = adminSections.indexOf(current.section)
+    
+  }, [
     current.section,
-    adminSections,
   ])
-  
+
   var [opened, setOpened] = useState({
     leftSideBar: true,
-    main: false,
     rightSideBar: false,
   })
 
@@ -99,7 +88,6 @@ function AnyBackAdminPanel({
       opened, setOpened,
       options,
       sections: adminSections,
-      currentSection,
     }
     
     
@@ -112,7 +100,6 @@ function AnyBackAdminPanel({
     opened,
     options,
     adminSections,
-    currentSection,
   ])
 
 
