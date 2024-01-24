@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Auth from "../components/AuthForm/Auth";
+import Auth from "../api/local/Auth/Auth";
 
 var AdminPanelContext = React.createContext(null)
 
@@ -10,21 +10,24 @@ var useAdminPanel = () => {
 }
 
 var adminCtxProto = {
+
+  setLoadingMessage(
+    text,
+  ) {
+
+    this.setUserData(p => ({
+      ...p,
+      loadingMessage: text,
+    }))
+
+  },
   
   isSectionChosen() {
-    return this.current.section !== null
-  },
-
-  currentSection() {
-
     return (
-      this.sections
-      .filter(s => s === this.current.section)
-      [0]
+      this.current.section !== null
     )
-    
   },
-
+  
   withLoading(
     loadingMessage,
     cb,
@@ -44,22 +47,35 @@ var adminCtxProto = {
 
   },
 
-  logout() {
-    console.log(JSON.stringify(this))
+  logout(
+    cb,
+  ) {
+    
+    var logoutOperation = () => (
+      this.setUserData(p => (
+        {...p, authed: false}
+      ))
+    )
 
     this.withLoading("Logout", () => {
       
       Auth.token.delete();
+      
+      var result = cb()
 
-      this.setUserData(p => ({...p, authed: false}))
-      
-      this.setCurrent(p => {
-        return {
-          ...p,
-          section: null,
-        }
-      })
-      
+      if (result instanceof Promise) {
+
+        result
+        .finally(() => {
+          logoutOperation()
+        })
+
+      }
+      else {
+
+        logoutOperation()
+
+      }
 
     })
 

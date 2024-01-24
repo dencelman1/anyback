@@ -1,32 +1,24 @@
 
 
 @keyframes bounceRotateAnimation {
+    
     0%, 10%, 20%, 30%, 50%, 60%, 70%, 80%, 90%, 100% {
-        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
-        background-color: gray;
+        margin-bottom: 0;
+        opacity: .5;
     }
  
     50% {
-        background-color: black;
-        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
+        opacity: 1;
+        margin-bottom: 20px;
     }
 }
 
-@keyframes startLoadingLayout {
-    0% {
-        opacity: 0;
-        
-    }
-    100% {
-        opacity: 1;
-    }
-}
 
 
 
 .LoadingLayout {
 
-    // animation: startLoadingLayout 1s ease;
+    
 
     .loadingMessage {
         position: relative;
@@ -48,11 +40,10 @@
     background-color: white !important;
     z-index: 10000;
 
-    transition: .5s opacity;
+    
+    transition: all .2s ease;
     opacity: 1;
-
-
-
+    
     &.loaded {
         opacity: 0;
         pointer-events: none;
@@ -70,28 +61,29 @@
             position: absolute;
             width: 10px;
             height: 30px;
-            background-color: gray;
-    
-            transition: 1s background-color ease;
+            margin: 0;
+
             transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
-            animation: bounceRotateAnimation 1s calc(var(--delay) * 1s) infinite ease;
+            
+            
             border-radius: 5px;
     
             --translation: 150;
-    
-            
-            
-    
+
             @for $i from 1 through 10 {
     
                 &:nth-child(#{$i}) {
                     
     
                     --delay: 0.1 * #{$i};
-                    --rotation: (36 + 36 * (#{$i} - 1));
+                    --rotation: (36 + (36 * (#{$i} - 1)));
                 }
                 
             }
+
+            opacity: 0;
+            background-color: black;
+            animation: bounceRotateAnimation 1s calc(var(--delay) * 1s) ease infinite;
         }
     }
 

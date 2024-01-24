@@ -3,7 +3,8 @@ import './DbManagEntryView.scss';
 import { useAdminPanel } from '../../../../../../hooks/useAdminPanel';
 import { TabWidgetPanel } from '../../../../../../base/components';
 import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
-import adminSections, { HotkeyDescription } from '../../../adminSections';
+
+import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
 
 
 var moveEntryKeysWithCtrl = [
@@ -14,12 +15,13 @@ var moveEntryKeysWithCtrl = [
 
 var DbManagEntryView = () => {
     var [chosenEntries, setChosenEntries] = useState(
-        Array.from({ length: 50 }, (v, id) => ({id, name: `${id}`}))
+        Array.from({ length: 1 }, (v, id) => ({id, name: `${id}`}))
     )
     var currentEntryKey = 'name'
     var adminPanel = useAdminPanel()
 
-
+    
+        
     var currentEntry = 
         adminPanel.current.entry
     
@@ -29,8 +31,24 @@ var DbManagEntryView = () => {
         if (!(event.ctrlKey))
             return
         
+        if (event.key === "Enter") {
 
-        if (event.key === "Backspace") {
+            setChosenEntries(prev => {
+                var newEntry = {
+                    id: prev.length,
+                    name: `${prev.length}`,
+                }
+
+                setTimeout(() => adminPanel.setCurrent(p => ({
+                    ...p,
+                    entry: newEntry,
+                })), 0)
+
+                return [...prev, newEntry]
+            })
+
+        }
+        else if (event.key === "Backspace") {
 
             adminPanel.setCurrent(p => {
                 if (p.entry === null)
@@ -178,7 +196,7 @@ var DbManagEntryView = () => {
                             }}
                         />
                         <HotkeyDescription
-                            hotkeys={adminSections[0].hotkeys}
+                            hotkeys={adminPanel.sections[0].hotkeys}
                         />
                         
                     </>)

@@ -5,50 +5,63 @@ function update(
     value,
     days,
 ) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days * 24 * 60 * 60 * 1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else {
-        var expires = "";
-    }
+	
+	var expires = (
+		( days || "" )
+		&& (
+			"; expires=" +
+			(
+				(
+					new Date( Date.now() + (days * 24 * 60 * 60 * 1000) )
+				)
+				.toGMTString()
+			)
+		)
+	)
+	
+	value = ( JSON.stringify(value) || "undefined" );
+	
+	document.cookie = ( key + "=" + value + expires + "; path=/" )
 
-	document.cookie = key + "=" + value + expires + "; path=/";
+	return ( value );
 }
 
 function get(
     key,
 ) {
 	
-	var nameEQ = key + "=";
-	var ca = document.cookie.split(';');
-
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
+	var
+		nameEQ = key + "=",
+		ca = document.cookie.split(';'),
+		c, i
+	;
+	
+	for( i = 0; i < ca.length; i++ ) {
+		c = ca[i];
 		
-		while (c.charAt(0)==' ') {
-            c = c.substring(1,c.length);
+		while (c.charAt(0) == ' ') {
+			c = c.substring( 1, c.length);
 		}
 
-		if (c.indexOf(nameEQ) == 0) {
-			var findValue = c.substring(nameEQ.length,c.length)
-			return findValue;
+		if (c.indexOf(nameEQ) === 0) {
+			var value = c.substring(nameEQ.length, c.length)
+
+			return value === 'undefined' ? undefined: JSON.parse(value);
 		}
 
 	}
 	return undefined;
 }
 
-function delete_(key) {
-	update(key, "", -1);
+function deleteCookie(key) {
+	update(key, "", -1)
 }
-
 
 var Cookie = {
     get,
-    delete: delete_,
     update,
+
+	delete: deleteCookie,
 }
 
 export default Cookie;

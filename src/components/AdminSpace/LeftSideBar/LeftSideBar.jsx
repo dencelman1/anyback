@@ -12,7 +12,7 @@ import './LeftSideBar.scss'
 var LeftSideBar = () => {
     var adminPanel = useAdminPanel()
     var sections = adminPanel.sections
-    
+
     return (
         <div
             className={(
@@ -41,6 +41,7 @@ var LeftSideBar = () => {
                                 }))}
                         >
                             {
+                                
                                 adminPanel.isSectionChosen()
                                 ? Text.getLimited(section.title, 12)
                                 : section.title
@@ -62,7 +63,9 @@ var LeftSideBar = () => {
             />
 
             <Button
-                onClick={() => adminPanel.logout()}
+                onClick={() => adminPanel.logout(
+                    () => adminPanel.options.onLogout()
+                )}
                 className="logoutButton"
                 
             >

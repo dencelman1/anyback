@@ -2,7 +2,7 @@ import './AuthForm.scss';
 import { useState } from 'react';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import { Button, FormInput } from '../../base/builtIn';
-import Auth from './Auth';
+import Auth from '../../api/local/Auth/Auth';
 import Text from '../../base/utils/Text';
 import AnybackLogo from '../svg/AnybackLogo/AnybackLogo';
 
@@ -86,7 +86,7 @@ var AuthForm = () => {
             <h1
               className="title"
             >
-              {Text.getLimited(options.name, 15)}
+              {Text.getLimited(options.authTitle, 15)}
             </h1>
           </div>
 
