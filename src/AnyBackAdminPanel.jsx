@@ -186,11 +186,12 @@ export default AnyBackAdminPanel;
 // DbManag:
 //    1 базы данных
 //    2 таблицы
-//    3 CRUD, bulk (CRUD)
-//    4 query search, auto update (with debounce), 
-//    5 pagination
-//    6 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds
-//    7 entries, entry view
-//    8 field sorting, field order (for user personal settings)
+
+//    3 CRUD one (CRUD) and bulk (CRUD),
+//    4 entries, entry view
+//    5 field sorting, field order (for user personal settings)
+//    6 pagination
+//    7 query search, auto update (with debounce),
+//    8 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds
 
 // + Excalidraw;
