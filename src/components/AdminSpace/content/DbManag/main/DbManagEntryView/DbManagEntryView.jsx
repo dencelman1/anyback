@@ -15,13 +15,11 @@ var moveEntryKeysWithCtrl = [
 
 var DbManagEntryView = () => {
     var [chosenEntries, setChosenEntries] = useState(
-        Array.from({ length: 1 }, (v, id) => ({id, name: `${id}`}))
+        Array.from({ length: 5 }, (v, id) => ({id, name: `${id}`}))
     )
     var currentEntryKey = 'name'
     var adminPanel = useAdminPanel()
-
     
-        
     var currentEntry = 
         adminPanel.current.entry
     
@@ -32,19 +30,26 @@ var DbManagEntryView = () => {
             return
         
         if (event.key === "Enter") {
+            
+            adminPanel.setCurrent(p => {
 
-            setChosenEntries(prev => {
+                var uniqueId = new Date().getTime()
                 var newEntry = {
-                    id: prev.length,
-                    name: `${prev.length}`,
+                    id: uniqueId,
+                    name: `${uniqueId}`,
                 }
 
-                setTimeout(() => adminPanel.setCurrent(p => ({
+                setTimeout(() => setChosenEntries(prev => {
+                    var newEntryId = prev.indexOf(p.entry)
+                    prev.splice((( newEntryId + 1 ) || 0), 0, newEntry)
+
+                    return [...prev];
+                }), 0)
+
+                return {
                     ...p,
                     entry: newEntry,
-                })), 0)
-
-                return [...prev, newEntry]
+                }
             })
 
         }

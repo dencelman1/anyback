@@ -5,7 +5,7 @@ import './Input.scss';
 export default function Input(
     props,
 ) {
-    var inputRef = useRef(null);
+    var inputRef = props.forwardRef || useRef(null);
 
     var onKeyDown = (event) => {
         if (props.onKeyDown)

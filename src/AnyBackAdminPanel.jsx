@@ -184,14 +184,25 @@ export default AnyBackAdminPanel;
 
 // TODO:
 // DbManag:
+
+//   __right:
 //    1 базы данных
 //    2 таблицы
+//    3 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
 
-//    3 CRUD one (CRUD) and bulk (CRUD),
-//    4 entries, entry view
-//    5 field sorting, field order (for user personal settings)
-//    6 pagination
-//    7 query search, auto update (with debounce),
-//    8 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds
+//    __main__toolbar:
+//    1 query search, auto update (with debounce);
+//    2 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds (with checkboxes);
+//    
+//    __main__entryView:
+//    1 entry view,
+//    2 CRUD one (CRUD) and bulk (CRUD),
+
+//    6 pagination,
+
 
 // + Excalidraw;
+
+// Analytics:
+//    1 add and view formula and her code
+//    2 list as forlmulas calculated datas
