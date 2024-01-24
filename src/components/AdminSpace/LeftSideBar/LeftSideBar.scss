@@ -2,12 +2,13 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 10px;
     position: relative;
     user-select: none;
     
     
-    transition: .2s width, .1s box-shadow, .2s margin;
+    transition: .1s width, .1s box-shadow, .2s margin, .1s visibility;
+    
 
     --leftSideBar__width: 100%;
     --leftSideBar__background-color: none;
@@ -21,24 +22,32 @@
     background-color: var(--leftSideBar__background-color);
 
     .logoutButton {
+        &:hover {
+            background-color: rgb(230, 230, 230);
+        }
         display: flex;
         flex-direction: row;
         position: absolute;
 
         bottom: 10px;
 
-        left: 50%;
-        transform: translate(-50%, 0);
+        // left: 50%;
+        // transform: translate(-50%, 0);
 
+        width: 85%;
         height: 50px;
         padding: 0;
         margin: 0;
 
         padding: 0 10px;
+        text-align: center;
         
         svg {
             line-height: 45px;
-            margin: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            
         }
 
         color: black;
@@ -50,19 +59,33 @@
         span {
             display: block;
             line-height: 50px;
+            margin-right: auto;
             margin-left: 10px;
             white-space: nowrap;
             font-size: 20px;
+            
         }
     }
     
     &::before {
         display: none;
     }
+
+    
+    justify-content: center;
+
     &.withChosenSection {
+        justify-content: flex-start;
+        .sectionButtons {
+            width: 85%;
+        }
+        
+        
+
         --sectionButtons__flex-direction: column;
         --leftSideBar__width: 20%;
         --openingLever__display: block;
+        visibility: visible;
 
         &::before {
             z-index: 100;
@@ -82,6 +105,7 @@
         
     }
     &.closed {
+        visibility: hidden;
         &::before {
             display: none;
         }
@@ -91,14 +115,24 @@
 
     .openingLever {
         display: var(--openingLever__display);
+        visibility: visible;
     }
 
     .sectionButtons {
         display: flex;
         flex-direction: var(--sectionButtons__flex-direction);
         width: fit-content;
+        
         height: fit-content;
         gap: 5px;
+        
+        
+        .sectionButton {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
 
     }
     

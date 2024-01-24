@@ -1,8 +1,13 @@
 .DbManagMain__right {
-    width: 100%;
+    width: 90%;
+    margin-left: auto;
+    // outline: 1px solid black;
     height: 100%;
     // background-color: red;
     text-align: center;
+    // display: flex;
+
+    // justify-content: center;
 
     .navInputs {
         display: flex;

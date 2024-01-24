@@ -41,10 +41,7 @@ var LeftSideBar = () => {
                                 }))}
                         >
                             {
-                                
-                                adminPanel.isSectionChosen()
-                                ? Text.getLimited(section.title, 12)
-                                : section.title
+                                section.title
                             }
                         </Button>
                         

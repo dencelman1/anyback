@@ -2,6 +2,7 @@
 .rightSideBar {
     height: 100%;
     width: 20%;
+    padding-right: 10px;
     margin-left: auto;
     position: relative;
 
@@ -9,7 +10,7 @@
 
     justify-content: center;
     align-items: center;
-    transition: .1s margin;
+    transition: .1s margin, .1s visibility;
 
     &::before {
         content: "";
@@ -24,9 +25,11 @@
         border-left: 2px solid gray;
         border-radius: 100%;
     }
-    
+
+    visibility: visible;
 
     &.closed {
+        visibility: hidden;
         &::before {
             display: none;
         }
@@ -40,5 +43,6 @@
         top: 50%;
         transform: translate(0, -50%);
         left: 5px;
+        visibility: visible;
     }
 }

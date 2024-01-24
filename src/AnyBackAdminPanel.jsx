@@ -17,8 +17,10 @@ function AnyBackAdminPanel({
   options,
 }) {
 
-  var [isPrepared, setIsPrepared] = useState(false)
-
+  var [isPrepared, setIsPrepared] = useState(
+    false
+  );
+  
   var [userData, setUserData] = useState({
     authed: false,
     loadingMessage: "Entering",
