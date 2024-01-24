@@ -10,8 +10,7 @@ var DbManagMain = () => {
     var adminSection = useAdminSection();
 
     useEffect(() => {
-        console.log("DbManagMain")
-        setTimeout(() => adminSection.finishLoad(), 2000)
+        adminSection.finishLoad();    
     }, [])
     
     return (

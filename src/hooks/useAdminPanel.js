@@ -23,19 +23,11 @@ var adminCtxProto = {
   },
   
   isSectionChosen() {
-    return this.current.section !== null
-  },
-
-  currentSection() {
-
     return (
-      this.sections
-      .filter(s => s === this.current.section)
-      [0]
+      this.current.section !== null
     )
-    
   },
-
+  
   withLoading(
     loadingMessage,
     cb,
@@ -59,17 +51,11 @@ var adminCtxProto = {
     cb,
   ) {
     
-    var logoutOperation = () => {
-      this.setUserData(p => {
-        return {...p, authed: false}
-      });
-      this.setCurrent(p => {
-        return {
-          ...p,
-          section: null,
-        }
-      })
-    }
+    var logoutOperation = () => (
+      this.setUserData(p => (
+        {...p, authed: false}
+      ))
+    )
 
     this.withLoading("Logout", () => {
       
@@ -78,13 +64,17 @@ var adminCtxProto = {
       var result = cb()
 
       if (result instanceof Promise) {
+
         result
         .finally(() => {
           logoutOperation()
         })
+
       }
       else {
+
         logoutOperation()
+
       }
 
     })

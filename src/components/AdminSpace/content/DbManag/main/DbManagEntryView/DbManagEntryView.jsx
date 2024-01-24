@@ -3,10 +3,8 @@ import './DbManagEntryView.scss';
 import { useAdminPanel } from '../../../../../../hooks/useAdminPanel';
 import { TabWidgetPanel } from '../../../../../../base/components';
 import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
-import adminSections from '../../../adminSections';
-import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
-import useAdminSection from '../../../../../../hooks/useAdminSection';
 
+import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
 
 
 var moveEntryKeysWithCtrl = [
@@ -198,7 +196,7 @@ var DbManagEntryView = () => {
                             }}
                         />
                         <HotkeyDescription
-                            hotkeys={adminSections[0].hotkeys}
+                            hotkeys={adminPanel.sections[0].hotkeys}
                         />
                         
                     </>)

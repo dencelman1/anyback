@@ -8,16 +8,55 @@ var useAdminSection = () => {
 
     if (!section)
         return null;
+
+    function setSectionValue (key, value) {
+        var i ;
+        adminPanel.setAdminSections(
+            [
+                ...adminPanel.sections.map(s => {
+                    if (section === s) {
+
+                        if (Array.isArray(key)) {
+                            for (i = 0; i < key.length; i++) {
+                                s[key[i]] = value[i]
+                            }
+                        }
+                        else {
+                            s[key] = value
+                        }
+                        
+                    }
+                    
+                    return s
+                })
+            ]
+        )
+    }
         
     return {
-        options: section,
+        section,
+        setSectionValue,
+
         finishLoad() {
-            adminPanel.setUserData(p => ({...p, loadingMessage: ""}))
+            setSectionValue("loaded", true);
         },
 
-        startLoad(message) {
-            adminPanel.setUserData(p => ({...p, loadingMessage: message || "Loading.."}))
+        changeLoadingState(
+            state,
+        ) {
+            state ||= "main";
+            setSectionValue("loadingState", state);
+        },
+
+        startLoad(
+            loadingState,
+        ) {
+            loadingState ||= "main";
+            
+            setSectionValue(["loadingState", 'loaded'], [loadingState, false]);
+
         }
+
     }
 }
 

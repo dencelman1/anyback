@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useAdminPanel } from '../../hooks/useAdminPanel';
+    import { useAdminPanel } from '../../hooks/useAdminPanel';
 import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';
 import {

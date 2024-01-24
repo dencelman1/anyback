@@ -6,8 +6,8 @@ var AnalyticsMain = () => {
     var adminSection = useAdminSection();
 
     useEffect(() => {
-        console.log("AnalyticsMain")
-        setTimeout(() => adminSection.finishLoad(), 2000)
+        adminSection.finishLoad();
+        
     }, [])
 
     return (

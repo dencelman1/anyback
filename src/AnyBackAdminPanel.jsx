@@ -1,12 +1,14 @@
-import {useEffect, useMemo, useState } from 'react'
+import {useCallback, useEffect, useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
 import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
 import LoadingBar from './components/svg/LoadingBar/LoadingBar'
 import Auth from './api/local/Auth/Auth'
-import adminSections from './components/AdminSpace/content/adminSections'
+
 import CacheData from './api/local/CacheData/CacheData'
+import AdminSection from './components/AdminSpace/content/AdminSection'
+
 
 
 
@@ -15,13 +17,20 @@ function AnyBackAdminPanel({
   options,
 }) {
 
+  var [isPrepared, setIsPrepared] = useState(false)
+
   var [userData, setUserData] = useState({
     authed: false,
     loadingMessage: "Entering",
   })
 
+  var [adminSections, setAdminSections] = useState( [...AdminSection.states()] );
+
+
   var [current, setCurrent] = useState({
-    section: adminSections[CacheData.sectionIndex] || null,
+    section: (
+      adminSections[CacheData.sectionIndex] || null
+    ),
     entry: null,
 
     tableName: "",
@@ -35,23 +44,26 @@ function AnyBackAdminPanel({
     rightSideBar: Boolean(CacheData.opened__rightSideBar),
   })
 
+  
+
+
+  
+
   useEffect(() => {
     CacheData.sectionIndex = adminSections.indexOf(current.section)
-
-    console.log("AnyBackAdminPanel")
-    if (current.section)
-      setUserData(p => ({...p, loadingMessage: current.section.loadingMessage}))
-    
   }, [
     current.section,
   ])
 
   useEffect(() => {
-    CacheData.opened__leftSideBar = opened.leftSideBar
-    CacheData.opened__rightSideBar = opened.rightSideBar
+    CacheData.opened__leftSideBar = opened.leftSideBar;
+    CacheData.opened__rightSideBar = opened.rightSideBar;
+
   }, [
     opened,
   ])
+
+  
 
 
   useEffect(() => {
@@ -82,28 +94,52 @@ function AnyBackAdminPanel({
       )
 
     )
-    
-    var finishLoading = () => setUserData(p => ({
-      ...p,
-      loadingMessage: (
-        (
-          current.section &&
-          current.section.loadingMessage
-        ) || ""
-      ),
-
-    }))
 
     if (checkOperation instanceof Promise) {
-      checkOperation.finally(finishLoading)
+      checkOperation
+      .finally(() => setIsPrepared(true))
     }
     else {
-      finishLoading()
+      setIsPrepared(true)
     }
   }, [])
 
 
+  useEffect(() => {
+    setUserData(p => ({
+      ...p,
+      loadingMessage:
+        (
+          (
+
+            (
+              userData.authed
+              && current.section
+              && !( current.section.loaded )
+            )
+            && (
+              current.section.loadingMessage[
+                current.section.loadingState
+              ]
+            )
+      
+          )
+          || (isPrepared ? "": (
+            AdminSection.defaultLoadingMessage
+          ))
+        ),
+    }))
+    
+    
+  }, [
+    userData.authed,
+    current.section,
+    adminSections,
+    isPrepared,
+  ])
+
   
+
   var adminCtx = useMemo(() => {
     var adminCtx = {
       userData, setUserData,
@@ -111,6 +147,7 @@ function AnyBackAdminPanel({
       opened, setOpened,
       options,
       sections: adminSections,
+      setAdminSections,
     }
     
     
