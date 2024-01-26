@@ -1,4 +1,3 @@
-import { useCallback, useEffect } from 'react';
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 import './Main.scss'
 

@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Auth from "../api/local/Auth/Auth";
 
 var AdminPanelContext = React.createContext(null)
 
 var useAdminPanel = () => {
   var ctx = useContext(AdminPanelContext);
-
+  
   return ctx
 }
 
 var adminCtxProto = {
-
   setLoadingMessage(
     text,
   ) {

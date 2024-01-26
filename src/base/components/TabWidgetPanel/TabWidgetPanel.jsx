@@ -3,14 +3,14 @@ import CrossIcon from "../../../components/svg/Cross/Cross";
 import './TabWidgetPanel.scss'
 
 
-var TabWidgetPanel = (
+var TabWidgetPanel = ({
     widgetEntries,
     entryTitleKey,
     onSelect,
     onClose,
-    selectedEntry,
+    isSelectedEntry,
     flexDirection,
-) => {
+}) => {
     flexDirection ||= "row";
 
     var selectedEntryRef = useRef({})
@@ -19,7 +19,8 @@ var TabWidgetPanel = (
     useEffect(() => {
         var container = containerRef.current
         var selectedBlock = selectedEntryRef.current
-        if (!selectedBlock)
+        
+        if ( !( selectedBlock && selectedBlock.getBoundingClientRect ))
             return
         
         var currentBlockRect = selectedBlock.getBoundingClientRect();
@@ -44,18 +45,20 @@ var TabWidgetPanel = (
             {
                 widgetEntries
                 .map((entry, index) => {
-                    var isSelectedEntry = selectedEntry === entry
+                    var isSelectedEntry_ = isSelectedEntry(entry)
 
                     return <div
                         key={index}
                         className={(
                             "tabWidget" +
-                            (isSelectedEntry ? " current": "")
+                            (isSelectedEntry_ ? " current": "")
                         )}
                         onClick={(event) => {
                             onSelect(entry, event)
                         }}
-                        ref={isSelectedEntry ? selectedEntryRef: selectedEntryRef.current = null}
+                        ref={isSelectedEntry_ ? selectedEntryRef: (
+                            selectedEntryRef.current = null
+                        )}
                     >
                         
                         <span>

@@ -1,15 +1,17 @@
+import { useState } from "react";
 import Analytics from "./Analytics/Analytics";
 import DbManag from "./DbManag/DbManag";
 
 
 
 
-var getSectionStateValue = () => (
-    JSON.parse(`{
-        "loaded": false,
-        "loadingState": "main"
-    }`)
-);
+var getSectionStateValue = () => {
+    
+    return {
+        loaded: false,
+        loadingState: "main",
+    }
+};
 
 var defaultLoadingMessage = "Loading..";
 

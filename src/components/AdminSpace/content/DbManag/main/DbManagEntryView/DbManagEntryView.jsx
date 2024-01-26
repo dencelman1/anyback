@@ -5,6 +5,7 @@ import { TabWidgetPanel } from '../../../../../../base/components';
 import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
 
 import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
+import useAdminSection from '../../../../../../hooks/useAdminSection';
 
 
 var moveEntryKeysWithCtrl = [
@@ -14,15 +15,25 @@ var moveEntryKeysWithCtrl = [
 
 
 var DbManagEntryView = () => {
-    var [chosenEntries, setChosenEntries] = useState(
-        Array.from({ length: 5 }, (v, id) => ({id, name: `${id}`}))
-    )
-    var currentEntryKey = 'name'
+    
+    
+
     var adminPanel = useAdminPanel()
+    var adminSection = useAdminSection();
+    var currentEntryKey = adminSection.currentEntryKey
     
     var currentEntry = 
         adminPanel.current.entry
     
+    var chosenEntries = adminSection.chosenEntries || [];
+
+    var setChosenEntries = (newValue) => {
+        adminSection.setValue("chosenEntries", newValue)
+    }
+
+    var setEntries = ( newValue ) => {
+        adminSection.setValue("entries", newValue);
+    }
     
     var onKeyDown = (event) => {
 
@@ -34,18 +45,29 @@ var DbManagEntryView = () => {
             adminPanel.setCurrent(p => {
 
                 var uniqueId = new Date().getTime()
+
+                // adminSection.databases[0]
+
                 var newEntry = {
                     id: uniqueId,
                     name: `${uniqueId}`,
                 }
+                
+                // TODO: from options read()
 
-                setTimeout(() => setChosenEntries(prev => {
-                    var newEntryId = prev.indexOf(p.entry)
-                    prev.splice((( newEntryId + 1 ) || 0), 0, newEntry)
+                setTimeout(() => setEntries(prevEntries => {
 
-                    return [...prev];
-                }), 0)
+                    setTimeout(() => setChosenEntries(prevChosenEntries => {
+                        var newEntryId = prevChosenEntries.indexOf(p.entry)
+                        prevChosenEntries.splice((( newEntryId + 1 ) || 0), 0, newEntry)
+    
+                        return [...prevChosenEntries];
+                    }), 0)
 
+                    return [...prevEntries, newEntry]
+                })
+                , 0)
+                
                 return {
                     ...p,
                     entry: newEntry,
@@ -135,6 +157,10 @@ var DbManagEntryView = () => {
         }
     }, [])
 
+
+    if (! ( adminSection.loaded ))
+        return null
+
     return (
         <article
             className="DbManag__entryView"
@@ -146,15 +172,15 @@ var DbManagEntryView = () => {
                 }}
             >
             {
-                TabWidgetPanel(
-                    chosenEntries,
-                    currentEntryKey,
+                <TabWidgetPanel
+                    widgetEntries={chosenEntries}
+                    entryTitleKey={currentEntryKey}
 
-                    (entry, event) => {
+                    onSelect={(entry, event) => {
                         adminPanel.setCurrent(p => ({...p, entry }));
-                    },
+                    }}
 
-                    (entry, event) => {
+                    onClose={(entry, event) => {
                         adminPanel.setCurrent(p => {
                             var currentEntry = p.entry;
                             var isDeletingChosen = currentEntry === entry;
@@ -168,9 +194,9 @@ var DbManagEntryView = () => {
                                 entry: isDeletingChosen ? (newChosenEntries[0]): (currentEntry),
                             }
                         });
-                    },
-                    currentEntry,
-                )
+                    }}
+                    isSelectedEntry={(entry) => currentEntry === entry}
+                />
             }
             </div>  
 
@@ -190,7 +216,9 @@ var DbManagEntryView = () => {
             >
                 {
                     currentEntry
-                    ? null
+                    ? (<>
+                        {/* <pre>{JSON.stringify(adminSection, null, 4)}</pre> */}
+                    </>)
                     : (<>
                         <AnybackLogo
                             side="200px"
@@ -201,7 +229,7 @@ var DbManagEntryView = () => {
                             }}
                         />
                         <HotkeyDescription
-                            hotkeys={adminPanel.sections[0].hotkeys}
+                            hotkeys={adminSection.hotkeys}
                         />
                         
                     </>)

@@ -194,7 +194,7 @@ export default AnyBackAdminPanel;
 
 //    __main__toolbar:
 //    1 query search, auto update (with debounce);
-//    2 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds (with checkboxes);
+
 //    
 //    __main__entryView:
 //    1 entry view,

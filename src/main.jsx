@@ -28,21 +28,116 @@ var errorMessage = "Error: invalid password"
 // 2 useAdminSection
 // 3 options // + give
 
+var defaultValue = {
+  limit: 10,
+  offset: 0,
+}
+var d = new Date().getTime()
+
+var USERS_LENGTH = 150
+
+var testUsers = Array.from({length: USERS_LENGTH}, (_, i) => ({id: d + 1, name: `entry${d + 1}`}))
+
+
+// reqSpeed: 150, // request process speed in ms // TODO: on frontend
 
 var options = {
   authTitle: 'Log in',
+  
+  defaultValue,
 
-  read() {
+  getDatabases() {
+
+    var databases = (
+      [
+        {
+          name: 'dencelman.com',
+          size: 15_000, // bytes
+          isEmpty: false,
+
+          tables: [
+            {
+              name: 'users',
+              count: USERS_LENGTH,
+              fields: [
+
+                {
+                  name: 'name',
+                  type: 'number',
+                }, // by default
+
+                {
+                  name: 'name',
+                  type: 'string',
+                },
+
+              ],
+            },
+          ]
+        },
+      ]
+    )
     
+    return {
+      data: databases,
+    }
   },
-  update() {
 
+  read(    
+    database,
+    table,
+
+    where,
+
+    limit,
+    offset,
+  ) {
+
+    return {
+      success: true,
+
+      data: testUsers.slice(offset, ( offset + limit ))
+    }
   },
-  delete() {
+  update(
+    database,
+    table,
 
+    value,
+    where,
+  ) {
+
+    return (
+      {
+        success: true,
+      }
+    )
   },
-  create() {
 
+  delete(
+    database,
+    table,
+
+    where,
+  ) {
+
+    return (
+      {
+        success: true,
+      }
+    )
+  },
+
+  create(
+    database,
+    table,
+
+    value,
+  ) {
+    
+    return {
+      success: true,
+    }
   },
 
   checkAuth: (

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './Select.scss';
-import Text from '../../utils/Text';
+import ArrowIcon from '../../../components/svg/Arrow/Arrow';
+
+
+
 
 
 var Select = (
@@ -13,35 +16,78 @@ var Select = (
         opened: false,
         currentOption: null,
     })
-    
+    var newValue, closeOpenHandler;
+
+    var isSelect = props.isSelect || ((option) => {
+        return select.currentOption === option
+    })
+
     return (
         <div
-            className="Select"
+            className={(
+                "Select" +
+                (select.opened ? "": " closed")
+            )}
         >
-            <p
+            <div
                 title={props.title}
                 className='title'
+                onClick={() => (
+                    setSelect(p => {
+
+                        newValue = !( p.opened );
+
+                        (closeOpenHandler = (newValue ? props.onOpen : props.onClose)) && closeOpenHandler();
+
+                        return {
+                            ...p,
+                            opened: newValue,
+                        }
+                    })
+                )}
             >
-                {Text.getLimited(props.title, 10)}
-            </p>
+                <ArrowIcon
+                    side="20px"
+                />
+
+                <span>
+                    {props.title}
+                </span>
+            </div>
+
             <ul
                 className="options"
             >
                 {
                     props.options.map((o, key) => {
-                        return <li
-                            key={key}
-                            className="option"
-                            onClick={() => {
-                                if (props.onChange){
-                                    props.onChange(o);
-                                }
-                                setSelect(p => ({...p, currentOption: o}))
-                            }}
-                            title={o.title}
-                        >
-                            {Text.getLimited(o.title, 10)}
-                        </li>
+                        
+                        if ("props" in o) {
+                            return o
+                        }
+
+                        return (
+                            <li
+                                key={key}
+                                className={(
+                                    "option"+
+                                    (
+                                        isSelect(o) ? " current": ""
+                                    )
+                                )}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+
+                                    setSelect(p => ({...p, currentOption: o}))
+                                    if (props.onChange){
+                                        props.onChange(o);
+                                    }
+                                    
+                                }}
+                                title={o.title}
+                            >
+                                {o.title}
+                            </li>
+                        )
                     })
                 }
             </ul>
@@ -49,5 +95,8 @@ var Select = (
         
     )
 }
+
+
+
 
 export default Select;
