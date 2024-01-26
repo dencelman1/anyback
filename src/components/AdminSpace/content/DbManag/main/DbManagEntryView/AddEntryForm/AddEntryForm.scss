@@ -1,0 +1,26 @@
+.AddEntryForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    // justify-content: center;
+    align-items: center;
+    
+    
+    label {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        user-select: none;
+    }
+    select, input[type="checkbox"], label {
+        cursor: pointer;
+    }
+    input:not(input[type="checkbox"]), select {
+        width: 200px;
+        height: 30px;
+        border-radius: 5px;
+        outline: 1px solid gray;
+        border: none;
+        
+    }
+}

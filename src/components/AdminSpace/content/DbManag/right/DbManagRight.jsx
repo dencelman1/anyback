@@ -135,7 +135,7 @@ var DbManagRight = () => {
                                             //     &&
                                             //     e.prototype.prototype.name === t.name
                                             // ))
-
+                                            
                                             // TODO: filtering
                                             .map(e => ({
                                                 title: e[adminSection.currentEntryKey],

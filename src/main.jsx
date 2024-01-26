@@ -63,13 +63,27 @@ var options = {
 
                 {
                   name: 'name',
-                  type: 'number',
-                }, // by default
+                  type: 'string',
+                  maxLength: 100,
+                  minLength: 10,
+                  defaultValue: '', // to -> 10x random -> ----------
+
+                },
 
                 {
-                  name: 'name',
-                  type: 'string',
+                  name: 'age',
+                  type: 'number',
+                  minValue: 10,
+                  minValue: 50,
+                  defaultValue: 60, // to -> 50
                 },
+
+                {
+                  name: 'is_full_year',
+                  type: 'boolean',
+                  defaultValue: false,
+                },
+                
 
               ],
             },

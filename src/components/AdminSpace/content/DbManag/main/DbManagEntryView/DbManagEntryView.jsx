@@ -6,6 +6,7 @@ import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
 
 import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
 import useAdminSection from '../../../../../../hooks/useAdminSection';
+import AddEntryForm from './AddEntryForm/AddEntryForm';
 
 
 var moveEntryKeysWithCtrl = [
@@ -43,31 +44,17 @@ var DbManagEntryView = () => {
         if (event.key === "Enter") {
             
             adminPanel.setCurrent(p => {
-
-                var uniqueId = new Date().getTime()
-
-                // adminSection.databases[0]
-
                 var newEntry = {
-                    id: uniqueId,
-                    name: `${uniqueId}`,
+                    id: undefined,
                 }
-                
-                // TODO: from options read()
 
-                setTimeout(() => setEntries(prevEntries => {
+                setTimeout(() => setChosenEntries(prevChosenEntries => {
+                    var newEntryId = prevChosenEntries.indexOf(p.entry)
+                    prevChosenEntries.splice((( newEntryId + 1 ) || 0), 0, newEntry)
 
-                    setTimeout(() => setChosenEntries(prevChosenEntries => {
-                        var newEntryId = prevChosenEntries.indexOf(p.entry)
-                        prevChosenEntries.splice((( newEntryId + 1 ) || 0), 0, newEntry)
-    
-                        return [...prevChosenEntries];
-                    }), 0)
+                    return [...prevChosenEntries];
+                }), 0)
 
-                    return [...prevEntries, newEntry]
-                })
-                , 0)
-                
                 return {
                     ...p,
                     entry: newEntry,
@@ -216,9 +203,25 @@ var DbManagEntryView = () => {
             >
                 {
                     currentEntry
-                    ? (<>
-                        {/* <pre>{JSON.stringify(adminSection, null, 4)}</pre> */}
-                    </>)
+                    ? ((() => {
+
+                        if (currentEntry.id === undefined) {
+                            return (
+                                <AddEntryForm
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        paddingTop: '10px'
+                                    }}
+                                />
+                            )
+                        }
+
+                        return (
+                            <pre>{JSON.stringify(currentEntry)}</pre>
+                        )
+
+                    })())
                     : (<>
                         <AnybackLogo
                             side="200px"
