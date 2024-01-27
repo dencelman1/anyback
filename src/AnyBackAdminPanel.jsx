@@ -187,16 +187,16 @@ export default AnyBackAdminPanel;
 // TODO:
 // DbManag:
 
-//   __right:
-//    1 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
+//    __main__entryView:
+//    1 bulk C;
+
+//    __right:
+//    2 pagination (( offset + limit ) - ( changeble - all paginations ) ),
+//    3 data (расположить по елементам нормально);
+//    4 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
 
 //    __main__toolbar:
 //    1 query search, auto update (with debounce);
-//    2 data (расположить по елементам нормально);
-//    3 pagination (( offset + limit ) - ( changeble - all paginations ) ),
-
-//    __main__entryView:
-//    1 bulk UD;
 
 // + Excalidraw;
 
