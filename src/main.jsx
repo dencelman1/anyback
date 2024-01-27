@@ -28,17 +28,16 @@ var errorMessage = "Error: invalid password"
 // 2 useAdminSection
 // 3 options // + give
 
-var defaultValue = {
-  limit: 10,
-  offset: 0,
-}
-
 // reqSpeed: 150, // request process speed in ms // TODO: on frontend
 
 var options = {
   authTitle: 'Log in',
   
-  defaultValue,
+  defaultValue: {
+    offset: 0,
+    limit: 10,
+    reqDelayMs: 1_000, 
+  },
 
   getDatabases() {
 
@@ -135,7 +134,7 @@ var options = {
 
   },
 
-  delete(
+  delete (
     databaseName,
     tableName,
 

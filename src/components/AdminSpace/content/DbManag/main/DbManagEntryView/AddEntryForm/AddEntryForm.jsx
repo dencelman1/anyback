@@ -34,14 +34,19 @@ var AddEntryForm = (
         [adminPanel.sections, adminPanel.current]
     )
 
-
     
+    
+    var defaultTypeValues = () => ({
+        'boolean': false,
+        "number": 0,
+        "string": "",
+    })
     
     return (
         <form
             {...props}
             className={(
-                "AddEntryForm"+
+                "AddEntryForm defaultFormInputElements"+
                 (props.className ? ` ${props.className}`: "")
             )}
             onSubmit={(event) => {
@@ -53,11 +58,15 @@ var AddEntryForm = (
         >
             <select
                 defaultValue={adminPanel.current.databaseName || "Unknown"}
-                onChange={(e) => adminPanel.setCurrent(p => ({
-                    ...p,
-                    databaseName: ( e.target.value === "Unknown" ? "" : e.target.value  ),
-                    tableName: ( "" ),
-                }))}
+                onChange={(e) =>
+                
+                    adminPanel.setCurrent(p => ({
+                        ...p,
+                        databaseName: ( e.target.value === "Unknown" ? "" : e.target.value  ),
+                        tableName: ( "" ),
+                    }))
+                
+                }
             >
                 <option
                     value="Unknown"
@@ -114,109 +123,104 @@ var AddEntryForm = (
                     {
                         currentTable.fields
                         .map(f => {
-                            if (f.type === 'string' || f.type === "number") {
-
-                                var defaultValue =
-                                    f.defaultValue === undefined ? (
-                                        
-                                        f.type === 'number' ? 0: ''
-
-                                    ) : f.defaultValue
-
-                                return (
+                            if (! ( ["boolean", 'string', 'number'].includes(f.type) ))
+                                return null;
+                                                        
+                            return (
+                                <label
+                                    htmlFor={f.name}
+                                    
+                                >
+                                    <span>{f.name}</span>
                                     <input
-                                        label={f.name}
                                         name={f.name}
                                         placeholder={f.name}
-
-                                        defaultValue={defaultValue}
-                                        type={f.type === 'number' ? f.type: "text"}
-
-                                        maxLength={f.maxLength}
-                                        minLength={f.minLength}
+                                        type={{
+                                            "number": "number",
+                                            "string": 'text',
+                                            "boolean": 'checkbox',
+                                        }[f.type]}
                                         
-                                        minValue={f.minValue}
-                                        maxValue={f.maxValue}
+                                        defaultValue={
+                                            f.defaultValue === undefined
+                                            ? ( defaultTypeValues()[f.type] )
+                                            : f.defaultValue
+                                        }
                                     />
-                                )
-                            }
-                            if (f.type === "boolean") {
-                                return (<>
-                                    <label
-                                        htmlFor={f.name}
-                                    >
-                                        <span>{f.name}</span>
-                                        <input
-                                            name={f.name}
-                                            type="checkbox"
-                                            defaultValue={f.defaultValue || false}
-                                        />
-                                    </label>
+                                </label>
 
-                                </>)
-                            }
-
-                            return null
+                            )
+                            
                         })
                     }
-                    <Button
-                        type="submit"
-                        onClick={() => {
-
-                            console.log('submiting');
-                            console.dir(formRef.current.elements)
-
-                            var newEntry = {}, value;
-                            
-                            currentTable.fields.forEach(f => {
-                                value = formRef.current.elements[f.name][
-                                    f.type === 'boolean' ? "checked": 'value'
-                                ]
-                                
-                                if (f.type === 'number')
-                                    value = parseFloat(value)
-
-                                newEntry [f.name] = value
-                            })
-
-                            Function_.resolve(
-                                adminSection.options.create(
-                                    currentDatabase.name,
-                                    currentTable.name,
-
-                                    newEntry,
-                                ),
-
-                                ( result ) => {
-                                    
-                                    window.alert(
-                                        result
-                                        ? "Entry was created"
-                                        : "Error in entry creating"
-                                    )
-
-                                    adminPanel.setCurrent(p => {
-                                        
-                                        setTimeout(() => {
-                                            adminSection.setValue("chosenEntries", (prev) => (
-
-                                                prev.filter(e => e !== p.entry)
-                                                
-                                            ))
-                                        }, 0)
-
-                                        return {
-                                            ...p,
-                                            entry: null,
-                                        };
-                                    })
-
-                                },
-                            )
+                    <div
+                        style={{
+                            marginTop: '20px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: "10px",
                         }}
                     >
-                        Create
-                    </Button>
+
+                        <Button
+                            type="submit"
+                            onClick={() => {
+
+                                var newEntry = {}, value;
+                                
+                                currentTable.fields.forEach(f => {
+                                    value = formRef.current.elements[f.name][
+                                        f.type === 'boolean' ? "checked": 'value'
+                                    ]
+                                    
+                                    if (f.type === 'number')
+                                        value = parseFloat(value)
+
+                                    newEntry [f.name] = value
+                                })
+
+                                Function_.resolve(
+                                    adminSection.options.create(
+                                        currentDatabase.name,
+                                        currentTable.name,
+
+                                        newEntry,
+                                    ),
+
+                                    ( result ) => {
+                                        
+                                        window.alert(
+                                            result
+                                            ? "Entry was created"
+                                            : "Error in entry creating"
+                                        )
+
+                                        adminPanel.setCurrent(p => {
+                                            
+                                            setTimeout(() => {
+                                                adminSection.setValue("chosenEntries", (prev) => (
+
+                                                    prev.filter(e => e !== p.entry)
+                                                    
+                                                ))
+                                            }, 0)
+
+                                            return {
+                                                ...p,
+                                                entry: null,
+                                            };
+                                        })
+
+                                    },
+                                )
+                            }}
+                        >
+                            Create
+                        </Button>
+
+
+                    </div>
+
                 </>)
             }
         </form>

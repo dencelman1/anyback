@@ -41,6 +41,63 @@ var DbManagRight = () => {
 
     }
 
+    function updateEntries (
+        dbName,
+        tableName,
+        
+    ) {
+        var entryProto = {
+            tableName,
+            databaseName: dbName,
+        }
+
+        Function_.resolve(
+            adminSection.options.read(
+                dbName,
+                tableName,
+
+                // TODO:
+                adminSection.offset, // offset,
+                adminSection.limit, // limit,
+
+            ),
+            ( entries ) => {
+
+                if (typeof entries === "string") {
+                    return (
+                        window.alert(entries)
+                    )
+                }
+
+                if (! ( Array.isArray(entries) )) {
+                    return (
+                        window.alert(
+                            `Error of loading ${d.name} -> ${t.name} entries`
+                        )
+                    )
+
+                }
+                
+                entries = entries.map(e => {
+                    Object.setPrototypeOf(e, entryProto);
+                    return e
+                })
+                
+                adminSection.setValue(
+                    "entries",
+                    (prev) => {
+                        return (
+                            prev.concat(
+                                entries
+                                .filter(e => !( prev.includes(e) ))
+                            )
+                        )
+                    }
+                )
+            },
+        )
+    }
+
     return (
         <div
             className="DbManagMain__right"
@@ -88,7 +145,7 @@ var DbManagRight = () => {
                                 adminPanel.setCurrent(p => ({
                                     ...p,
                                     [currentStateName]:
-                                        isRightStateValue(event.target.value)
+                                        isRightStateValue( event.target.value )
                                         ? event.target.value
                                         : (""),
                                 }))
@@ -129,10 +186,7 @@ var DbManagRight = () => {
                                 
                                 options={d.tables.map(t => {
 
-                                    var entryProto = {
-                                        tableName: t.name,
-                                        databaseName: d.name,
-                                    }
+                                    
                                     
                                     return <Select
                                         title={t.name}
@@ -146,55 +200,19 @@ var DbManagRight = () => {
 
                                             
                                             .map(e => ({
-                                                title: e[adminSection.currentEntryKey],
+                                                title: e[ adminSection.currentEntryKey ],
                                                 value: e,
                                             })
                                         )}
                                         onOpen={() => {
-                                            
-                                            Function_.resolve(
-                                                adminSection.options.read(
-                                                    d.name,
-                                                    t.name,
-
-                                                    // TODO:
-                                                    0, // offset,
-                                                    10, // limit,
-
-                                                ),
-                                                ( entries ) => {
-                                                    
-                                                    entries = entries.map(e => {
-                                                        Object.setPrototypeOf(e, entryProto);
-                                                        return e
-                                                    })
-
-                                                    if (typeof entries === "string")
-                                                        return window.alert(entries)
-                                                    if (! ( Array.isArray(entries) ))
-                                                        return window.alert(`Error of loading ${d.name} -> ${t.name} entries`)
-
-                                                    adminSection.setValue(
-                                                        "entries",
-                                                        (prev) => {
-                                                            return (
-                                                                prev.concat(
-                                                                    entries
-                                                                    .filter(e => !( prev.includes(e) ))
-                                                                )
-                                                            )
-                                                        }
-                                                    )
-                                                },
-                                            )
+                                            updateEntries(d.name, t.name);
                                         }}
-                                        onClose={() => {
-                                            console.log("closed")
-                                        }}
+                                        // onClose={() => {}}
                                         isSelect={(option) => (
                                             adminPanel.current.entry === option.value
                                         )}
                                         onChange={(option) => {
+
                                             var newValue = option.value
                                             adminSection.setValue("chosenEntries", (prev) => {
                                                 if (prev.includes(newValue))
@@ -211,8 +229,6 @@ var DbManagRight = () => {
                                                     ...p,
                                                     databaseName: d.name,
                                                     tableName: t.name,
-                                                    // TODO: database + table names from entry prototype or data
-
                                                     entry: newValue,
                                                 }
                                             })                                

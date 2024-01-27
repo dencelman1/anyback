@@ -5,13 +5,21 @@ function resolve (
     callback,
     onError,
 ) {
-    onError = window.alert;
+    onError ||= window.alert;
+
+    if (Array.isArray(callInstanse)) {
+        
+        Promise.all( callInstanse )
+        .then( callback )
+        .catch(onError )
+
+    }
     
     if (callInstanse instanceof Promise) {
         return (
             callInstanse
             .then(callback)
-            .catch(onError || callback)
+            .catch(onError)
         )
     }
     

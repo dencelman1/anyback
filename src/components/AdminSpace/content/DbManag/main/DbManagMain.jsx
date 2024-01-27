@@ -22,12 +22,16 @@ var DbManagMain = () => {
                         "entries",
                         "chosenEntries",
                         'currentEntryKey',
+                        "offset",
+                        'limit',
                     ],
                     [
                         (databases || []),
                         [],
                         [],
                         "id",
+                        adminSection.options.defaultValue.offset,
+                        adminSection.options.defaultValue.limit,
                     ],
                     () => {
                         adminSection.finishLoad()

@@ -47,6 +47,7 @@ var useAdminSection = (
     var returnCtx = {
         setValue,
         options: adminPanel.options,
+        adminPanel,
         
         finishLoad() {
             setValue("loaded", true);

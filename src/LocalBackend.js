@@ -84,13 +84,15 @@ function update(
     d, t, value, where,
 ) {
     
-    filterByWhere(getEntries(d, t), where)
-    
-    .forEach(e => {
+    for (var e of filterByWhere(getEntries(d, t), where)) {
         for (var [key, updateValue] of Object.entries(value)) {
+            if ( !( key in e ) )
+                return false;
+            
             e[key] = updateValue;
         }
-    })
+    }
+
     return true
 
 }

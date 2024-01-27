@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import DbManagMain from "./main/DbManagMain";
 import DbManagRight from "./right/DbManagRight";
 

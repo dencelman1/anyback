@@ -7,6 +7,7 @@ import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
 import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
 import useAdminSection from '../../../../../../hooks/useAdminSection';
 import AddEntryForm from './AddEntryForm/AddEntryForm';
+import EntryView from './EntryView/EntryView';
 
 
 var moveEntryKeysWithCtrl = [
@@ -32,10 +33,6 @@ var DbManagEntryView = () => {
         adminSection.setValue("chosenEntries", newValue)
     }
 
-    var setEntries = ( newValue ) => {
-        adminSection.setValue("entries", newValue);
-    }
-    
     var onKeyDown = (event) => {
 
         if (!(event.ctrlKey))
@@ -209,18 +206,22 @@ var DbManagEntryView = () => {
                             return (
                                 <AddEntryForm
                                     style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        paddingTop: '10px'
+                                        paddingTop: '20px',
+                                        width: 'calc(100% - 20px)',
+                                        paddingLeft: '20px',
                                     }}
                                 />
                             )
                         }
 
                         return (
-                            <pre>
-                                {JSON.stringify(currentEntry, null, 4)}
-                            </pre>
+                            <EntryView
+                                entry={currentEntry}
+                                style={{
+                                    width: '100%',
+                                    height: '100%'
+                                }}
+                            />
                         )
 
                     })()

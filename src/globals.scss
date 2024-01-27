@@ -13,6 +13,34 @@ button {
     cursor: pointer;
 }
 
+.defaultFormInputElements {
+    
+    label {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        user-select: none;
+
+        span {
+            min-height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+    }
+    select, input[type="checkbox"], label {
+        cursor: pointer;
+    }
+    input:not(input[type="checkbox"]), select {
+        min-width: 200px;
+        min-height: 30px;
+        border-radius: 5px;
+        outline: 1px solid gray;
+        border: none;
+        padding: 0 5px;
+        
+    }
+}
+
 .default-scroll-bar {
     --width: 20px;
     

@@ -153,7 +153,6 @@ function AnyBackAdminPanel({
       setAdminSections,
     }
     
-    
     Object.setPrototypeOf(adminCtx, adminCtxProto);
     return adminCtx;
 
@@ -189,20 +188,15 @@ export default AnyBackAdminPanel;
 // DbManag:
 
 //   __right:
-//    1 базы данных
-//    2 таблицы
-//    3 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
+//    1 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
 
 //    __main__toolbar:
 //    1 query search, auto update (with debounce);
+//    2 data (расположить по елементам нормально);
+//    3 pagination (( offset + limit ) - ( changeble - all paginations ) ),
 
-//    
 //    __main__entryView:
-//    1 entry view,
-//    2 CRUD one (CRUD) and bulk (CRUD),
-
-//    6 pagination,
-
+//    1 bulk UD;
 
 // + Excalidraw;
 
