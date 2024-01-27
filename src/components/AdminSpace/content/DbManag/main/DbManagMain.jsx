@@ -14,7 +14,7 @@ var DbManagMain = () => {
 
             adminSection.options.getDatabases(),
 
-            ( response ) => (
+            ( databases ) => (
 
                 adminSection.setValue(
                     [
@@ -24,7 +24,7 @@ var DbManagMain = () => {
                         'currentEntryKey',
                     ],
                     [
-                        (response.data || []),
+                        (databases || []),
                         [],
                         [],
                         "id",

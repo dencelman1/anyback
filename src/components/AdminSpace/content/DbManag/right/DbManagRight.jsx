@@ -4,6 +4,7 @@ import './DbManagRight.scss';
 import { useAdminPanel } from '../../../../../hooks/useAdminPanel';
 import Select from '../../../../../base/builtIn/Select/Select';
 import useAdminSection from '../../../../../hooks/useAdminSection';
+import Function_ from '../../../../../base/utils/Function_';
 
 
 
@@ -71,7 +72,8 @@ var DbManagRight = () => {
                                     currentStateName === 'entry'
                                     ? (adminPanel.current?.[currentStateName]?.[adminSection.currentEntryKey])
                                     : (adminPanel.current[currentStateName])
-                                ) || "Unknown"
+                                )
+                                || ( data.placeholder )
                             }
                             
                             onChange={(event) => {
@@ -125,26 +127,66 @@ var DbManagRight = () => {
                             <Select
                                 title={d.name}
                                 
-                                options={d.tables.map(t => (
-                                    <Select
+                                options={d.tables.map(t => {
+
+                                    var entryProto = {
+                                        tableName: t.name,
+                                        databaseName: d.name,
+                                    }
+                                    
+                                    return <Select
                                         title={t.name}
                                         options={
                                             entries
-                                            // .filter(e => (
-                                            //     e.prototype.name === t.name
-                                            //     &&
-                                            //     e.prototype.prototype.name === t.name
-                                            // ))
+                                            .filter(e => (
+                                                e.tableName === t.name
+                                                &&
+                                                e.databaseName === d.name
+                                            ))
+
                                             
-                                            // TODO: filtering
                                             .map(e => ({
                                                 title: e[adminSection.currentEntryKey],
                                                 value: e,
                                             })
                                         )}
                                         onOpen={() => {
-                                            // TODO: load entries
-                                            console.log("opened")
+                                            
+                                            Function_.resolve(
+                                                adminSection.options.read(
+                                                    d.name,
+                                                    t.name,
+
+                                                    // TODO:
+                                                    0, // offset,
+                                                    10, // limit,
+
+                                                ),
+                                                ( entries ) => {
+                                                    
+                                                    entries = entries.map(e => {
+                                                        Object.setPrototypeOf(e, entryProto);
+                                                        return e
+                                                    })
+
+                                                    if (typeof entries === "string")
+                                                        return window.alert(entries)
+                                                    if (! ( Array.isArray(entries) ))
+                                                        return window.alert(`Error of loading ${d.name} -> ${t.name} entries`)
+
+                                                    adminSection.setValue(
+                                                        "entries",
+                                                        (prev) => {
+                                                            return (
+                                                                prev.concat(
+                                                                    entries
+                                                                    .filter(e => !( prev.includes(e) ))
+                                                                )
+                                                            )
+                                                        }
+                                                    )
+                                                },
+                                            )
                                         }}
                                         onClose={() => {
                                             console.log("closed")
@@ -177,7 +219,7 @@ var DbManagRight = () => {
 
                                         }}
                                     />
-                                ))}
+                                })}
                             />
                         ))
 

@@ -8,6 +8,7 @@ import Auth from './api/local/Auth/Auth'
 
 import CacheData from './api/local/CacheData/CacheData'
 import AdminSection from './components/AdminSpace/content/AdminSection'
+import AlertModalWindow from './base/alert/AlertModalWindow'
 
 
 
@@ -169,7 +170,7 @@ function AnyBackAdminPanel({
     <AdminPanelContext.Provider
       value={adminCtx}
     >
-      
+      <AlertModalWindow />
 
       <LoadingBar
         loadingMessage={userData.loadingMessage}

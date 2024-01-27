@@ -203,7 +203,7 @@ var DbManagEntryView = () => {
             >
                 {
                     currentEntry
-                    ? ((() => {
+                    ? (() => {
 
                         if (currentEntry.id === undefined) {
                             return (
@@ -218,15 +218,16 @@ var DbManagEntryView = () => {
                         }
 
                         return (
-                            <pre>{JSON.stringify(currentEntry)}</pre>
+                            <pre>
+                                {JSON.stringify(currentEntry, null, 4)}
+                            </pre>
                         )
 
-                    })())
+                    })()
                     : (<>
                         <AnybackLogo
                             side="200px"
                             style={{
-                                // margin: 'auto',
                                 marginTop: '20px',
                                 opacity: '.6',
                             }}

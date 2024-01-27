@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
+import LocalBackend from './LocalBackend.js'
 
 // default hotkeys:
   // F11 - fullscreen
@@ -22,7 +23,6 @@ import './index.scss'
 var cachedToken = "MY_TOKEN"
 var errorMessage = "Error: invalid password"
 
-
 // what user have:
 // 1 useAdminPanel
 // 2 useAdminSection
@@ -32,12 +32,6 @@ var defaultValue = {
   limit: 10,
   offset: 0,
 }
-var d = new Date().getTime()
-
-var USERS_LENGTH = 150
-
-var testUsers = Array.from({length: USERS_LENGTH}, (_, i) => ({id: d + 1, name: `entry${d + 1}`}))
-
 
 // reqSpeed: 150, // request process speed in ms // TODO: on frontend
 
@@ -58,24 +52,19 @@ var options = {
           tables: [
             {
               name: 'users',
-              count: USERS_LENGTH,
+              count: 150,
               fields: [
 
                 {
                   name: 'name',
                   type: 'string',
-                  maxLength: 100,
-                  minLength: 10,
-                  defaultValue: '', // to -> 10x random -> ----------
-
+                  defaultValue: '',
                 },
 
                 {
                   name: 'age',
                   type: 'number',
-                  minValue: 10,
-                  minValue: 50,
-                  defaultValue: 60, // to -> 50
+                  defaultValue: 60,
                 },
 
                 {
@@ -87,71 +76,100 @@ var options = {
 
               ],
             },
+
+            {
+              name: 'posts',
+              count: 10050,
+              fields: [
+
+                {
+                  name: 'title',
+                  type: 'string',
+                  defaultValue: '',
+                },
+                {
+                  name: 'description',
+                  type: 'string',
+                  defaultValue: '',
+                },
+
+
+              ],
+            },
           ]
         },
       ]
     )
     
-    return {
-      data: databases,
-    }
+    return databases;
   },
 
   read(    
-    database,
-    table,
+    databaseName,
+    tableName,
+
+    offset,
+    limit,
 
     where,
-
-    limit,
-    offset,
   ) {
+    
+    return (
+      LocalBackend.read(databaseName, tableName, where)
+      .slice(offset, ( offset + limit ))
+    )
 
-    return {
-      success: true,
-
-      data: testUsers.slice(offset, ( offset + limit ))
-    }
   },
   update(
-    database,
-    table,
+    databaseName,
+    tableName,
 
     value,
     where,
   ) {
-
+    
     return (
-      {
-        success: true,
-      }
+      LocalBackend
+      .update(databaseName, tableName, value, where)
     )
+
   },
 
   delete(
-    database,
-    table,
+    databaseName,
+    tableName,
 
     where,
   ) {
 
-    return (
-      {
-        success: true,
-      }
-    )
+    var response = {
+      success:
+        LocalBackend.delete_(databaseName, tableName, where),
+    }
+
+    return response.success
   },
 
   create(
-    database,
-    table,
+    databaseName,
+    tableName,
 
     value,
   ) {
     
-    return {
-      success: true,
-    }
+
+    return new Promise((res, rej) => {
+      LocalBackend.create(databaseName, tableName, {
+        id: LocalBackend.generateId(),
+        ...value,
+      });
+      
+      var response = {
+        success: true,
+      }
+
+      res(response.success)
+    })
   },
 
   checkAuth: (
