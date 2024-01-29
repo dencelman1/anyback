@@ -191,6 +191,7 @@ var EntryView = ({
                                 if ( result ) {
                                     editEntry(entry, value);
                                 }
+
                             },
                         )
 
@@ -251,7 +252,9 @@ var EntryView = ({
 
                         Function_.resolve(
 
-                            adminSection.chosenEntries.map(chosenEntry => (
+                            adminSection.chosenEntries
+                            .filter(e => e.id)
+                            .map(chosenEntry => (
                                 
                                 new Promise((res, rej) => (
                                     
@@ -301,7 +304,9 @@ var EntryView = ({
                         
                         Function_.resolve(
 
-                            adminSection.chosenEntries.map(chosenEntry => (
+                            adminSection.chosenEntries
+                            .filter(e => e.id)
+                            .map(chosenEntry => (
                                 
                                 new Promise((res, rej) => (
                                     

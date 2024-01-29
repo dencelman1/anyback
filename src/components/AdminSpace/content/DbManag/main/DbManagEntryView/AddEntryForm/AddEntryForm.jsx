@@ -11,7 +11,9 @@ var AddEntryForm = (
 ) => {
     var adminPanel = useAdminPanel();
     var adminSection = useAdminSection();
+
     var formRef = useRef(null);
+    var creatingCountRef = useRef(null)
 
     if (!( adminSection.databases ))
         return null
@@ -153,32 +155,30 @@ var AddEntryForm = (
                             
                         })
                     }
-                    <div
-                        style={{
-                            marginTop: '20px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: "10px",
-                        }}
-                    >
+                    
+                    <Button
+                        type="submit"
+                        onClick={() => {
 
-                        <Button
-                            type="submit"
-                            onClick={() => {
-
-                                var newEntry = {}, value;
+                            var newEntry = {},
+                                value,
+                                intervalId,
+                                proms = [],
+                                creatingCount = ( creatingCountRef.current.value ),
+                                delay = adminSection.options.defaultValue.reqDelayMs;
+                            
+                            currentTable.fields.forEach(f => {
+                                value = formRef.current.elements[f.name][
+                                    f.type === 'boolean' ? "checked": 'value'
+                                ]
                                 
-                                currentTable.fields.forEach(f => {
-                                    value = formRef.current.elements[f.name][
-                                        f.type === 'boolean' ? "checked": 'value'
-                                    ]
-                                    
-                                    if (f.type === 'number')
-                                        value = parseFloat(value)
+                                if (f.type === 'number')
+                                    value = parseFloat(value)
 
-                                    newEntry [f.name] = value
-                                })
+                                newEntry[f.name] = value
+                            })
 
+                            var create = () => new Promise((res, rej) => (
                                 Function_.resolve(
                                     adminSection.options.create(
                                         currentDatabase.name,
@@ -187,39 +187,90 @@ var AddEntryForm = (
                                         newEntry,
                                     ),
 
-                                    ( result ) => {
-                                        
+                                    ( result ) => ( res( result ) ),
+                                )
+                            ))
+
+                            var onCreated = () => {
+                                adminPanel.setCurrent(p => (
+                                    {
+                                        ...p,
+                                        entry: null,
+                                    }
+                                ));
+
+                                adminSection.setValue("chosenEntries", (prev) => (
+                                    prev.filter(e => e.id)
+                                ))
+                            }
+
+                            window.alert(`Procesing.. Wait ~ ${(( delay / 1000 ) * creatingCount).toFixed(0)}sec`)
+
+                            intervalId = setInterval(() => {
+                                console.log(proms.length, creatingCount);
+
+                                if (proms.length >= creatingCount) {
+
+                                    Promise.all(proms)
+                                    .then(( results ) => {
+
                                         window.alert(
-                                            result
-                                            ? "Entry was created"
-                                            : "Error in entry creating"
+                                            `Created ${results.filter(r => r).length} / ${creatingCount}`
                                         )
 
-                                        adminPanel.setCurrent(p => {
-                                            
-                                            setTimeout(() => {
-                                                adminSection.setValue("chosenEntries", (prev) => (
+                                    })
+                                    .finally(() => onCreated())
+                                    
+                                    return (
+                                        clearInterval( intervalId )
+                                    );
+                                }
 
-                                                    prev.filter(e => e !== p.entry)
-                                                    
-                                                ))
-                                            }, 0)
+                                proms.push(create())
+                            }, delay)
 
-                                            return {
-                                                ...p,
-                                                entry: null,
-                                            };
-                                        })
+                        }}
+                    >
+                        Create
+                    </Button>
+                        
+                    {(() => {
 
-                                    },
-                                )
-                            }}
-                        >
-                            Create
-                        </Button>
+                        var maxValue = (adminSection.options.defaultValue.maxCreateManyEntry || 10),
+                            currentValue;
+                        return (
+                            <label>
+                                <span>* Creating number {"<="} {maxValue}</span>
+                                <input
+                                    type="number"
+                                    className="creatingNumber"
+                                    ref={creatingCountRef}
+                                    min={1}
+                                    defaultValue={1}
+                                    
+                                    onChange={(e) => {
+                                        e.preventDefault();
 
+                                        currentValue = e.target.value;
 
-                    </div>
+                                        if (currentValue === '') {
+                                            return (e.target.value = 0);
+                                        }
+
+                                        if (
+                                            ( parseFloat(currentValue) > maxValue ) ||
+                                            !( /^-?[0-9]+$/.test(currentValue) )
+                                        ) {
+                                            e.target.value = maxValue;
+                                        }
+                                    }}
+                                    maxLength={maxValue.toString().length}
+                                    max={maxValue}
+                                />                                
+                            </label>
+                            
+                        )
+                    })()}
 
                 </>)
             }

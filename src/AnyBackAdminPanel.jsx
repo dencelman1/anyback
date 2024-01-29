@@ -187,9 +187,6 @@ export default AnyBackAdminPanel;
 // TODO:
 // DbManag:
 
-//    __main__entryView:
-//    1 bulk C;
-
 //    __right:
 //    2 pagination (( offset + limit ) - ( changeble - all paginations ) ),
 //    3 data (расположить по елементам нормально);

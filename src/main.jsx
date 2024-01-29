@@ -36,7 +36,10 @@ var options = {
   defaultValue: {
     offset: 0,
     limit: 10,
-    reqDelayMs: 1_000, 
+
+    reqDelayMs: 1_000, // TODO:
+    maxCreateManyEntry: 10,
+
   },
 
   getDatabases() {
