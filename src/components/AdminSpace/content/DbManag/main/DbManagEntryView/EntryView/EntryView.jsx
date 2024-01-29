@@ -213,16 +213,16 @@ var EntryView = ({
                             ),
 
                             ( result ) => {
-                                if (result) {
-                                    deleteEntry( entry );
-                                }
-
                                 window.alert(
                                     result
                                     ? `Entry with id = ${entry.id} was deleted successfull`
                                     : "Error while deleting this entry"
                                 )
                                 
+                                if ( result ) {
+                                    deleteEntry( entry );
+                                }
+
                             },
 
                         )
@@ -242,7 +242,11 @@ var EntryView = ({
                 <br />
                 <Button
                     onClick={() => {
-                        var value = findNewValue();
+                        var value = findNewValue(),
+                            delay,
+                            intervalId,
+                            proms = [],
+                            count = 0;
 
                         if (JSON.stringify(value) === "{}") {
                             return (
@@ -250,49 +254,74 @@ var EntryView = ({
                             )
                         }
 
-                        Function_.resolve(
-
-                            adminSection.chosenEntries
-                            .filter(e => e.id)
-                            .map(chosenEntry => (
-                                
-                                new Promise((res, rej) => (
+                        delay = adminSection.options.defaultValue.reqDelayMs;
+                        
+                        var update = (chosenEntry) => new Promise((res, rej) => (
                                     
-                                    Function_.resolve(
+                            Function_.resolve(
 
-                                        adminSection.options.update(
-                                            chosenEntry.databaseName,
-                                            chosenEntry.tableName,
+                                adminSection.options.update(
+                                    chosenEntry.databaseName,
+                                    chosenEntry.tableName,
 
-                                            value,
-                                            {
-                                                id: chosenEntry.id,
-                                            },
-                                        ),
+                                    value,
+                                    {
+                                        id: chosenEntry.id,
+                                    },
+                                ),
 
-                                        ( result ) => {
-                                            if (result) {
-                                                editEntry(chosenEntry, value);
-                                            }
-                                            
-                                            res(result)
-                                        },
+                                ( result ) => {
+                                    if (result) {
+                                        editEntry(chosenEntry, value);
+                                    }
+                                    
+                                    res(result)
+                                },
 
-                                    )
-                                ))
+                                rej,
 
-                            )),
+                            )
 
-                            ( results ) => {
+                        ))
+
+                        
+                        var onUpdated = () => {
+
+                            Promise.all(proms)
+                            .then(( results ) => {
+
                                 window.alert(
                                     `${Object.keys(value).length} fields was updated`+
                                     ` in ${results.filter(r => r).length} / `+
-                                    `${adminSection.chosenEntries.length}`+
+                                    `${results.length}`+
                                     ` entries successfully`
                                 )
-                            }
-                        )
+                                
+                            })
 
+                        }
+
+                        var editNotify = () => (
+                            window.alert(
+                                `Procesing.. Wait ~ `+
+                                `${((( delay / 1000 ) * adminSection.chosenEntries.length) - count).toFixed(0)}`
+                            )
+                        )
+                        
+                        var editEntries = adminSection.chosenEntries.filter(e => e.id)
+                        editNotify();
+                        
+                        intervalId = setInterval(() => {
+                            if (proms.length >= editEntries.length) {
+                                onUpdated();
+                                
+                                return ( clearInterval(intervalId) )
+                            }
+
+                            proms.push( update( editEntries[ count++ ] ) );
+                            editNotify();
+
+                        }, delay)
                         
                     }}
                 >
@@ -302,39 +331,73 @@ var EntryView = ({
                 <Button
                     onClick={() => {
                         
-                        Function_.resolve(
+                        var deleteEntries = adminSection.setValue("chosenEntries", adminSection.chosenEntries.filter(e => e.id)),
+                            count = 0,
+                            delay = adminSection.options.defaultValue.reqDelayMs,
+                            proms = [],
+                            intervalId;
 
-                            adminSection.chosenEntries
-                            .filter(e => e.id)
-                            .map(chosenEntry => (
-                                
-                                new Promise((res, rej) => (
+                        if (deleteEntries.length === 0) {
+                            return
+                        }
+
+                        var delete_ = (chosenEntry) => new Promise((res, rej) => (
                                     
-                                    Function_.resolve(
-                                        adminSection.options.delete(
-                                            chosenEntry.databaseName,
-                                            chosenEntry.tableName,
-                                            {
-                                                id: chosenEntry.id,
-                                            },
-                                        ),
-                                        ( result ) => {
-                                            if (result) {
-                                                deleteEntry(chosenEntry);
-                                            }
-                                                
-                                            res(result)
-                                        },
-                                        rej,
-                                    )
-                                ))
+                            Function_.resolve(
 
-                            )),
-                            
-                            ( results ) => {
-                                window.alert(`Was deleted ${results.filter(r => r).length} entries successfully`)
-                            }
+                                adminSection.options.delete(
+                                    chosenEntry.databaseName,
+                                    chosenEntry.tableName,
+                                    {
+                                        id: chosenEntry.id,
+                                    },
+                                ),
+
+                                ( result ) => {
+                                    if (result) {
+                                        deleteEntry(chosenEntry);
+                                    }
+                                        
+                                    res(result)
+                                },
+                                rej,
+
+                            )
+
+                        ))
+
+                        var onDeleted = () => {
+
+                            Promise.all(proms)
+                            .then(( results ) => {
+                                window.alert(
+                                    `Was deleted ${results.filter(r => r).length} / ${results.length} entries successfully`
+                                )
+                            })
+
+                        }
+
+                        var editNotify = () => (
+                            window.alert(
+                                `Procesing.. Wait ~ `+
+                                `${((( delay / 1000 ) * deleteEntries.length) - count).toFixed(0)}`
+                            )
                         )
+                        
+                        editNotify();
+                        
+                        intervalId = setInterval(() => {
+                            if (proms.length >= deleteEntries.length) {
+                                onDeleted();
+                                
+                                return ( clearInterval(intervalId) )
+                            }
+
+                            proms.push( delete_( deleteEntries[ count++ ] ) );
+                            editNotify();
+
+                        }, delay)
+                        
 
                     }}
                 >

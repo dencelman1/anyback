@@ -59,7 +59,7 @@ var AddEntryForm = (
             ref={formRef}
         >
             <select
-                defaultValue={adminPanel.current.databaseName || "Unknown"}
+                value={adminPanel.current.databaseName || "Unknown"}
                 onChange={(e) =>
                 
                     adminPanel.setCurrent(p => ({
@@ -88,8 +88,13 @@ var AddEntryForm = (
         
             
             <select
-                defaultValue={adminPanel.current.tableName || "Unknown"}
+                value={
+                    currentDatabase
+                    ? (adminPanel.current.tableName || "Unknown")
+                    : ("Unknown")
+                }
                 disabled={ ! currentDatabase }
+                
                 onChange={(e) => adminPanel.setCurrent(p => ({
                     ...p,
                     tableName: ( e.target.value === "Unknown" ? "" : e.target.value )
@@ -238,6 +243,8 @@ var AddEntryForm = (
 
                         var maxValue = (adminSection.options.defaultValue.maxCreateManyEntry || 10),
                             currentValue;
+
+                        var getNullValues = () => ( ["", "0"] )
                         return (
                             <label>
                                 <span>* Creating number {"<="} {maxValue}</span>
@@ -251,18 +258,21 @@ var AddEntryForm = (
                                     onChange={(e) => {
                                         e.preventDefault();
 
-                                        currentValue = e.target.value;
+                                        e.target.value = (
+                                            currentValue = e.target.value.replace(/^0+/, '')
+                                        );
 
-                                        if (currentValue === '') {
+                                        if (( getNullValues() ).includes(currentValue)) {
                                             return (e.target.value = 0);
                                         }
-
+                                        
                                         if (
                                             ( parseFloat(currentValue) > maxValue ) ||
                                             !( /^-?[0-9]+$/.test(currentValue) )
                                         ) {
                                             e.target.value = maxValue;
                                         }
+
                                     }}
                                     maxLength={maxValue.toString().length}
                                     max={maxValue}

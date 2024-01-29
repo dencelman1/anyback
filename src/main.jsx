@@ -37,7 +37,7 @@ var options = {
     offset: 0,
     limit: 10,
 
-    reqDelayMs: 1_000, // TODO:
+    reqDelayMs: 50, // TODO:
     maxCreateManyEntry: 10,
 
   },

@@ -180,13 +180,28 @@ var DbManagRight = () => {
                     title="Data"
                     options={
                         databases
-                        .map(d => (
-                            <Select
+                        .map(d => {
+                            
+                            var onCloseOpen = (callback) => {
+                                adminPanel.setCurrent(p => {
+                                    if (p.entry?.id)
+                                        return p;
+                                    
+                                    return callback(p)
+                                })
+                            }
+
+                            var onDbCloseOpen = () => onCloseOpen(p => ({...p, databaseName: d.name}));
+                                
+                            return <Select
                                 title={d.name}
+                                
+                                onOpen={onDbCloseOpen}
+                                onClose={onDbCloseOpen}
                                 
                                 options={d.tables.map(t => {
 
-                                    
+                                    var onTableCloseOpen = () => onCloseOpen(p => ({...p, tableName: t.name}))    
                                     
                                     return <Select
                                         title={t.name}
@@ -197,17 +212,18 @@ var DbManagRight = () => {
                                                 &&
                                                 e.databaseName === d.name
                                             ))
-
-                                            
                                             .map(e => ({
                                                 title: e[ adminSection.currentEntryKey ],
                                                 value: e,
                                             })
                                         )}
+
                                         onOpen={() => {
+                                            onTableCloseOpen();
                                             updateEntries(d.name, t.name);
                                         }}
-                                        // onClose={() => {}}
+                                        onClose={onTableCloseOpen}
+
                                         isSelect={(option) => (
                                             adminPanel.current.entry === option.value
                                         )}
@@ -237,7 +253,7 @@ var DbManagRight = () => {
                                     />
                                 })}
                             />
-                        ))
+                        })
 
                     }
                 />

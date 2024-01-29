@@ -42,6 +42,8 @@ var useAdminSection = (
                 })
             )
         })
+
+        return value;
     }
         
     var returnCtx = {
