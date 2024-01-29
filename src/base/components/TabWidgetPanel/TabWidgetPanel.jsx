@@ -10,7 +10,11 @@ var TabWidgetPanel = ({
     onClose,
     isSelectedEntry,
     flexDirection,
+
+    defaultTitle,
 }) => {
+
+    defaultTitle ||= "....";
     flexDirection ||= "row";
 
     var selectedEntryRef = useRef({})
@@ -62,7 +66,7 @@ var TabWidgetPanel = ({
                     >
                         
                         <span>
-                            {entry[entryTitleKey]}
+                            {entry[entryTitleKey] || defaultTitle}
                         </span>
 
                         <CrossIcon

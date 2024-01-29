@@ -185,6 +185,8 @@ var DbManagEntryView = () => {
                         });
                     }}
                     isSelectedEntry={(entry) => currentEntry === entry}
+
+                    defaultTitle="( New )"
                 />
             }
             </div>  
