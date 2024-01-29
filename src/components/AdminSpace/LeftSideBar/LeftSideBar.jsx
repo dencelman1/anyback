@@ -3,6 +3,7 @@ import { OpeningLever } from '../../../base/components'
 import Text from '../../../base/utils/Text'
 import { useAdminPanel } from '../../../hooks/useAdminPanel'
 import LogOutIcon from '../../svg/LogOut/LogOut'
+import SettingsIcon from '../../svg/Settings/Settings'
 import './LeftSideBar.scss'
 
 
@@ -22,9 +23,10 @@ var LeftSideBar = () => {
             )}
             
         >
-            <div className="sectionButtons">
+            <div className="sectionButtons default-scroll-bar column thin">
                 {
-                    sections.map((section, i) => (
+                    sections
+                    .map((section, i) => (
                         
                         <Button
                             key={i}
@@ -59,19 +61,35 @@ var LeftSideBar = () => {
                 }
             />
 
-            <Button
-                onClick={() => adminPanel.logout(
-                    () => adminPanel.options.onLogout()
-                )}
-                className="logoutButton"
-                
+            <div
+                className="appButtons"
             >
-                <LogOutIcon side={40} />
-                <span
+
+                <Button
+                    onClick={() => adminPanel.logout(
+                        () => adminPanel.options.onLogout()
+                    )}
+                    className="logoutButton"
+                    
                 >
-                    Log out
-                </span>
-            </Button>
+                    <LogOutIcon
+                        side={40}
+                    />
+
+                    <span>
+                        Log out
+                    </span>
+                </Button>
+
+                <Button
+                    className="settingsButton"
+                >
+                    <SettingsIcon
+                        side={"40px"}
+                    />
+                </Button>
+
+            </div>
 
         </div>
     )

@@ -55,7 +55,6 @@ var EntryView = ({
         e.tableName === entry.tableName
     )
     
-    // TODO: crud states entries to useAdminSection
     function editEntry (entry, value) {
         var updatedEntry = {
             ...entry,
@@ -218,7 +217,7 @@ var EntryView = ({
                                     ? `Entry with id = ${entry.id} was deleted successfull`
                                     : "Error while deleting this entry"
                                 )
-                                
+
                                 if ( result ) {
                                     deleteEntry( entry );
                                 }
@@ -240,6 +239,7 @@ var EntryView = ({
                 </Button>
 
                 <br />
+
                 <Button
                     onClick={() => {
                         var value = findNewValue(),

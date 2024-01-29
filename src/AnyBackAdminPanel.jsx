@@ -189,11 +189,15 @@ export default AnyBackAdminPanel;
 
 //    __right:
 //    2 pagination (( offset + limit ) - ( changeble - all paginations ) ),
+
 //    3 data (расположить по елементам нормально);
+// size, isEmpty, tableEntryCount, reqSpeed,
+
 //    4 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
 
 //    __main__toolbar:
 //    1 query search, auto update (with debounce);
+//    - settings,
 
 // + Excalidraw;
 

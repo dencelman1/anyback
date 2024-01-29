@@ -28,17 +28,15 @@ var errorMessage = "Error: invalid password"
 // 2 useAdminSection
 // 3 options // + give
 
-// reqSpeed: 150, // request process speed in ms // TODO: on frontend
-
 var options = {
   authTitle: 'Log in',
   
   defaultValue: {
     offset: 0,
-    limit: 10,
+    limit: 20,
 
-    reqDelayMs: 50, // TODO:
-    maxCreateManyEntry: 10,
+    reqDelayMs: 50,
+    maxCreateManyEntry: 20,
 
   },
 

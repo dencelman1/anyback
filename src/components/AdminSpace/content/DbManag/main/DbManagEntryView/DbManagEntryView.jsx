@@ -161,7 +161,12 @@ var DbManagEntryView = () => {
                     entryTitleKey={currentEntryKey}
 
                     onSelect={(entry, event) => {
-                        adminPanel.setCurrent(p => ({...p, entry }));
+                        adminPanel.setCurrent(p => ({
+                            ...p,
+                            entry,
+                            databaseName: entry.databaseName,
+                            tableName: entry.tableName,
+                        }));
                     }}
 
                     onClose={(entry, event) => {

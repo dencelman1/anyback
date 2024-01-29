@@ -8,36 +8,54 @@ import ArrowIcon from '../../../components/svg/Arrow/Arrow';
 
 var Select = (
 
-    props
+    {
+        title,
+        options,
+
+
+        isSelect,
+        style,
+        onOpen,
+        onClose,
+        onChange,
+        ...props
+    }
 
 ) => {
-    
+    style ||= {},
+    options ||= [];
+    title ||= "";
+
+
     var [select, setSelect] = useState({
         opened: false,
         currentOption: null,
     })
     var newValue, closeOpenHandler;
 
-    var isSelect = props.isSelect || ((option) => {
+    var isSelect = isSelect || ((option) => {
         return select.currentOption === option
     })
 
     return (
         <div
+            {...props}
+            style={style}
             className={(
                 "Select" +
-                (select.opened ? "": " closed")
+                (select.opened ? "": " closed")+
+                (props.className ? ` ${props.className}`: "")
             )}
         >
             <div
-                title={props.title}
+                title={title}
                 className='title'
                 onClick={() => (
                     setSelect(p => {
 
                         newValue = !( p.opened );
 
-                        (closeOpenHandler = (newValue ? props.onOpen : props.onClose)) && closeOpenHandler();
+                        (closeOpenHandler = (newValue ? onOpen : onClose)) && closeOpenHandler();
 
                         return {
                             ...p,
@@ -51,7 +69,7 @@ var Select = (
                 />
 
                 <span>
-                    {props.title}
+                    {title}
                 </span>
             </div>
 
@@ -59,7 +77,7 @@ var Select = (
                 className="options"
             >
                 {
-                    props.options.map((o, key) => {
+                    options.map((o, key) => {
                         
                         if ("props" in o) {
                             return o
@@ -78,8 +96,8 @@ var Select = (
                                     event.stopPropagation();
 
                                     setSelect(p => ({...p, currentOption: o}))
-                                    if (props.onChange){
-                                        props.onChange(o);
+                                    if (onChange){
+                                        onChange(o);
                                     }
                                     
                                 }}

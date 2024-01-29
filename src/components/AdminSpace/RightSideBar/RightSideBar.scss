@@ -2,8 +2,8 @@
 .rightSideBar {
     height: 100%;
     width: 20%;
-    padding-right: 10px;
-    margin-left: auto;
+    padding-right: 15px;
+    
     position: relative;
 
     display: flex;
@@ -21,7 +21,7 @@
         top: 50%;
         transform: translate(0, -50%);
 
-        height: 90%;
+        height: 95%;
         border-left: 2px solid gray;
         border-radius: 100%;
     }
@@ -34,7 +34,7 @@
             display: none;
         }
         border-left: none;
-        margin-right: calc(-20% + 30px);
+        margin-right: calc(-20% + 20px);
         
         outline: none;
     }
@@ -42,7 +42,7 @@
     .openingLever {
         top: 50%;
         transform: translate(0, -50%);
-        left: 5px;
+        left: 0;
         visibility: visible;
     }
 }

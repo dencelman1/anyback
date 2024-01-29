@@ -175,90 +175,91 @@ var DbManagRight = () => {
                 })}
             </p>
             
-            {
-                <Select
-                    title="Data"
-                    options={
-                        databases
-                        .map(d => {
+            
+            <Select
+                title="Data"
+                className="dataSelect default-scroll-bar column "
+
+                options={
+                    databases
+                    .map(d => {
+                        
+                        var onCloseOpen = (callback) => {
+                            adminPanel.setCurrent(p => {
+                                if (p.entry?.id)
+                                    return p;
+                                
+                                return callback(p)
+                            })
+                        }
+
+                        var onDbCloseOpen = () => onCloseOpen(p => ({...p, databaseName: d.name}));
                             
-                            var onCloseOpen = (callback) => {
-                                adminPanel.setCurrent(p => {
-                                    if (p.entry?.id)
-                                        return p;
-                                    
-                                    return callback(p)
-                                })
-                            }
+                        return <Select
+                            title={d.name}
+                            
+                            onOpen={onDbCloseOpen}
+                            onClose={onDbCloseOpen}
+                            
+                            options={d.tables.map(t => {
 
-                            var onDbCloseOpen = () => onCloseOpen(p => ({...p, databaseName: d.name}));
+                                var onTableCloseOpen = () => onCloseOpen(p => ({...p, tableName: t.name}))    
                                 
-                            return <Select
-                                title={d.name}
-                                
-                                onOpen={onDbCloseOpen}
-                                onClose={onDbCloseOpen}
-                                
-                                options={d.tables.map(t => {
+                                return <Select
+                                    title={t.name}
+                                    options={
+                                        entries
+                                        .filter(e => (
+                                            e.tableName === t.name
+                                            &&
+                                            e.databaseName === d.name
+                                        ))
+                                        .map(e => ({
+                                            title: e[ adminSection.currentEntryKey ],
+                                            value: e,
+                                        })
+                                    )}
 
-                                    var onTableCloseOpen = () => onCloseOpen(p => ({...p, tableName: t.name}))    
-                                    
-                                    return <Select
-                                        title={t.name}
-                                        options={
-                                            entries
-                                            .filter(e => (
-                                                e.tableName === t.name
-                                                &&
-                                                e.databaseName === d.name
-                                            ))
-                                            .map(e => ({
-                                                title: e[ adminSection.currentEntryKey ],
-                                                value: e,
-                                            })
-                                        )}
+                                    onOpen={() => {
+                                        onTableCloseOpen();
+                                        updateEntries(d.name, t.name);
+                                    }}
+                                    onClose={onTableCloseOpen}
 
-                                        onOpen={() => {
-                                            onTableCloseOpen();
-                                            updateEntries(d.name, t.name);
-                                        }}
-                                        onClose={onTableCloseOpen}
+                                    isSelect={(option) => (
+                                        adminPanel.current.entry === option.value
+                                    )}
+                                    onChange={(option) => {
 
-                                        isSelect={(option) => (
-                                            adminPanel.current.entry === option.value
-                                        )}
-                                        onChange={(option) => {
+                                        var newValue = option.value
+                                        adminSection.setValue("chosenEntries", (prev) => {
+                                            if (prev.includes(newValue))
+                                                return prev
 
-                                            var newValue = option.value
-                                            adminSection.setValue("chosenEntries", (prev) => {
-                                                if (prev.includes(newValue))
-                                                    return prev
+                                            return [...prev, newValue]
+                                        })
 
-                                                return [...prev, newValue]
-                                            })
+                                        adminPanel.setCurrent((p) => {
+                                            if (p.entry === newValue)
+                                                return p
 
-                                            adminPanel.setCurrent((p) => {
-                                                if (p.entry === newValue)
-                                                    return p
+                                            return {
+                                                ...p,
+                                                databaseName: d.name,
+                                                tableName: t.name,
+                                                entry: newValue,
+                                            }
+                                        })                                
 
-                                                return {
-                                                    ...p,
-                                                    databaseName: d.name,
-                                                    tableName: t.name,
-                                                    entry: newValue,
-                                                }
-                                            })                                
+                                    }}
+                                />
+                            })}
+                        />
+                    })
 
-                                        }}
-                                    />
-                                })}
-                            />
-                        })
-
-                    }
-                />
-            }
-
+                }
+            />
+            
         </div>
     )
 }

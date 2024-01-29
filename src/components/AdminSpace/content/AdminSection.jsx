@@ -64,7 +64,7 @@ var data = [
                     opacity: '.6',
                 }}
             />
-        ), // TODO: for custom sections
+        ),
         
         hotkeys: [
             { keys: ["Ctrl", "Shift"], desc: 'To previous', },
