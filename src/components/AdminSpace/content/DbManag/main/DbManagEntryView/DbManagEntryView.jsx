@@ -186,7 +186,19 @@ var DbManagEntryView = () => {
                     }}
                     isSelectedEntry={(entry) => currentEntry === entry}
 
-                    defaultTitle="( New )"
+                    defaultTitle={
+                        <span
+                            style={{
+                                color: 'white',
+                                background: 'gray',
+                                padding: '0 5px',
+                                borderRadius: '5px'
+
+                            }}
+                        >
+                            {">_"}
+                        </span>
+                    }
                 />
             }
             </div>  
