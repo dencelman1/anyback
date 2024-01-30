@@ -205,17 +205,16 @@ var AddEntryForm = (
                                 ));
 
                                 adminSection.setValue("chosenEntries", (prev) => (
-                                    prev.filter(e => e.id)
+                                    prev.filter( ( e ) => ( e.id ) )
                                 ))
                             }
 
                             window.alert(`Procesing.. Wait ~ ${(( delay / 1000 ) * creatingCount).toFixed(0)}sec`)
 
                             intervalId = setInterval(() => {
-                                console.log(proms.length, creatingCount);
-
+                                
                                 if (proms.length >= creatingCount) {
-
+                                    
                                     Promise.all(proms)
                                     .then(( results ) => {
 
@@ -231,7 +230,7 @@ var AddEntryForm = (
                                     );
                                 }
 
-                                proms.push(create())
+                                proms.push( create() )
                             }, delay)
 
                         }}

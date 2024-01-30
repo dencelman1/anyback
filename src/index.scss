@@ -32,6 +32,15 @@ body {
     height: 100%;
 
   }
+
+  input {
+    border: none;
+    outline: 1px solid gray;
+    
+    &:focus {
+      outline: 1px solid black;
+    }
+  }
   
 
 

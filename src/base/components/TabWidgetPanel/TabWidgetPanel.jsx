@@ -65,7 +65,9 @@ var TabWidgetPanel = ({
                         )}
                     >
                         
-                        <span>
+                        <span
+                            title={entry[entryTitleKey]}
+                        >
                             {entry[entryTitleKey] || defaultTitle}
                         </span>
 

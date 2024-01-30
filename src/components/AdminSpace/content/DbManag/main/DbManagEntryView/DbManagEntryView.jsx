@@ -180,7 +180,11 @@ var DbManagEntryView = () => {
 
                             return {
                                 ...p,
-                                entry: isDeletingChosen ? (newChosenEntries[0]): (currentEntry),
+                                entry:
+                                    isDeletingChosen
+                                    ? ( newChosenEntries[0] )
+                                    : ( currentEntry )
+                                ,
                             }
                         });
                     }}
@@ -192,9 +196,10 @@ var DbManagEntryView = () => {
                                 color: 'white',
                                 background: 'gray',
                                 padding: '0 5px',
-                                borderRadius: '5px'
-
+                                margin: '0 5px',
+                                borderRadius: '4px',
                             }}
+                            title="Enter the data"
                         >
                             {">_"}
                         </span>
