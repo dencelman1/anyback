@@ -1,6 +1,7 @@
-    import { useAdminPanel } from '../../hooks/useAdminPanel';
+import { useAdminPanel } from '../../hooks/useAdminPanel';
 import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';
+import SettingsModalBlock from './SettingsModalBlock/SettingsModalBlock';
 import {
     RightSideBar,
     Main, 
@@ -11,7 +12,11 @@ import {
 
 var AdminSpace = () => {
     var adminPanel = useAdminPanel()
-    var authed = adminPanel.userData.authed
+
+    var authed = adminPanel.userData.authed;
+
+    var settingsOpened = adminPanel.opened.settings;
+    var isSectionChosen = adminPanel.isSectionChosen();
     
     return (
         <div 
@@ -24,12 +29,30 @@ var AdminSpace = () => {
                 authed
                 ? (<>
                     <LeftSideBar />
+
+                    <SettingsModalBlock
+                        isOpened={settingsOpened}
+                        style={{
+                            minWidth:
+                                ( !isSectionChosen && settingsOpened )
+                                ? "50%"
+                                : (
+                                    ""
+                                )
+                        }}
+                    />
+
                     {
-                        adminPanel.isSectionChosen() && (
+                        ( isSectionChosen ) && (
                             <>
-                                <Main />
+                                <Main
+                                    style={{
+                                        display: settingsOpened ? "none": '',
+                                    }}
+                                />
                                 <RightSideBar />
                             </>
+
                         )
                     }
                 </>)

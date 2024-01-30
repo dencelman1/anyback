@@ -45,6 +45,7 @@ function AnyBackAdminPanel({
       current.section ? CacheData.opened__leftSideBar: true
     ),
     rightSideBar: Boolean(CacheData.opened__rightSideBar),
+    settings: CacheData.opened__settings || false,
   })
 
   
@@ -54,6 +55,7 @@ function AnyBackAdminPanel({
 
   useEffect(() => {
     CacheData.sectionIndex = adminSections.indexOf(current.section)
+    
   }, [
     current.section,
   ])
@@ -61,6 +63,7 @@ function AnyBackAdminPanel({
   useEffect(() => {
     CacheData.opened__leftSideBar = opened.leftSideBar;
     CacheData.opened__rightSideBar = opened.rightSideBar;
+    CacheData.opened__settings = opened.settings;
 
   }, [
     opened,

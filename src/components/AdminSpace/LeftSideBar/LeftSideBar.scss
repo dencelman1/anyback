@@ -9,25 +9,22 @@
     position: relative;
     user-select: none;
 
-    // justify-content: center;
-
     transition: .1s width, .1s box-shadow, .2s margin, .1s visibility;
     
     --leftSideBar__width: 100%;
     --leftSideBar__background-color: none;
-    --sectionButtons__flex-direction: row;
     --openingLever__display: none;
     
     width: var(--leftSideBar__width);
     background-color: var(--leftSideBar__background-color);
 
     .appButtons {
-        margin: auto 0 20px 15px;
+        margin: auto 0 20px 0;
 
         display: flex;
         flex-direction: row;
 
-        width: fit-content;
+        width: 100%;
         height: fit-content;
 
         align-items: center;
@@ -36,6 +33,8 @@
         .settingsButton {
             line-height: 40px;
             margin-left: 10px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
         }
 
         .logoutButton {
@@ -67,9 +66,13 @@
 
         .sectionButtons {
             width: 85%;
+
+            .sectionButton {
+                width: 100%;
+            }
         }
 
-        --sectionButtons__flex-direction: column;
+        
         --leftSideBar__width: 20%;
         --openingLever__display: block;
         visibility: visible;
@@ -114,10 +117,13 @@
         margin-left: 5px;
 
         padding-left: 5px;
+        padding-top: 20px;
+
         overflow: auto;
 
         display: flex;
-        flex-direction: var(--sectionButtons__flex-direction);
+        flex-direction: column;
+        justify-content: center;
 
         height: fit-content;
         width: 100%;
@@ -125,13 +131,19 @@
         gap: 5px;
         direction: rtl;
 
+
         .sectionButton {
+            transition: .2s width;
             overflow: hidden;
             text-overflow: ellipsis;
             direction: ltr;
+            width: 50%;
+            margin: 0 auto;
+            
 
             white-space: nowrap;
             min-height: 40px;
+
         }
 
     }

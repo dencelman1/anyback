@@ -1,0 +1,31 @@
+
+
+.SettingsModalBlock {
+    flex: 1;
+    overflow: auto;
+    transition: 1s width;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+
+    background-color: white;
+
+    border-radius: 5px;
+
+    box-shadow: inset 0 0 10px gray;
+    
+    .title {
+        height: 1.5em;
+        line-height: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            margin-left: 10px;
+            
+        }
+
+    }
+}

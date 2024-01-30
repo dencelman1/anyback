@@ -82,7 +82,16 @@ var LeftSideBar = () => {
                 </Button>
 
                 <Button
-                    className="settingsButton"
+                    className={(
+                        "settingsButton" +
+                        (adminPanel.opened.settings ? " current": '')
+                    )}
+                    onClick={() => adminPanel.setOpened(p => {
+                        return {
+                            ...p,
+                            settings: !( p.settings ),
+                        }
+                    })}
                 >
                     <SettingsIcon
                         side={"40px"}

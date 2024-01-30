@@ -7,7 +7,6 @@ var AnalyticsMain = () => {
 
     useEffect(() => {
         adminSection.finishLoad();
-        
     }, [])
 
     return (
