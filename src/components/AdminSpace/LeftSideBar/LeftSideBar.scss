@@ -25,10 +25,12 @@
         flex-direction: row;
 
         width: 100%;
+        overflow: hidden;
         height: fit-content;
 
         align-items: center;
         justify-content: center;
+        
 
         .settingsButton {
             line-height: 40px;

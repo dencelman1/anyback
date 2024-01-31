@@ -44,12 +44,13 @@ function AnybackLogo({
                 src="/anyback_logo.png"
                 className="AnybackLogo"
                 alt="The official logo of the open source admin panel called AnyBack"
-
+                
                 style={{
                     ...(href ? {}: (props.style || {})),
                     width: side,
                     height: side,
                     userSelect: 'none',
+                    pointerEvents: "none",
                 }}
             />
             

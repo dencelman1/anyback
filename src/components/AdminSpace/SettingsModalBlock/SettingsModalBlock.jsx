@@ -3,6 +3,17 @@ import SettingsIcon from '../../svg/Settings/Settings';
 import './SettingsModalBlock.scss';
 
 
+var NotIndicatedSettings = () => (
+    <div
+        style={{
+            padding: '10px',
+            textAlign: 'center',
+        }}
+    >
+        Not indicated
+    </div>
+)
+
 var SettingsModalBlock = ({
     isOpened,
     ...props
@@ -10,13 +21,23 @@ var SettingsModalBlock = ({
     var adminPanel = useAdminPanel();
     var currentSection = adminPanel.current.section;
 
+    // alert(JSON.stringify(
+    //     Object.getPrototypeOf(currentSection)
+    //     ,null, 2))
+
+    var SettingsContent =
+        ( currentSection?.element?.settings ) ||
+        ( NotIndicatedSettings )
     
     return (
         <div
             {...props}
+
             className={(
-                "SettingsModalBlock default-scroll-bar row column"
+                "SettingsModalBlock"
+                + ( isOpened ? ' opened' : '' )
             )}
+            
             style={{
                 ...(props.style || {}),
                 display: isOpened ? "flex": 'none'
@@ -27,13 +48,20 @@ var SettingsModalBlock = ({
             >
                 {
                     currentSection
-                    ? (`Settings ${currentSection.name}`)
-                    : "Global settings"
+                    ? ( `Settings ${ currentSection?.name || "is unknown" }` )
+                    : ( "Global settings" )
                 }
                 <SettingsIcon
                     side="1.5em"
                 />
             </h2>
+            
+            <div
+                className="SettingsContent default-scroll-bar column row"
+            >
+                <SettingsContent />
+            </div>
+            
         </div>
     )
 }

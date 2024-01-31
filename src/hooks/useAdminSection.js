@@ -8,13 +8,16 @@ var useAdminSection = (
     var adminPanel = useAdminPanel();
     var section = adminPanel.current.section;
     
-    if (!section)
-        return null;
-
-    
-
     function setValue (key, value, cb) {
         var i;
+
+        var defineNewValue = ( s, value ) => (
+
+            ( value instanceof Function )
+            ? value( s[key] )
+            : value
+
+        )
 
         adminPanel.setAdminSections(prev => {
 
@@ -28,14 +31,11 @@ var useAdminSection = (
                     
                     if (Array.isArray(key)) {
                         for (i = 0; i < key.length; i++) {
-                            s[key[i]] = value[i]
+                            s[key[i]] = defineNewValue(s, value[i])
                         }
                     }
-                    else if (value instanceof Function) {
-                        s[key] = value(s[key])
-                    }
                     else {
-                        s[key] = value
+                        s[key] = defineNewValue(s, value)
                     }
 
                     return s;
@@ -49,6 +49,9 @@ var useAdminSection = (
     var returnCtx = {
         setValue,
         options: adminPanel.options,
+
+        isSectionChosen: Boolean( section ),
+
         adminPanel,
         
         finishLoad() {
@@ -72,9 +75,11 @@ var useAdminSection = (
 
     }
 
-    Object.setPrototypeOf(
-        returnCtx, section,
-    )
+    if (section) {
+        Object.setPrototypeOf(
+            returnCtx, section,
+        )
+    }
 
     return returnCtx
 }

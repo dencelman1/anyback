@@ -1,0 +1,67 @@
+
+
+.CheckBox {
+    --lineHeight: 20px;
+
+    display: flex;
+    flex-direction: row;
+    line-height: var(--lineHeight);
+    margin: 5px 0;
+
+    --transition__delay: .5s;
+
+
+    &.checked {
+        .ballSpace {
+            background-color: greenyellow;
+
+            .ball {
+                background-color: green;
+                margin-left: auto;
+                
+            }
+        }
+
+        
+    }
+
+    .mainLabel {
+        cursor: default;
+        margin: 0 10px;
+        line-height: var(--lineHeight);
+    }
+
+    input {
+        display: none;
+    }
+
+
+    .ballSpace {
+        background-color: gray;
+        margin-right: 1px;
+        border-radius: 4px;
+        width: 35px;
+        height: var(--lineHeight);
+        line-height: var(--lineHeight);
+
+        transition: background-color var(--transition__delay);
+
+        cursor: pointer;
+
+        .ball {
+            border-radius: 10px;
+            background-color: red;
+            width: 40%;
+            height: var(--lineHeight);
+            border-radius: 3px;
+            margin-left: 0;
+            opacity: 1;
+
+            transition: margin-left 1s, opacity .1s;
+
+            &:hover {
+                opacity: .7;
+            }
+        }
+    }
+}

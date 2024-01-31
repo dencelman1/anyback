@@ -1,11 +1,8 @@
-import styles from './AlertModalWindow.module.scss';
+import './AlertModalWindow.scss';
 import React, { useEffect, useState } from 'react';
 
 
-function AlertModalWindow({
-    children,
-    ...props
-}) {
+function AlertModalWindow() {
     var [text, setText] = useState("")
 
     function alert(message) {
@@ -15,6 +12,8 @@ function AlertModalWindow({
         }
 
         setText && setText(message)
+
+        return message;
     }
     
     useEffect(() => {
@@ -27,18 +26,18 @@ function AlertModalWindow({
         &&
         
         <div
-            className={styles.AlertModalWindow}
+            className="AlertModalWindow"
         >
             <div
-                className={styles.contentModal}
+                className="contentModal"
             >
                 <span
-                    className={styles.alertText}
+                    className='alertText'
                 >
                     {text}
                 </span>
                 <button
-                    className={styles.okButton}
+                    className='okButton'
                     onClick={() => ( alert("") )}
                 >
                     OK

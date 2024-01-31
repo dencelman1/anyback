@@ -1,13 +1,17 @@
 import { useEffect,  } from 'react';
-import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
 import './DbManagMain.scss';
-import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import Function_ from '../../../../../base/utils/Function_';
+import CacheData from '../../../../../api/local/CacheData/CacheData';
+import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
+import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
+
 
 
 var DbManagMain = () => {
     var adminSection = useAdminSection();
+
+    Function_
     
     useEffect(() => {
         Function_.resolve(
@@ -24,15 +28,27 @@ var DbManagMain = () => {
                         'currentEntryKey',
                         "offset",
                         'limit',
+                        "useSearchDebounce",
                     ],
                     [
-                        (databases || []),
+                        ( databases || [] ),
                         [],
                         [],
                         "id",
                         adminSection.options.defaultValue.offset,
                         adminSection.options.defaultValue.limit,
+
+                        (() => {
+                            var v = CacheData.searchDebounceDelay;
+                            
+                            if ( v === undefined ) {
+                                CacheData.searchDebounceDelay =
+                                    ( v = adminSection.options.defaultValue.searchDebounceDelay );
+                            }
+                            return v;
+                        })(),
                     ],
+
                     () => {
                         adminSection.finishLoad()
                     }

@@ -38,6 +38,8 @@ var options = {
     reqDelayMs: 50,
     maxCreateManyEntry: 20,
 
+    searchDebounceDelay: 1000,
+
   },
 
   getDatabases() {

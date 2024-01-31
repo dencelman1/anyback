@@ -1,10 +1,10 @@
 
 
-function resolve (
+var resolve = (
     callInstanse,
     callback,
     onError,
-) {
+) => {
     onError ||= window.alert;
 
     if (Array.isArray(callInstanse)) {

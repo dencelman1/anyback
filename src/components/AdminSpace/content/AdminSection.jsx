@@ -80,7 +80,6 @@ var data = [
             firstLoad: 'First load wait, please',
         },
         
-
     },
 
     {
