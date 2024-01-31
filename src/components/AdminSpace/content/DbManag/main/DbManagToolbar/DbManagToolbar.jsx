@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 import './DbManagToolbar.scss';
-import useDebounce from '../../../../../../hooks/useDebounceState';
+import useDebounce from '../../../../../../hooks/useDebounce';
 import useAdminSection from '../../../../../../hooks/useAdminSection';
+import CheckMarkIcon from '../../../../../svg/CheckMark/CheckMark';
+import CrossIcon from '../../../../../svg/Cross/Cross';
+import Function_ from '../../../../../../base/utils/Function_';
 
 
 var DbManagToolbar = () => {
     var adminSection = useAdminSection();
+    var adminPanel = adminSection.adminPanel;
+
 
     var [searchInput, setSearchInput] = useState({
         value: '',
@@ -14,55 +19,112 @@ var DbManagToolbar = () => {
         queryObj: null,
     });
 
+    var getQueryObj = ( value ) => {
+            
+        return (
+            JSON.parse(
+                JSON.stringify(
+
+                    eval(
+                        ` ( { ${value} } )`
+                    ),
+
+                    null,
+                    0
+                )
+            )
+        )
+    }
+
+    var setQueryObj = ( value ) => {
+
+        new Promise((res, rej) => {
+
+            res( getQueryObj( value ) );
+
+        })
+        .then((queryObj) => {
+
+            adminSection.setValue("queryObj", queryObj);
+            
+            setSearchInput(p => ({
+                ...p,
+                right: true,
+                queryObj,
+            }))
+
+        })
+        .catch(
+            () => {
+
+                setSearchInput(p => ({
+                    ...p,
+                    right: false,
+                    queryObj: null,
+                }))
+
+            }
+        )
+
+    }
+
+
     var makeRequest = useDebounce(() => {
-        console.log(1)
-    }, adminSection.searchDebounceDelay)
+
+        adminSection.updateEntries(
+            adminPanel.current.databaseName,
+            adminPanel.current.tableName,
+        );
+        
+    }, ( adminSection.searchDebounceDelay ))
+
 
     useEffect(() => {
 
-        makeRequest()
+        if (searchInput.right) {
+            makeRequest()
+        }
 
-    }, [searchInput.value])
+    }, [searchInput.queryObj])
 
     
     var onChange = (event) => {
 
-        setSearchInput(p => ({
-            ...p,
-            value: event.target.value,
-        }));
-
-    }
-
+        setSearchInput(p => ({...p, value: event.target.value }))
+        setQueryObj( event.target.value )
+        
+    };
+    
     return (
         <div
-            className="DbManag__toolbar"
+            className="DbManag__toolbar "
         >
             <div
                 style={{
                     marginRight: '10px',
-                    fontSize: '30px',
+                    userSelect: 'none'
                 }}
             >
                 {
                     searchInput.right 
-                    ? "✔️"
-                    : "❌"
+                    ? <CheckMarkIcon fill={"rgb(40,219,16)"} side={"40px"} />
+                    : <CrossIcon fill={"red"} side={"40px"} />
                 }
             </div>
 
             <textarea
                 onChange={onChange}
                 value={searchInput.value}
+                spellCheck={false}
 
                 onKeyDown={(e) => {
-                    if (e.key === "Escape") {
-                        e.target.blur();
-                    }
+                    e.key === "Escape" && (
+                        e.target.blur()
+                    );
+
                 }}
                 style={{
                     resize: 'none',
-                    margin: 'auto',
                     padding: '5px',
                     fontSize: '15px',
                     
@@ -72,7 +134,6 @@ var DbManagToolbar = () => {
                     borderRadius: '2px',
                     border: '1px solid gray',
                     
-
                     margin: '0',
                 }}
             />

@@ -4,13 +4,12 @@ import './DbManagRight.scss';
 import { useAdminPanel } from '../../../../../hooks/useAdminPanel';
 import Select from '../../../../../base/builtIn/Select/Select';
 import useAdminSection from '../../../../../hooks/useAdminSection';
-import Function_ from '../../../../../base/utils/Function_';
 
 
 
 var DbManagRight = () => {
-    var adminPanel = useAdminPanel()
     var adminSection = useAdminSection()
+    var adminPanel = adminSection.adminPanel;
 
     var navInputQueries = useMemo(() => ({
         style: {
@@ -41,62 +40,7 @@ var DbManagRight = () => {
 
     }
 
-    function updateEntries (
-        dbName,
-        tableName,
-        
-    ) {
-        var entryProto = {
-            tableName,
-            databaseName: dbName,
-        }
-
-        Function_.resolve(
-            adminSection.options.read(
-                dbName,
-                tableName,
-
-                // TODO:
-                adminSection.offset, // offset,
-                adminSection.limit, // limit,
-
-            ),
-            ( entries ) => {
-
-                if (typeof entries === "string") {
-                    return (
-                        window.alert(entries)
-                    )
-                }
-
-                if (! ( Array.isArray(entries) )) {
-                    return (
-                        window.alert(
-                            `Error of loading ${d.name} -> ${t.name} entries`
-                        )
-                    )
-
-                }
-                
-                entries = entries.map(e => {
-                    Object.setPrototypeOf(e, entryProto);
-                    return e
-                })
-                
-                adminSection.setValue(
-                    "entries",
-                    (prev) => {
-                        return (
-                            prev.concat(
-                                entries
-                                .filter(e => !( prev.includes(e) ))
-                            )
-                        )
-                    }
-                )
-            },
-        )
-    }
+    
 
     return (
         <div
@@ -118,12 +62,16 @@ var DbManagRight = () => {
                         placeholder: 'Entry',
                         currentStateName: "entry",
                     },
-                ].map(data => {
+                ].map(( data , index ) => {
                     var currentStateName = data.currentStateName
+
                     var isRightStateValue = (value) => isRightValue(currentStateName, value)
                     return (
                         <Input
-                            {...data}
+                            placeholder={data.placeholder}
+
+                            key={index}
+
                             value={
                                 (
                                     currentStateName === 'entry'
@@ -182,30 +130,35 @@ var DbManagRight = () => {
 
                 options={
                     databases
-                    .map(d => {
+                    .map(( d, dI ) => {
                         
-                        var onCloseOpen = (callback) => {
-                            adminPanel.setCurrent(p => {
-                                if (p.entry?.id)
-                                    return p;
-                                
-                                return callback(p)
-                            })
-                        }
+                        var onCloseOpen = (callback) => (
 
-                        var onDbCloseOpen = () => onCloseOpen(p => ({...p, databaseName: d.name}));
+                            adminPanel.setCurrent(p => (
+                                ( p.entry?.id )
+                                ? ( p )
+                                : ( callback( p ) )
+                            ))
+
+                        );
+
+                        var onDbCloseOpen = () => (
+                            onCloseOpen(p => ({...p, databaseName: d.name}))
+                        );
                             
                         return <Select
+                            key={dI}
                             title={d.name}
                             
                             onOpen={onDbCloseOpen}
                             onClose={onDbCloseOpen}
                             
-                            options={d.tables.map(t => {
+                            options={d.tables.map(( t , tI ) => {
 
                                 var onTableCloseOpen = () => onCloseOpen(p => ({...p, tableName: t.name}))    
                                 
                                 return <Select
+                                    key={tI}
                                     title={t.name}
                                     options={
                                         entries
@@ -222,7 +175,7 @@ var DbManagRight = () => {
 
                                     onOpen={() => {
                                         onTableCloseOpen();
-                                        updateEntries(d.name, t.name);
+                                        adminSection.updateEntries(d.name, t.name);
                                     }}
                                     onClose={onTableCloseOpen}
 
@@ -233,8 +186,9 @@ var DbManagRight = () => {
 
                                         var newValue = option.value
                                         adminSection.setValue("chosenEntries", (prev) => {
-                                            if (prev.includes(newValue))
-                                                return prev
+                                            if (prev.includes(newValue)) {
+                                                return ( prev );
+                                            }
 
                                             return [...prev, newValue]
                                         })

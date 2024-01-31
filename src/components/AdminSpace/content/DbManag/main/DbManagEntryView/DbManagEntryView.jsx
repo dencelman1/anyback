@@ -160,14 +160,16 @@ var DbManagEntryView = () => {
                     widgetEntries={chosenEntries}
                     entryTitleKey={currentEntryKey}
 
-                    onSelect={(entry, event) => {
+                    onSelect={(entry, event) => (
+
                         adminPanel.setCurrent(p => ({
                             ...p,
                             entry,
-                            databaseName: entry.databaseName,
-                            tableName: entry.tableName,
-                        }));
-                    }}
+                            databaseName: ( entry.databaseName || "" ),
+                            tableName: ( entry.tableName || "" ),
+                        }))
+
+                    )}
 
                     onClose={(entry, event) => {
                         adminPanel.setCurrent(p => {
@@ -226,8 +228,9 @@ var DbManagEntryView = () => {
                     currentEntry
                     ? (() => {
 
-                        if (currentEntry.id === undefined) {
-                            return (
+                        return (
+                            (currentEntry.id === undefined) 
+                            ? (
                                 <AddEntryForm
                                     style={{
                                         paddingTop: '20px',
@@ -236,16 +239,15 @@ var DbManagEntryView = () => {
                                     }}
                                 />
                             )
-                        }
-
-                        return (
-                            <EntryView
-                                entry={currentEntry}
-                                style={{
-                                    width: '100%',
-                                    height: '100%'
-                                }}
-                            />
+                            : (
+                                <EntryView
+                                    entry={currentEntry}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%'
+                                    }}
+                                />
+                            )
                         )
 
                     })()

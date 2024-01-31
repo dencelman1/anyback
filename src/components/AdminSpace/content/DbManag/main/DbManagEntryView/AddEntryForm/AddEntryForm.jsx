@@ -71,13 +71,16 @@ var AddEntryForm = (
                 }
             >
                 <option
+                    key={-1}
                     value="Unknown"
                 >
                     Unknown
                 </option>
                 {
-                    adminSection.databases.map((d) => (
+                    adminSection.databases.map((d, dI) => (
+
                         <option
+                            key={dI}
                             value={d.name}
                         >
                             {d.name}
@@ -112,8 +115,9 @@ var AddEntryForm = (
                         
                         currentDatabase
                         .tables
-                        .map(t => (
+                        .map((t, tI) => (
                             <option
+                                key={tI}
                                 value={t.name}
                             >
                                 {t.name}
@@ -129,12 +133,13 @@ var AddEntryForm = (
                 && (<>
                     {
                         currentTable.fields
-                        .map(f => {
+                        .map((f, fI) => {
                             if (! ( ["boolean", 'string', 'number'].includes(f.type) ))
                                 return null;
                                                         
                             return (
                                 <label
+                                    key={fI}
                                     htmlFor={f.name}
                                     
                                 >
@@ -170,7 +175,7 @@ var AddEntryForm = (
                                 intervalId,
                                 proms = [],
                                 creatingCount = ( creatingCountRef.current.value ),
-                                delay = adminSection.options.defaultValue.reqDelayMs;
+                                delay = adminSection.options.border.reqDelayMs;
                             
                             currentTable.fields.forEach(f => {
                                 value = formRef.current.elements[f.name][
@@ -240,17 +245,19 @@ var AddEntryForm = (
                         
                     {(() => {
 
-                        var maxValue = (adminSection.options.defaultValue.maxCreateManyEntry || 10),
+                        var maxValue = (adminSection.options.border.maxCreateManyEntry),
                             currentValue;
 
                         var getNullValues = () => ( ["", "0"] )
                         return (
+
                             <label>
                                 <span>* Creating number {"<="} {maxValue}</span>
                                 <input
                                     type="number"
                                     className="creatingNumber"
                                     ref={creatingCountRef}
+
                                     min={1}
                                     defaultValue={1}
                                     
@@ -273,7 +280,6 @@ var AddEntryForm = (
                                         }
 
                                     }}
-                                    maxLength={maxValue.toString().length}
                                     max={maxValue}
                                 />                                
                             </label>

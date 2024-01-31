@@ -1,39 +1,29 @@
-import CacheData from '../../../../../api/local/CacheData/CacheData';
-import { CheckBox, FormInput } from '../../../../../base/builtIn';
-import useAdminSection from '../../../../../hooks/useAdminSection';
+import CacheInput from './CacheInput/CacheInput';
 import './DbManagSettings.scss';
 
 
 var DbManagSettings = () => {
-    var adminSection = useAdminSection();
-    
+    // var adminSection = useAdminSection();
+
     return (
         <div
             className="DbManagSettings"
         >
-            
-            <FormInput
-                type="number"
-                label="Search input typing debounce delay (ms)"
-                value={adminSection.searchDebounceDelay}
-                style={{
-                    marginTop: '20px',
-                }}
-
-                onChange={(event) => {
-                    var v;
-                    CacheData.searchDebounceDelay =
-                        ( v = ( Math.abs( parseFloat( event.target.value ) ) || 0 ) )
-
-                    adminSection.setValue( "searchDebounceDelay", v )
-                    event.target.value = v;
-
-                }}
+            <CacheInput
+                name="searchDebounceDelay"
+                title="Search input typing debounce delay (ms)"
             />
 
-            
+            <CacheInput
+                name="offset"
+                title="Entries offset"
+            />
 
-            
+            <CacheInput
+                name="limit"
+                title="Entries limit"
+            />
+
         </div>
     )
 }

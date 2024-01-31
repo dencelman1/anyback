@@ -14,39 +14,55 @@ var DbManagMain = () => {
     Function_
     
     useEffect(() => {
+
+        var cacheGet = (
+            name,
+
+        ) => {
+            var v = CacheData[name];
+                            
+            if ( v === undefined ) {
+                CacheData[name] = (
+                    v = adminSection.options.defaultValue[name]
+                );
+            }
+
+            return v;
+        }
+
         Function_.resolve(
 
             adminSection.options.getDatabases(),
 
-            ( databases ) => (
+            ( databases ) => {
+
 
                 adminSection.setValue(
                     [
                         "databases",
                         "entries",
                         "chosenEntries",
+
                         'currentEntryKey',
+
                         "offset",
                         'limit',
-                        "useSearchDebounce",
+
+                        "searchDebounceDelay",
+                        "queryObj",
                     ],
                     [
                         ( databases || [] ),
                         [],
                         [],
-                        "id",
-                        adminSection.options.defaultValue.offset,
-                        adminSection.options.defaultValue.limit,
 
-                        (() => {
-                            var v = CacheData.searchDebounceDelay;
-                            
-                            if ( v === undefined ) {
-                                CacheData.searchDebounceDelay =
-                                    ( v = adminSection.options.defaultValue.searchDebounceDelay );
-                            }
-                            return v;
-                        })(),
+                        cacheGet("currentEntryKey"),
+
+                        cacheGet("offset"),
+                        cacheGet("limit"),
+                        
+                        cacheGet("searchDebounceDelay"),
+                        {},
                     ],
 
                     () => {
@@ -54,7 +70,7 @@ var DbManagMain = () => {
                     }
                 )
 
-            )
+            }
 
         )
     }, [])

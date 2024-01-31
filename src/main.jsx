@@ -35,10 +35,14 @@ var options = {
     offset: 0,
     limit: 20,
 
-    reqDelayMs: 50,
-    maxCreateManyEntry: 20,
+    searchDebounceDelay: 100,
+    currentEntryKey: "id",
+  },
 
-    searchDebounceDelay: 1000,
+  border: {
+
+    reqDelayMs: 100,
+    maxCreateManyEntry: 20,
 
   },
 
@@ -117,8 +121,10 @@ var options = {
   ) {
     
     return (
+
       LocalBackend.read(databaseName, tableName, where)
       .slice(offset, ( offset + limit ))
+
     )
 
   },

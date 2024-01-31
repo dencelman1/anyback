@@ -20,11 +20,7 @@ var SettingsModalBlock = ({
 }) => {
     var adminPanel = useAdminPanel();
     var currentSection = adminPanel.current.section;
-
-    // alert(JSON.stringify(
-    //     Object.getPrototypeOf(currentSection)
-    //     ,null, 2))
-
+    
     var SettingsContent =
         ( currentSection?.element?.settings ) ||
         ( NotIndicatedSettings )

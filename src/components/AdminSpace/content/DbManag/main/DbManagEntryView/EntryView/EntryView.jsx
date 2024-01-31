@@ -1,10 +1,16 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../../../../../../../base/builtIn";
 import Function_ from "../../../../../../../base/utils/Function_";
-import { useAdminPanel } from "../../../../../../../hooks/useAdminPanel";
 import useAdminSection from "../../../../../../../hooks/useAdminSection";
 import './EntryView.scss';
 
+
+
+export var filterEntryF = (e, entry) => (
+    e.id === entry.id &&
+    e.databaseName === entry.databaseName &&
+    e.tableName === entry.tableName
+)
 
 var EntryView = ({
     entry,
@@ -25,11 +31,14 @@ var EntryView = ({
         })
     }
 
-    var findNewValue = () => {
+    var findNewValue = ( entry_ ) => {
+        
+        
         var newValue, type;
         var value = {};
 
-        Object.entries(entry)
+        Object.entries( entry_ || entry )
+
         .forEach(([key, prevValue]) => {
             type = typeof prevValue;
 
@@ -45,33 +54,22 @@ var EntryView = ({
                 value[key] = newValue;
             }
         })
-        return value;
 
+        return ( value );
     }
 
-    var filterEntryF = (e, entry) => (
-        e.id === entry.id &&
-        e.databaseName === entry.databaseName &&
-        e.tableName === entry.tableName
-    )
+    
     
     function editEntry (entry, value) {
-        var updatedEntry = {
-            ...entry,
-            ...value,
-        }
-        
-        Object.setPrototypeOf(updatedEntry, Object.getPrototypeOf(entry));
+        Object.assign(entry, value);
 
-        var filterF = (e) => filterEntryF(e, entry)
-
-        adminSection.setValue("entries", (p) => p.map(e => ( filterF(e) ? updatedEntry : e ) ));
-        adminSection.setValue("chosenEntries", (p) => p.map(e => ( filterF(e) ? updatedEntry : e ) ));
+        adminSection.setValue("entries", (p) => [...p]);
+        adminSection.setValue("chosenEntries", (p) => [...p]);
         
-        adminSection.adminPanel.setCurrent(p => ({...p, entry: updatedEntry}));
+        adminSection.adminPanel.setCurrent(p => ({...p, entry }));
     }
 
-    function deleteEntry (entry) {
+    function deleteEntry ( entry ) {
         var filterF = (e) => filterEntryF(e, entry)
         
         adminSection.setValue("entries", (p) => p.filter((e) => !( filterF(e) )));
@@ -91,6 +89,41 @@ var EntryView = ({
 
     }
 
+    var onOnceUpdate = () => {
+        var value = findNewValue();
+
+        if (JSON.stringify(value) === "{}") {
+            return (
+                window.alert("Nothing was changed in this entry from you")
+            )
+        }
+
+        Function_.resolve(
+            adminSection.options.update(
+                entry.databaseName,
+                entry.tableName,
+
+                value,
+                {
+                    id: entry.id,
+                },
+            ),
+            ( result ) => {
+
+                window.alert(
+                    result
+                    ? `Was edited ${Object.entries(value).length} fields of this entry`
+                    : "Error while editing this entry"
+                )
+
+                if ( result ) {
+                    editEntry(entry, value);
+                }
+
+            },
+        )
+    }
+
     useEffect(() => {
         reset()
     }, [entry])
@@ -107,51 +140,52 @@ var EntryView = ({
             )}
         >
             <div className="edit fields">
-            <form
-                
-                ref={formRef}
-            >
-                {
-                    
-                    Object.entries(entry)
-                    .map(([k, v]) => {
-                        var type = typeof v;
+                <form
+                    ref={formRef}
+                >
+                    {
+                        
+                        Object.entries(entry)
+                        .map(([k, v]) => {
+                            var type = typeof v;
 
-                        if (k === 'id') {
-                            return (<>
-                                <p>{k}: {v}</p>
-                                <input
-                                    name={k}
-                                    value={v}
-                                    style={{
-                                        display: 'none',
-                                    }}
-                                />
-                            </>)
-                        }
+                            if (k === 'id') {
+                                return (<>
+                                    <p>{k}: {v}</p>
+                                    <input
+                                        name={k}
+                                        value={v}
+                                        readOnly={true}
+                                        style={{
+                                            display: 'none',
+                                        }}
+                                    />
+                                </>)
+                            }
 
-                        return (
-                            <label
-                                htmlFor={k}
-                            >
-                                <span>{k}</span>
-                                <input
-                                    name={k}
-                                    placeholder={k}
-                                    type={{
-                                        "number": "number",
-                                        "string": 'text',
-                                        "boolean": 'checkbox',
-                                    }[type]}
-                                    defaultValue={v}
-                                />
-                            </label>
+                            return (
+                                <label
+                                    htmlFor={k}
+                                >
+                                    <span>{k}</span>
+                                    <input
+                                        name={k}
+                                        placeholder={k}
+                                        type={{
+                                            "number": "number",
+                                            "string": 'text',
+                                            "boolean": 'checkbox',
+                                        }[type]}
+                                        defaultValue={v}
+                                    />
+                                </label>
 
-                        )
+                            )
 
-                    })
-                }
-            </form>
+                        })
+                    }
+                </form>
+
             </div>
 
             <div
@@ -161,38 +195,7 @@ var EntryView = ({
                 <Button
                     onClick={() => {
 
-                        var value = findNewValue();
-
-                        if (JSON.stringify(value) === "{}") {
-                            return (
-                                window.alert("Nothing was changed in this entry from you")
-                            )
-                        }
-
-                        Function_.resolve(
-                            adminSection.options.update(
-                                entry.databaseName,
-                                entry.tableName,
-
-                                value,
-                                {
-                                    id: entry.id,
-                                },
-                            ),
-                            ( result ) => {
-
-                                window.alert(
-                                    result
-                                    ? `Was edited ${Object.entries(value).length} fields of this entry`
-                                    : "Error while editing this entry"
-                                )
-
-                                if ( result ) {
-                                    editEntry(entry, value);
-                                }
-
-                            },
-                        )
+                        onOnceUpdate();
 
                     }}
                 >
@@ -242,21 +245,64 @@ var EntryView = ({
 
                 <Button
                     onClick={() => {
-                        var value = findNewValue(),
-                            delay,
+                        var getWithoutId = (entry) => {
+                            var v = JSON.parse(JSON.stringify(entry));
+                            delete v.id
+                            
+                            return ( v );
+                        }
+                        var defineNewValue = (fromEntry, toEntry) => {
+                            var value = {};
+
+                            Object.entries( fromEntry )
+                            .forEach(([k, v]) => {
+                                if (fromEntry[k] !== toEntry[k]) {
+                                    value[k] = v;
+                                }
+                                
+                            });
+
+                            return value;
+                        }
+
+                        var delay = ( adminSection.options.border.reqDelayMs ),
                             intervalId,
                             proms = [],
-                            count = 0;
+                            count = 0,
 
-                        if (JSON.stringify(value) === "{}") {
+                            value = getWithoutId( entry ),
+                            editEntries = adminSection.chosenEntries.filter(e => e.id);
+
+                        
+                        if (editEntries.length === 1) {
                             return (
-                                window.alert("Nothing was changed in this entry from you")
+                                onOnceUpdate()
+                            );
+                        }
+
+                        editEntries = (
+                            editEntries
+                            .filter(e => (
+                                Object.keys( defineNewValue(value, getWithoutId( e )) ).length > 0
+                            ))
+                        );
+                        
+                        if (editEntries.length === 0) {
+                            return (
+                                window.alert("Nothing was changed in this entry from you for all other")
                             )
                         }
 
-                        delay = adminSection.options.defaultValue.reqDelayMs;
+                        value = (
+                            
+                            editEntries
+                            .map(( e ) => (
+                                defineNewValue(value, getWithoutId( e ))
+                            ))
+
+                        );
                         
-                        var update = (chosenEntry) => new Promise((res, rej) => (
+                        var update = (chosenEntry, value) => new Promise((res, rej) => (
                                     
                             Function_.resolve(
 
@@ -291,9 +337,8 @@ var EntryView = ({
                             .then(( results ) => {
 
                                 window.alert(
-                                    `${Object.keys(value).length} fields was updated`+
-                                    ` in ${results.filter(r => r).length} / `+
-                                    `${results.length}`+
+                                    `Was updated ${ results.filter(r => r).length } / `+
+                                    `${ results.length }`+
                                     ` entries successfully`
                                 )
                                 
@@ -304,12 +349,11 @@ var EntryView = ({
                         var editNotify = () => (
                             window.alert(
                                 `Procesing.. Wait ~ `+
-                                `${((( delay / 1000 ) * adminSection.chosenEntries.length) - count).toFixed(0)}`
+                                `${((( delay / 1000 ) * editEntries.length) - count).toFixed(0)}`
                             )
                         )
-                        
-                        var editEntries = adminSection.chosenEntries.filter(e => e.id)
-                        editNotify();
+
+                        console.log(JSON.stringify(value, null, 4))
                         
                         intervalId = setInterval(() => {
                             if (proms.length >= editEntries.length) {
@@ -318,8 +362,10 @@ var EntryView = ({
                                 return ( clearInterval(intervalId) )
                             }
 
-                            proms.push( update( editEntries[ count++ ] ) );
                             editNotify();
+                            proms.push( update( editEntries[ count ], value[ count ] ) );
+                            
+                            count += 1;
 
                         }, delay)
                         
@@ -331,9 +377,14 @@ var EntryView = ({
                 <Button
                     onClick={() => {
                         
-                        var deleteEntries = adminSection.setValue("chosenEntries", adminSection.chosenEntries.filter(e => e.id)),
+                        var deleteEntries = 
+                            adminSection.setValue(
+                                "chosenEntries",
+                                adminSection.chosenEntries.filter(e => e.id)
+                            ),
+
                             count = 0,
-                            delay = adminSection.options.defaultValue.reqDelayMs,
+                            delay = adminSection.options.border.reqDelayMs,
                             proms = [],
                             intervalId;
 
@@ -355,7 +406,7 @@ var EntryView = ({
 
                                 ( result ) => {
                                     if (result) {
-                                        deleteEntry(chosenEntry);
+                                        deleteEntry( chosenEntry );
                                     }
                                         
                                     res(result)
@@ -397,7 +448,6 @@ var EntryView = ({
                             editNotify();
 
                         }, delay)
-                        
 
                     }}
                 >
