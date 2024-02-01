@@ -3,6 +3,19 @@ import CrossIcon from "../../../components/svg/Cross/Cross";
 import './TabWidgetPanel.scss'
 
 
+export var getColorByDataType = (
+    type,
+) => {
+    return ({
+        boolean: "rgb(31,54,162)",
+        number: 'rgb(129,91,31)',
+        string: 'rgb(129,31,31)',
+        object: 'rgb(199,203,16)',
+        function: 'rgb(206,68,93)',
+    })[type]
+}
+
+
 var TabWidgetPanel = ({
     widgetEntries,
     entryTitleKey,
@@ -49,11 +62,13 @@ var TabWidgetPanel = ({
             {
                 widgetEntries
                 .map((entry, index) => {
+                    var v ;
+
                     var isSelectedEntry_ = isSelectedEntry(entry)
                     var titleText =
                         entry.id === undefined
                         ? defaultTitle
-                        : (entry[entryTitleKey]?.toString() || entry["id"]?.toString());
+                        : ( (v = entry[entryTitleKey])?.toString() || (v= entry.id)?.toString() );
 
                     return <div
                         key={index}
@@ -71,6 +86,10 @@ var TabWidgetPanel = ({
                         
                         <span
                             title={titleText}
+                            style={{
+                                color: getColorByDataType(typeof v)
+                            }}
+                            
                         >
                             {titleText}
                         </span>

@@ -1,7 +1,10 @@
-import {  useMemo } from "react";
+import {  useCallback, useMemo } from "react";
 import { useAdminPanel } from "./useAdminPanel"
 import Function_ from "../base/utils/Function_";
 import CacheData from "../api/local/CacheData/CacheData";
+
+
+
 
 
 var useAdminSection = (
@@ -28,16 +31,7 @@ var useAdminSection = (
         return v;
     }
     
-    var section = new Proxy(adminPanel.current.section, {
-        get(t, p , r) {
-            // TODO:
-
-            if (p === 'currentEntryKey') {
-                return t[p] || cacheGet(`currentEntryKey_${currentDatabase.name}_${currentTable.name}`, "id")
-            }
-            return Reflect.get(...arguments)
-        }
-    });
+    var section = adminPanel.current.section;
 
     var getCurrentDatabase = ( databases ) => {
         return (
@@ -79,8 +73,9 @@ var useAdminSection = (
 
     
 
-    
-    
+    var cachedValues = useCallback(() => [
+        'currentEntryKey',
+    ], [])
     
     function setValue (key, value, cb) {
         var i;
@@ -96,12 +91,12 @@ var useAdminSection = (
         var set = (k,v, s) => {
             var newV = defineNewValue( s, v );
 
-            if (key === 'currentEntryKey') {
-                CacheData[`currentEntryKey_${currentDatabase.name}_${currentTable.name}`, "id"]
-                = ( newV )
+            if (cachedValues().includes( k )) {
+                CacheData[k] = newV;
             }
+
             s[k] = newV;
-            
+
         }
         
         adminPanel.setAdminSections(prev => {

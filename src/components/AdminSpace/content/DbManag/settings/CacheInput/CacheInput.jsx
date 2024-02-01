@@ -1,4 +1,5 @@
 import CacheData from "../../../../../../api/local/CacheData/CacheData";
+import { getColorByDataType } from "../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
 import useAdminSection from "../../../../../../hooks/useAdminSection";
 import Labeled from "../Labeled/Labeled";
 
@@ -31,6 +32,7 @@ var CacheInput = ({
                     padding: '10px',
                     borderRadius: '5px',
                     fontSize: '15px',
+                    color: getColorByDataType( type )
                 }}
 
                 value={ adminSection[ name ] || minValue }

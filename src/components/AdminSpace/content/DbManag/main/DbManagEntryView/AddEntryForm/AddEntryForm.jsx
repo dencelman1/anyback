@@ -1,9 +1,10 @@
-import { useMemo, useRef } from "react";
-import { Button, FormInput, Input } from "../../../../../../../base/builtIn";
-import { useAdminPanel } from "../../../../../../../hooks/useAdminPanel";
+import { useRef } from "react";
+import { Button } from "../../../../../../../base/builtIn";
+
 import useAdminSection from "../../../../../../../hooks/useAdminSection";
 import './AddEntryForm.scss';
 import Function_ from "../../../../../../../base/utils/Function_";
+import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
 
 
 var AddEntryForm = (
@@ -127,7 +128,9 @@ var AddEntryForm = (
                                 <label
                                     key={fI}
                                     htmlFor={f.name}
-                                    
+                                    style={{
+                                        color: getColorByDataType(f.type)
+                                    }}
                                 >
                                     <span
                                         className={(
@@ -141,6 +144,7 @@ var AddEntryForm = (
                                         {f.name}
                                     </span>
                                     <input
+                                        spellCheck={false}
                                         name={f.name}
                                         placeholder={f.name}
                                         type={{
@@ -148,6 +152,9 @@ var AddEntryForm = (
                                             "string": 'text',
                                             "boolean": 'checkbox',
                                         }[f.type]}
+                                        style={{
+                                            color: getColorByDataType(f.type)
+                                        }}
                                         
                                         defaultValue={
                                             f.defaultValue === undefined
@@ -250,9 +257,13 @@ var AddEntryForm = (
                             <label>
                                 <span>* Creating number {"<="} {maxValue}</span>
                                 <input
+                                    spellCheck={false}
                                     type="number"
                                     className="creatingNumber"
                                     ref={creatingCountRef}
+                                    style={{
+                                        color: getColorByDataType('number')
+                                    }}
 
                                     min={1}
                                     defaultValue={1}

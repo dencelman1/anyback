@@ -5,6 +5,7 @@ import Function_ from '../../../../../base/utils/Function_';
 
 import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
 import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
+import CacheData from '../../../../../api/local/CacheData/CacheData';
 
 
 
@@ -43,8 +44,8 @@ var DbManagMain = () => {
                         [],
                         [],
 
-                        adminSection.currentEntryKey,
-
+                        cacheGet( "currentEntryKey" ),
+                        
                         cacheGet("offset"),
                         cacheGet("limit"),
                         
@@ -62,7 +63,6 @@ var DbManagMain = () => {
         )
     }, [])
 
-    
 
     return (
         <div

@@ -3,6 +3,7 @@ import { Button } from "../../../../../../../base/builtIn";
 import Function_ from "../../../../../../../base/utils/Function_";
 import useAdminSection from "../../../../../../../hooks/useAdminSection";
 import './EntryView.scss';
+import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
 
 
 
@@ -146,14 +147,19 @@ var EntryView = ({
                     {
                         
                         Object.entries(entry)
-                        .map(([k, v]) => {
+                        .map(([k, v], eI) => {
                             var type = typeof v;
+                            var typeColor = getColorByDataType(typeof v)
                             
                             
 
                             return (
                                 <label
                                     htmlFor={k}
+                                    key={eI}
+                                    style={{
+                                        color: typeColor,
+                                    }}
                                 >
                                     <span
                                         className={(
@@ -169,6 +175,7 @@ var EntryView = ({
                                     >{k}{k === 'id' ?`: ${v}`:""}</span>
 
                                     <input
+                                        spellCheck={false}
                                         name={k}
                                         placeholder={k}
                                         type={{
@@ -180,6 +187,7 @@ var EntryView = ({
                                         readOnly={k === 'id'}
                                         style={{
                                             display: k === 'id' ? 'none': '',
+                                            color: typeColor,
                                         }}
                                     />
                                 </label>

@@ -22,7 +22,7 @@ var DbManagEntryView = () => {
 
     var adminPanel = useAdminPanel()
     var adminSection = useAdminSection();
-    var currentEntryKey = adminSection.currentEntryKey
+    var currentEntryKey = adminSection.currentEntryKey;
     
     var currentEntry = 
         adminPanel.current.entry
@@ -158,7 +158,7 @@ var DbManagEntryView = () => {
             {
                 <TabWidgetPanel
                     widgetEntries={chosenEntries}
-                    entryTitleKey={currentEntryKey}
+                    entryTitleKey={ currentEntryKey }
 
                     onSelect={(entry, event) => (
 

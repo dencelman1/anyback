@@ -1,9 +1,25 @@
 import { useState } from 'react';
 import './Select.scss';
 import ArrowIcon from '../../../components/svg/Arrow/Arrow';
+import { getColorByDataType } from '../../components/TabWidgetPanel/TabWidgetPanel';
 
 
+export var definedDataTypeFromStr = (str) => {
 
+    try {
+        return (
+            JSON.parse(str, (key, value) => {
+                if (key !== '')
+                    return 'object'
+                
+                return ( typeof value );
+            })
+        )
+    } catch {
+        return 'string';
+    }
+
+}
 
 
 var Select = (
@@ -86,6 +102,9 @@ var Select = (
                         return (
                             <li
                                 key={key}
+                                style={{
+                                    color: getColorByDataType( definedDataTypeFromStr( o.title ) )
+                                }}
                                 className={(
                                     "option"+
                                     (

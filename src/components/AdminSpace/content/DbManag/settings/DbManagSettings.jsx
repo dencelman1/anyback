@@ -1,4 +1,5 @@
 import CacheData from '../../../../../api/local/CacheData/CacheData';
+import { getColorByDataType } from '../../../../../base/components/TabWidgetPanel/TabWidgetPanel';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import CacheInput from './CacheInput/CacheInput';
 import './DbManagSettings.scss';
@@ -29,31 +30,38 @@ var DbManagSettings = () => {
 
             <Labeled
                 title="Current entry key"
+                type="string"
             >
                 <select
                     value={adminSection.currentEntryKey}
+                    style={{
+                        color: getColorByDataType( "string" )
+                    }}
                     onChange={(event) => {
-
-                        var v = event.target.value;
-                        CacheData[`currentEntryKey__${adminSection.name}`] = v;
                         
                         adminSection.setValue(
                             "currentEntryKey",
-                            v,
+                            event.target.value,
                         )
 
                     }}
                 >
                     <option value="id">id</option>
+                    
                     {
 
-                        adminSection.currentTable?.fields &&
-                        adminSection.currentTable.fields
-                        .map(f => {
+                        adminSection.currentTable?.fields
+                        ?.map((f, fI) => {
                             return (
-                                <option value={f.name}>{f.name}</option>
+                                <option
+                                    value={f.name}
+                                    key={fI}
+                                >
+                                    {f.name}
+                                </option>
                             )
                         })
+
                     }
                 </select>
             </Labeled>

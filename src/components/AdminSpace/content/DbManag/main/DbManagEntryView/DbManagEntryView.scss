@@ -1,24 +1,22 @@
 
 
+span.fieldName {
+    display: block;
+    cursor: pointer;
+    padding: 0 10px;
+    border-radius: 5px;
+    
+    &:hover {
+        outline: 1px solid gray;
+    }
+
+    &.current {
+        box-shadow: inset 0 0 5px gray;
+
+    }
+}
+
 .DbManag__entryView {
     width: 100%;
-    height: calc(100% - 12.5%);
-
-    span.fieldName {
-        display: block;
-        cursor: pointer;
-        padding: 0 10px;
-        transition: .05s;
-        border-radius: 5px;
-    
-        &:hover {
-            outline: 1px solid gray;
-            box-shadow: inset 0 0 10px gray;
-        }
-    
-        &.current {
-            outline: 2px solid gray;
-
-        }
-    }
+    height: calc(100% - 12.5%);   
 }

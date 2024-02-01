@@ -1,10 +1,15 @@
+import { getColorByDataType } from "../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
 
 
 var Labeled = ({
     title,
+    type,
+    
 
     children
 }) => {
+    type ||= 'number';
+
     return (
         <label
             style={{
@@ -16,7 +21,8 @@ var Labeled = ({
             <span
                 style={{
                     marginLeft: '20px',
-                    whiteSpace: 'nowrap'
+                    whiteSpace: 'nowrap',
+                    color: getColorByDataType( type ),
                 }}
             >
                 {title}
