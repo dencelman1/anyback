@@ -2,7 +2,7 @@ import { useEffect,  } from 'react';
 import './DbManagMain.scss';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import Function_ from '../../../../../base/utils/Function_';
-import CacheData from '../../../../../api/local/CacheData/CacheData';
+
 import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
 import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
 
@@ -10,25 +10,12 @@ import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
 
 var DbManagMain = () => {
     var adminSection = useAdminSection();
+    var cacheGet = adminSection.cacheGet;
 
-    Function_
-    
     useEffect(() => {
 
-        var cacheGet = (
-            name,
+        
 
-        ) => {
-            var v = CacheData[name];
-                            
-            if ( v === undefined ) {
-                CacheData[name] = (
-                    v = adminSection.options.defaultValue[name]
-                );
-            }
-
-            return v;
-        }
 
         Function_.resolve(
 
@@ -56,7 +43,7 @@ var DbManagMain = () => {
                         [],
                         [],
 
-                        cacheGet("currentEntryKey"),
+                        adminSection.currentEntryKey,
 
                         cacheGet("offset"),
                         cacheGet("limit"),
@@ -74,6 +61,8 @@ var DbManagMain = () => {
 
         )
     }, [])
+
+    
 
     return (
         <div

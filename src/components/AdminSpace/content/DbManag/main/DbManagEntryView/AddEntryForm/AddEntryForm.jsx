@@ -9,8 +9,9 @@ import Function_ from "../../../../../../../base/utils/Function_";
 var AddEntryForm = (
     props,
 ) => {
-    var adminPanel = useAdminPanel();
+    
     var adminSection = useAdminSection();
+    var adminPanel = adminSection.adminPanel;
 
     var formRef = useRef(null);
     var creatingCountRef = useRef(null)
@@ -18,23 +19,8 @@ var AddEntryForm = (
     if (!( adminSection.databases ))
         return null
 
-    var currentDatabase = useMemo(() =>
-        adminSection.databases
-            .filter(d => d.name === adminPanel.current.databaseName)
-            [0]
-        ,
-        [adminPanel.sections, adminPanel.current]
-    )
-    var currentTable = useMemo(() =>
-        currentDatabase
-        ? (
-            currentDatabase.tables
-            .filter(t => t.name === adminPanel.current.tableName)
-            [0]
-        )
-        : null,
-        [adminPanel.sections, adminPanel.current]
-    )
+    var currentDatabase = adminSection.currentDatabase,
+        currentTable = adminSection.currentTable;
 
     
     
@@ -110,7 +96,7 @@ var AddEntryForm = (
                 </option>
 
                 {
-                    adminPanel.current.databaseName
+                    currentDatabase
                     && (
                         
                         currentDatabase
@@ -143,7 +129,17 @@ var AddEntryForm = (
                                     htmlFor={f.name}
                                     
                                 >
-                                    <span>{f.name}</span>
+                                    <span
+                                        className={(
+                                            "fieldName"+
+                                            (adminSection.currentEntryKey === f.name ? " current": "")
+                                        )}
+                                        onClick={() => {
+                                            adminSection.setValue("currentEntryKey", f.name)
+                                        }}
+                                    >
+                                        {f.name}
+                                    </span>
                                     <input
                                         name={f.name}
                                         placeholder={f.name}

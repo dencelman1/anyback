@@ -1,5 +1,7 @@
 import CacheData from "../../../../../../api/local/CacheData/CacheData";
 import useAdminSection from "../../../../../../hooks/useAdminSection";
+import Labeled from "../Labeled/Labeled";
+
 
 
 var CacheInput = ({
@@ -7,31 +9,31 @@ var CacheInput = ({
     title,
     allowNeg,
     minValue,
-    
+    type,
+
 }) => {
+
+    type ||= 'number';
     allowNeg ||= false;
     minValue ||= 0;
     
     var adminSection = useAdminSection();
 
-
     return (
-        <label
-            style={{
-                marginTop: '20px',
-            }}
+        <Labeled
+            title={title}
         >
 
             <input
-                type="number"
-                value={ adminSection[ name ] || minValue }
+                type={type}
+                
                 style={{
-                    marginRight: '20px',
                     padding: '10px',
                     borderRadius: '5px',
                     fontSize: '15px',
                 }}
 
+                value={ adminSection[ name ] || minValue }
                 onChange={(event) => {
                     var v;
                     CacheData[ name ] =
@@ -47,15 +49,7 @@ var CacheInput = ({
                 
             />
 
-            <span
-                style={{
-                    whiteSpace: 'nowrap'
-                }}
-            >
-                {title}
-            </span>
-
-        </label>
+        </Labeled>
     )
 
 }

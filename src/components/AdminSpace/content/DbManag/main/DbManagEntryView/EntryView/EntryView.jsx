@@ -148,26 +148,26 @@ var EntryView = ({
                         Object.entries(entry)
                         .map(([k, v]) => {
                             var type = typeof v;
-
-                            if (k === 'id') {
-                                return (<>
-                                    <p>{k}: {v}</p>
-                                    <input
-                                        name={k}
-                                        value={v}
-                                        readOnly={true}
-                                        style={{
-                                            display: 'none',
-                                        }}
-                                    />
-                                </>)
-                            }
+                            
+                            
 
                             return (
                                 <label
                                     htmlFor={k}
                                 >
-                                    <span>{k}</span>
+                                    <span
+                                        className={(
+                                            "fieldName"+
+                                            (adminSection.currentEntryKey === k ? " current": "")
+                                        )}
+                                        onClick={() => {
+                                            adminSection.setValue("currentEntryKey", k)
+                                        }}
+                                        style={{
+                                            marginTop: k === 'id' ? "20px": ''
+                                        }}
+                                    >{k}{k === 'id' ?`: ${v}`:""}</span>
+
                                     <input
                                         name={k}
                                         placeholder={k}
@@ -177,6 +177,10 @@ var EntryView = ({
                                             "boolean": 'checkbox',
                                         }[type]}
                                         defaultValue={v}
+                                        readOnly={k === 'id'}
+                                        style={{
+                                            display: k === 'id' ? 'none': '',
+                                        }}
                                     />
                                 </label>
 
@@ -352,8 +356,6 @@ var EntryView = ({
                                 `${((( delay / 1000 ) * editEntries.length) - count).toFixed(0)}`
                             )
                         )
-
-                        console.log(JSON.stringify(value, null, 4))
                         
                         intervalId = setInterval(() => {
                             if (proms.length >= editEntries.length) {

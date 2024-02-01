@@ -75,7 +75,9 @@ var DbManagRight = () => {
                             value={
                                 (
                                     currentStateName === 'entry'
-                                    ? (adminPanel.current?.[currentStateName]?.[adminSection.currentEntryKey])
+                                    ? (
+                                        adminPanel.current?.[currentStateName]?.id?.toString()
+                                    )
                                     : (adminPanel.current[currentStateName])
                                 )
                                 || ( data.placeholder )
@@ -168,7 +170,7 @@ var DbManagRight = () => {
                                             e.databaseName === d.name
                                         ))
                                         .map(e => ({
-                                            title: e[ adminSection.currentEntryKey ],
+                                            title: e[ adminSection.currentEntryKey ]?.toString() || e.id?.toString(),
                                             value: e,
                                         })
                                     )}

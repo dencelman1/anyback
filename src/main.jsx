@@ -3,9 +3,6 @@ import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
 import LocalBackend from './LocalBackend.js'
 
-// default hotkeys:
-  // F11 - fullscreen
-  // F12 - open browser dev tools (console, etc.)
 // 1 нужно указывать useAdminSection().finishLoad() чтобы ваша секция бьла загружена, загрузите все данные секции до выполнения этого метода
 //   и также можно менять уведомление загрузки с помощью 
 //   useAdminSection().changeLoadingState("your loadingMessage["STATE"] in options.sections")

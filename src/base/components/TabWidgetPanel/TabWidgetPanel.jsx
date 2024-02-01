@@ -50,6 +50,10 @@ var TabWidgetPanel = ({
                 widgetEntries
                 .map((entry, index) => {
                     var isSelectedEntry_ = isSelectedEntry(entry)
+                    var titleText =
+                        entry.id === undefined
+                        ? defaultTitle
+                        : (entry[entryTitleKey]?.toString() || entry["id"]?.toString());
 
                     return <div
                         key={index}
@@ -66,9 +70,9 @@ var TabWidgetPanel = ({
                     >
                         
                         <span
-                            title={entry[entryTitleKey]}
+                            title={titleText}
                         >
-                            {entry[entryTitleKey] || defaultTitle}
+                            {titleText}
                         </span>
 
                         <CrossIcon

@@ -1,9 +1,12 @@
+import CacheData from '../../../../../api/local/CacheData/CacheData';
+import useAdminSection from '../../../../../hooks/useAdminSection';
 import CacheInput from './CacheInput/CacheInput';
 import './DbManagSettings.scss';
+import Labeled from './Labeled/Labeled';
 
 
 var DbManagSettings = () => {
-    // var adminSection = useAdminSection();
+    var adminSection = useAdminSection();
 
     return (
         <div
@@ -24,6 +27,36 @@ var DbManagSettings = () => {
                 title="Entries limit"
             />
 
+            <Labeled
+                title="Current entry key"
+            >
+                <select
+                    value={adminSection.currentEntryKey}
+                    onChange={(event) => {
+
+                        var v = event.target.value;
+                        CacheData[`currentEntryKey__${adminSection.name}`] = v;
+                        
+                        adminSection.setValue(
+                            "currentEntryKey",
+                            v,
+                        )
+
+                    }}
+                >
+                    <option value="id">id</option>
+                    {
+
+                        adminSection.currentTable?.fields &&
+                        adminSection.currentTable.fields
+                        .map(f => {
+                            return (
+                                <option value={f.name}>{f.name}</option>
+                            )
+                        })
+                    }
+                </select>
+            </Labeled>
         </div>
     )
 }

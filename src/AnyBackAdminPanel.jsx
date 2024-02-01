@@ -190,11 +190,13 @@ export default AnyBackAdminPanel;
 // TODO:
 // DbManag:
 
-//    1 data (расположить по елементам нормально);
-//    2 size, isEmpty, tableEntryCount, reqSpeed,
 
+//    1 data (расположить по елементам нормально);
+//      - size, isEmpty, tableEntryCount, reqSpeed, pagination buttons,
+
+//    2 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
 //    3 field sorting, field order (for user personal settings) (in select and checkboxes and other UX elements near entries)
-//    4 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
+
 
 // Analytics:
 //    1 add and view formula and her code
