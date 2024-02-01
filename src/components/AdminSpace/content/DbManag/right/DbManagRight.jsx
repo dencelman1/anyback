@@ -4,6 +4,7 @@ import './DbManagRight.scss';
 import { useAdminPanel } from '../../../../../hooks/useAdminPanel';
 import Select from '../../../../../base/builtIn/Select/Select';
 import useAdminSection from '../../../../../hooks/useAdminSection';
+import Filter_ from '../../../../../base/utils/Filter_';
 
 
 
@@ -162,6 +163,31 @@ var DbManagRight = () => {
                                 return <Select
                                     key={tI}
                                     title={t.name}
+                                    onContextMenu={(event) => {
+                                        event.preventDefault();
+
+                                        adminSection.setValue("entries", (prev) => {
+                                            var filterF = (e) => (
+                                                e.databaseName === d.name &&
+                                                e.tableName === t.name
+                                            )
+                                            var key = adminSection.currentEntryKey;
+                                            
+                                            return (
+                                                prev
+                                                .filter(e => !(
+                                                    filterF(e)
+                                                ))
+                                                .concat(
+                                                    Filter_.list(
+                                                        prev.filter(filterF), key,
+                                                    )
+                                                )
+
+                                            )
+                                        })
+                                    }}
+                                    
                                     options={
                                         entries
                                         .filter(e => (

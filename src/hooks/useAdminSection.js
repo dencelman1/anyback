@@ -7,9 +7,8 @@ import CacheData from "../api/local/CacheData/CacheData";
 
 
 
-var useAdminSection = (
+var useAdminSection = () => {
     
-) => {
     var adminPanel = useAdminPanel();
     var options = adminPanel.options;
 

@@ -191,6 +191,7 @@ export default AnyBackAdminPanel;
 //      - size, isEmpty, tableEntryCount, reqSpeed, pagination buttons,
 
 //    2 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
+
 //    3 field sorting
 //    4 textarea with support JSON (ready);
 
