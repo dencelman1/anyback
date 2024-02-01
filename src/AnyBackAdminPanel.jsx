@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
@@ -9,9 +9,6 @@ import Auth from './api/local/Auth/Auth'
 import CacheData from './api/local/CacheData/CacheData'
 import AdminSection from './components/AdminSpace/content/AdminSection'
 import AlertModalWindow from './base/alert/AlertModalWindow'
-
-
-
 
 
 function AnyBackAdminPanel({
@@ -190,14 +187,15 @@ export default AnyBackAdminPanel;
 // TODO:
 // DbManag:
 
-
 //    1 data (расположить по елементам нормально);
 //      - size, isEmpty, tableEntryCount, reqSpeed, pagination buttons,
 
 //    2 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
 //    3 field sorting
-
+//    4 textarea with support JSON (ready);
 
 // Analytics:
 //    1 add and view formula and her code
 //    2 list as forlmulas calculated datas
+
+//    3 textarea with support javascript and JSON (ready);
