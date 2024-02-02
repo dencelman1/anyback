@@ -1,4 +1,5 @@
 import CacheData from '../../../../../api/local/CacheData/CacheData';
+import { Button } from '../../../../../base/builtIn';
 import { getColorByDataType } from '../../../../../base/components/TabWidgetPanel/TabWidgetPanel';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import CacheInput from './CacheInput/CacheInput';
@@ -17,16 +18,77 @@ var DbManagSettings = () => {
                 name="searchDebounceDelay"
                 title="Search input typing debounce delay (ms)"
             />
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px'
+                }}
+            >
+                <CacheInput
+                    name="offset"
+                    title="Entries offset"
+                    minValue={0}
+                />
 
-            <CacheInput
-                name="offset"
-                title="Entries offset"
-            />
+                <CacheInput
+                    name="limit"
+                    title="Entries limit"
+                    minValue={0}
+                />
+            </div>
 
-            <CacheInput
-                name="limit"
-                title="Entries limit"
-            />
+            <div
+                style={{
+                    marginTop: '20px',
+                }}
+            >
+                <Button
+                    className="nav"
+                    onClick={() => {
+                        var delay = adminSection.limit - adminSection.offset;
+                        if ( (adminSection.offset  < delay) || ( delay === 0) )
+                            return
+
+                        adminSection.setValue(
+                            [
+                                "offset",
+                                "limit"
+                            ],
+                            [
+                                ( adminSection.offset - delay ),
+                                ( adminSection.limit - delay ),
+                                
+                            ]
+                        )
+                    }}
+                >
+                    {"<"}
+                </Button>
+                <Button
+                    className="nav"
+                    style={{
+                        marginLeft: '10px'
+                    }}
+                    onClick={() => {
+                        var delay = adminSection.limit - adminSection.offset;
+                        
+                        adminSection.setValue(
+                            [
+                                "offset",
+                                "limit"
+                            ],
+                            [
+                                ( adminSection.offset + delay ),
+                                ( adminSection.limit + delay ),
+                                
+                            ]
+                        )
+                    }}
+                >
+                    {">"}
+                </Button>
+            </div>
 
             <Labeled
                 title="Current entry key"

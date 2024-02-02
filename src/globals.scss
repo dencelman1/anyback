@@ -61,7 +61,7 @@ button {
         height: var(--width);
     }
     &.column::-webkit-scrollbar {
-        background: rgba(0,0,0,0);
+        background: rgba(0,0,0,.1);
         overflow-y: scroll;
         width: var(--width);
     }

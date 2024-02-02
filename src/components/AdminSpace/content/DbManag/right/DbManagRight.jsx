@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from 'react';
 import { Input } from '../../../../../base/builtIn';
 import './DbManagRight.scss';
-import { useAdminPanel } from '../../../../../hooks/useAdminPanel';
 import Select from '../../../../../base/builtIn/Select/Select';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import Filter_ from '../../../../../base/utils/Filter_';
+import InfoIcon from '../../../../svg/Info/Info';
 
 
 
@@ -41,7 +41,10 @@ var DbManagRight = () => {
 
     }
 
-    
+    var extraData = {
+        databaseName: adminSection?.currentDatabase?.extra,
+        tableName: adminSection?.currentTable?.extra,
+    }
 
     return (
         <div
@@ -65,9 +68,12 @@ var DbManagRight = () => {
                     },
                 ].map(( data , index ) => {
                     var currentStateName = data.currentStateName
+                    
 
                     var isRightStateValue = (value) => isRightValue(currentStateName, value)
-                    return (
+                    return (<div
+                        className='navBlock'
+                    >
                         <Input
                             placeholder={data.placeholder}
 
@@ -121,7 +127,25 @@ var DbManagRight = () => {
                             
                             {...navInputQueries}
                         />
-                    )
+
+                        {
+                            data.currentStateName !== 'entry' &&
+                            extraData[data.currentStateName]
+                            && (
+                                <InfoIcon
+                                    side="30px"
+                                    onClick={() => {
+                                        
+                                        window.alert(
+                                            extraData[data.currentStateName]
+                                        )
+                                        
+                                    }}
+                                />
+                            )
+                        }
+                        
+                    </div>)
 
                 })}
             </p>
@@ -148,10 +172,10 @@ var DbManagRight = () => {
                         var onDbCloseOpen = () => (
                             onCloseOpen(p => ({...p, databaseName: d.name}))
                         );
-                            
+                        
                         return <Select
                             key={dI}
-                            title={d.name}
+                            title={ d.name }
                             
                             onOpen={onDbCloseOpen}
                             onClose={onDbCloseOpen}
@@ -162,7 +186,7 @@ var DbManagRight = () => {
                                 
                                 return <Select
                                     key={tI}
-                                    title={t.name}
+                                    title={ t.name }
                                     onContextMenu={(event) => {
                                         event.preventDefault();
 

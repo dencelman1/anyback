@@ -8,7 +8,7 @@ import CacheData from "../api/local/CacheData/CacheData";
 
 
 var useAdminSection = () => {
-    
+
     var adminPanel = useAdminPanel();
     var options = adminPanel.options;
 
@@ -74,6 +74,8 @@ var useAdminSection = () => {
 
     var cachedValues = useCallback(() => [
         'currentEntryKey',
+        'limit',
+        'offset',
     ], [])
     
     function setValue (key, value, cb) {

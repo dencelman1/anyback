@@ -1,11 +1,13 @@
+import { useState } from 'react'
 import Button from '../../../base/builtIn/Button/Button'
 import { OpeningLever } from '../../../base/components'
-import Text from '../../../base/utils/Text'
 import { useAdminPanel } from '../../../hooks/useAdminPanel'
 import LogOutIcon from '../../svg/LogOut/LogOut'
 import SettingsIcon from '../../svg/Settings/Settings'
 import './LeftSideBar.scss'
 
+import AceEditor from 'react-ace';
+import JsEditor from '../../../base/builtIn/Textarea/JsEditor/JsEditor'
 
 
 
@@ -13,6 +15,8 @@ import './LeftSideBar.scss'
 var LeftSideBar = () => {
     var adminPanel = useAdminPanel()
     var sections = adminPanel.sections
+
+    var [code, setCode] = useState()
 
     return (
         <div

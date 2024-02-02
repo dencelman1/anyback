@@ -5,6 +5,8 @@ import useAdminSection from '../../../../../../hooks/useAdminSection';
 import CheckMarkIcon from '../../../../../svg/CheckMark/CheckMark';
 import CrossIcon from '../../../../../svg/Cross/Cross';
 import Function_ from '../../../../../../base/utils/Function_';
+import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor';
+import TimeIcon from '../../../../../svg/Time/Time';
 
 
 var DbManagToolbar = () => {
@@ -102,7 +104,8 @@ var DbManagToolbar = () => {
             <div
                 style={{
                     marginRight: '10px',
-                    userSelect: 'none'
+                    userSelect: 'none',
+                    marginLeft: 'auto'
                 }}
             >
                 {
@@ -112,7 +115,7 @@ var DbManagToolbar = () => {
                 }
             </div>
 
-            <textarea
+            <JsEditor
                 onChange={onChange}
                 value={searchInput.value}
                 spellCheck={false}
@@ -137,6 +140,26 @@ var DbManagToolbar = () => {
                     margin: '0',
                 }}
             />
+
+
+            <div
+                style={{
+                    marginLeft: 'auto',
+                    marginRight: '20px',
+                    height: '40px',
+                }}
+            >
+
+                <TimeIcon
+                    side="40px"
+                    style={{
+                        cursor: 'pointer',
+                    }}
+                />
+
+                {/* // TODO */}
+
+            </div>
         </div>
     )
 }

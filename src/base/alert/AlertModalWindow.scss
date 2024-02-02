@@ -27,11 +27,15 @@
         padding: 20px;
         background-color: whitesmoke;
 
-        .alertText {
+        pre.alertText {
             width: 100%;
             padding: 10px 0;
-            text-align: center;
+            text-align: left;
             font-size: 22px;
+            max-height: 400px;
+            max-width: 400px;
+            overflow: auto;
+
         }
         .okButton {
             margin-left: auto;

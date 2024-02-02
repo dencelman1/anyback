@@ -1,17 +1,22 @@
 
 
 var resolve = (
+
     callInstanse,
     callback,
     onError,
+
 ) => {
+    
     onError ||= window.alert;
 
     if (Array.isArray(callInstanse)) {
         
-        Promise.all( callInstanse )
-        .then( callback )
-        .catch(onError )
+        return (
+            Promise.all( callInstanse )
+            .then( callback )
+            .catch(onError )
+        )
 
     }
     
@@ -23,7 +28,9 @@ var resolve = (
         )
     }
     
-    return callback(callInstanse)
+    return (
+        callback( callInstanse )
+    )
 }
 
 var Function_ = {

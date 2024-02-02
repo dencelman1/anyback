@@ -49,13 +49,24 @@ var options = {
       [
         {
           name: 'dencelman.com',
-          size: 15_000, // bytes
-          isEmpty: false,
 
+          extra: {
+            size: 15_000, // bytes
+            isEmpty: false,
+
+            anyData: 'fuck_you',
+          },
+          
           tables: [
             {
               name: 'users',
-              count: 150,
+              
+              extra: {
+                count: 150,
+                hello: 'world'
+
+              },
+
               fields: [
 
                 {
@@ -83,6 +94,7 @@ var options = {
             {
               name: 'posts',
               count: 10050,
+
               fields: [
 
                 {

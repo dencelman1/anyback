@@ -1,17 +1,26 @@
 import './AlertModalWindow.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 
 function AlertModalWindow() {
     var [text, setText] = useState("")
 
+    var basedTypes = useMemo(() => [
+        'object',
+        "function",
+        "string",
+    ], [])
+
     function alert(message) {
-        
-        if (typeof message !== "function") {
+
+        if ( !( basedTypes.includes( typeof message ) ) ) {
             message = `${message}`;
         }
-
-        setText && setText(message)
+        else if (message instanceof Object) {
+            message = JSON.stringify(message, null, 2);
+        }
+        
+        setText && setText(message);
 
         return message;
     }
@@ -31,11 +40,11 @@ function AlertModalWindow() {
             <div
                 className="contentModal"
             >
-                <span
-                    className='alertText'
+                <pre
+                    className='alertText default-scroll-bar row column thin'
                 >
                     {text}
-                </span>
+                </pre>
                 <button
                     className='okButton'
                     onClick={() => ( alert("") )}

@@ -1,0 +1,26 @@
+
+.JsEditor {
+    min-width: 15px;
+    min-height: 15px;
+    resize: none;
+
+
+    .statement {
+        color: red;
+    }
+
+    .function {
+        color: yellow;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .number {
+        color: black;
+    }
+    .string {
+        color: brown;
+    }
+}

@@ -7,7 +7,14 @@
     .navInputs {
         display: flex;
         flex-direction: column;
-        flex: 1;
+        
+        .navBlock {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        
+        
         
     }
 
