@@ -18,7 +18,7 @@
         left: 50%;
         position: relative;
         transform: translate(-50%, -50%);
-        
+        text-wrap:balance;
         // min-height: 40%;
         max-width: 30%;
 
@@ -28,6 +28,7 @@
         background-color: whitesmoke;
 
         pre.alertText {
+            text-wrap:balance;
             width: 100%;
             padding: 10px 0;
             text-align: left;

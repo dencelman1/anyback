@@ -81,19 +81,42 @@ var DbManagRight = () => {
                             );
                         },
                         
-                        onChange: ( id ) => (
-                            adminSection.entries?.find(e => (
-                                e.databaseName === adminPanel.current.databaseName,
-                                e.tableName === adminPanel.current.tableName,
-                                e.id === id
-                            ))
-                            || null
-                        ),
+                        onChange( id ) {
+                            if (this.all.length === 0)
+                                return null;
+                            
+                            id = `${id}`;
+                            
+                            var newEntry = (
+                                this.all.find(e => (
+                                    `${e.id}` === id
+                                ))
+                                || null
+                            )
+
+                            setTimeout(() => (
+                                adminSection.setValue("chosenEntries", (prev) => {
+                                    if (prev.includes( newEntry ))
+                                        return prev;
+
+                                    return (
+                                        [...prev, newEntry]
+                                    )
+                                })
+                            ), 0)
+                            
+                            return (
+                                
+                                newEntry
+
+                            )
+                            
+                        },
 
                         disabled() {
 
                             return (
-                                !( this.all )
+                                this.all.length === 0
                             );
 
                         }

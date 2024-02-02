@@ -4,6 +4,7 @@ import Function_ from "../../../../../../../base/utils/Function_";
 import useAdminSection from "../../../../../../../hooks/useAdminSection";
 import './EntryView.scss';
 import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
+import { allowedEntryDataTypes } from "../../../../../../../config";
 
 
 
@@ -23,6 +24,7 @@ var EntryView = ({
 
     var reset = () => {
         Object.entries(entry)
+        .filter(([_, v]) => allowedEntryDataTypes().includes( v ))
         .forEach(([key, prevValue]) => {
             var type = typeof prevValue;
 
@@ -149,9 +151,29 @@ var EntryView = ({
                         Object.entries(entry)
                         .map(([k, v], eI) => {
                             var type = typeof v;
-                            var typeColor = getColorByDataType(typeof v)
+                            var typeColor = getColorByDataType( type );
+                            var allowedTypes;
                             
-                            
+                            if (!( (allowedTypes = allowedEntryDataTypes()).includes( type ) )) {
+                                var message = () => (
+                                    `Can work with only:\n\n- ${allowedTypes.join(",\n- ")}\n\nnot: ${type}`
+                                );
+
+                                return (
+                                    <p
+                                        title={message()}
+                                        onClick={() => window.alert(message())}
+                                        style={{
+                                            outline: '1px solid red',
+                                            padding: '10px',
+                                            borderRadius: '1px',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        {k}: {`${v}`}
+                                    </p>
+                                )
+                            }
 
                             return (
                                 <label

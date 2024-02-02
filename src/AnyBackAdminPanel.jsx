@@ -186,8 +186,6 @@ export default AnyBackAdminPanel;
 
 // TODO:
 
-//    2 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
-
 // Analytics:
 //    1 add and view formula and her code
 //    2 list as forlmulas calculated datas

@@ -5,6 +5,7 @@ import useAdminSection from "../../../../../../../hooks/useAdminSection";
 import './AddEntryForm.scss';
 import Function_ from "../../../../../../../base/utils/Function_";
 import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
+import { allowedEntryDataTypes } from "../../../../../../../config";
 
 
 var AddEntryForm = (
@@ -121,7 +122,7 @@ var AddEntryForm = (
                     {
                         currentTable.fields
                         .map((f, fI) => {
-                            if (! ( ["boolean", 'string', 'number'].includes(f.type) ))
+                            if (! ( allowedEntryDataTypes().includes(f.type) ))
                                 return null;
                                                         
                             return (
