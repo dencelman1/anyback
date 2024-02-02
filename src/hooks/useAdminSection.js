@@ -147,7 +147,7 @@ var useAdminSection = () => {
         }
 
         Function_.resolve(
-
+            
             options.read(
                 databaseName,
                 tableName,
@@ -204,6 +204,21 @@ var useAdminSection = () => {
         updateEntries,
         cacheGet,
 
+        currentEntries: (
+            entries,
+        ) => {
+            if (!(entries instanceof Array))
+                return [];
+
+            return (
+                entries
+                .filter(e => (
+                    e.databaseName === adminPanel.current.databaseName &&
+                    e.tableName === adminPanel.current.tableName
+                ))
+            )
+        },
+
         getCurrentDatabase,
         getCurrentTable,
 
@@ -240,6 +255,8 @@ var useAdminSection = () => {
             returnCtx, section,
         )
     }
+
+    
 
     return returnCtx
 }

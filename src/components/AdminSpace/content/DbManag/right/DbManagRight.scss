@@ -12,6 +12,15 @@
             display: flex;
             flex-direction: row;
             gap: 5px;
+
+            select {
+                width: 100%;
+                margin-bottom: 10px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 20px;
+
+            }
         }
         
         

@@ -7,6 +7,7 @@ import CrossIcon from '../../../../../svg/Cross/Cross';
 import Function_ from '../../../../../../base/utils/Function_';
 import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor';
 import TimeIcon from '../../../../../svg/Time/Time';
+import CacheData from '../../../../../../api/local/CacheData/CacheData';
 
 
 var DbManagToolbar = () => {
@@ -147,6 +148,16 @@ var DbManagToolbar = () => {
                     marginLeft: 'auto',
                     marginRight: '20px',
                     height: '40px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    cursor: 'pointer',
+                }}
+                
+                onClick={(event) => {
+                    var s = dbManagOperTime.textContent
+                    window.alert(
+                        <>The last operation took<br/>{s} seconds to process</>
+                    )
                 }}
             >
 
@@ -157,8 +168,15 @@ var DbManagToolbar = () => {
                     }}
                 />
 
-                {/* // TODO */}
-
+                <div
+                    id="dbManagOperTime"
+                    style={{
+                        display: 'none'
+                    }}
+                >
+                    0.000
+                </div>
+                
             </div>
         </div>
     )

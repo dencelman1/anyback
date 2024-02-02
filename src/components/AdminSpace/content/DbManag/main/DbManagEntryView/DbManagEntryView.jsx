@@ -162,11 +162,13 @@ var DbManagEntryView = () => {
 
                     onSelect={(entry, event) => (
 
+                        
+
                         adminPanel.setCurrent(p => ({
                             ...p,
                             entry,
-                            databaseName: ( entry.databaseName || "" ),
-                            tableName: ( entry.tableName || "" ),
+                            databaseName: ( ( entry?.id ? entry: p).databaseName ),
+                            tableName: ( ( entry?.id ? entry: p).tableName ),
                         }))
 
                     )}

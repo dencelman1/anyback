@@ -1,4 +1,16 @@
 
+var getLeftTime = ( f ) => {
+    return ( ( performance.now() - f ) / 1000 ).toFixed(3)
+}
+
+var setOperTime = ( first ) => {
+
+    var timeElement;
+     
+    ( timeElement = document.getElementById("dbManagOperTime") )
+    && ( timeElement.textContent = getLeftTime( first ) )
+    
+};
 
 var resolve = (
 
@@ -7,30 +19,24 @@ var resolve = (
     onError,
 
 ) => {
+    var f = performance.now(), r;
     
     onError ||= window.alert;
 
-    if (Array.isArray(callInstanse)) {
-        
-        return (
-            Promise.all( callInstanse )
-            .then( callback )
-            .catch(onError )
-        )
-
-    }
-    
     if (callInstanse instanceof Promise) {
         return (
             callInstanse
-            .then(callback)
+            .then( callback )
             .catch(onError)
+            .finally(() => {
+                setOperTime(f)
+            })
         )
     }
     
-    return (
-        callback( callInstanse )
-    )
+    r = callback( callInstanse );
+    setOperTime(f)
+    return r;
 }
 
 var Function_ = {

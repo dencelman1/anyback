@@ -10,6 +10,7 @@
     flex-direction: column;
 
     button.nav {
+        user-select: none;
         border-radius: 100%;
         width: 40px;
         font-size: 25px;

@@ -185,8 +185,6 @@ function AnyBackAdminPanel({
 export default AnyBackAdminPanel;
 
 // TODO:
-//    1 data (расположить по елементам нормально);
-//      - reqSpeed ( service workers with fetch ),
 
 //    2 add function select from right three inputs (maybe set instead of inputs - selects) - db, table, entry (by id)
 

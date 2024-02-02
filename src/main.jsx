@@ -129,12 +129,16 @@ var options = {
     where,
   ) {
     
-    return (
+    return (new Promise((res, rej) => {
+      setTimeout(() => {
+        
+        res(
+          LocalBackend.read(databaseName, tableName, where)
+          .slice(offset, ( offset + limit ))
+        )
 
-      LocalBackend.read(databaseName, tableName, where)
-      .slice(offset, ( offset + limit ))
-
-    )
+      }, 1000)
+    }))
 
   },
   update(
@@ -184,8 +188,11 @@ var options = {
       var response = {
         success: true,
       }
-
+      
       res(response.success)
+      
+      
+      
     })
   },
 

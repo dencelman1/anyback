@@ -11,40 +11,16 @@ import InfoIcon from '../../../../svg/Info/Info';
 var DbManagRight = () => {
     var adminSection = useAdminSection()
     var adminPanel = adminSection.adminPanel;
-
-    var navInputQueries = useMemo(() => ({
-        style: {
-            marginBottom: '10px',
-            height: "30px",
-            lineHeight: '30px',
-            fontSize: '20px',
-        },
-        disabled: true,
-    }), [])
-
-    useEffect(() => {
-        
-    }, [])
-
+    
     var databases = (adminSection.databases || []),
         entries = (adminSection.entries || []);
-
-
-    function isRightValue(
-        currentStateName,
-        newValue
-    )  {
-
-        return (
-            newValue === "MY_DATABASE"
-        );
-
-    }
 
     var extraData = {
         databaseName: adminSection?.currentDatabase?.extra,
         tableName: adminSection?.currentTable?.extra,
     }
+
+    
 
     return (
         <div
@@ -55,97 +31,143 @@ var DbManagRight = () => {
             >
                 {[
                     {
-                        placeholder: 'Database',
                         currentStateName: "databaseName",
+                        placeholder: 'Database',
+                        defaultValue: "",
+
+                        current: adminSection.currentDatabase,
+                        all: ( adminSection.databases ),
+
+                        value( e ) {
+                            e ||= this.current;
+                            return e?.name;
+                        },
+                        onChange: ( ( v ) => ( v ) ),
+
+                        disabled: () => ( false ),
+
                     },
                     {
-                        placeholder: 'Table',
                         currentStateName: "tableName",
+                        placeholder: 'Table',
+                        defaultValue: "",
+
+                        current: adminSection.currentTable,
+                        all: ( adminSection.currentDatabase?.tables ),
+
+                        value( e ) {
+                            e ||= this.current;
+                            return e?.name;
+                        },
+                        
+                        onChange: ( ( v ) => ( v ) ),
+
+                        disabled() {
+                            return !( this.all )
+                        },
                     },
                     {
-                        placeholder: 'Entry',
                         currentStateName: "entry",
-                    },
-                ].map(( data , index ) => {
-                    var currentStateName = data.currentStateName
-                    
+                        placeholder: 'Entry',
+                        defaultValue: null,
 
-                    var isRightStateValue = (value) => isRightValue(currentStateName, value)
-                    return (<div
-                        className='navBlock'
-                    >
-                        <Input
-                            placeholder={data.placeholder}
+                        current: adminPanel.current.entry,
+                        all: ( adminSection.currentEntries( adminSection.entries ) ),
 
-                            key={index}
+                        value( e ) {
+                            e ||= adminPanel.current.entry;
+                            return (
+                                e?.id
+                            );
+                        },
+                        
+                        onChange: ( id ) => (
+                            adminSection.entries?.find(e => (
+                                e.databaseName === adminPanel.current.databaseName,
+                                e.tableName === adminPanel.current.tableName,
+                                e.id === id
+                            ))
+                            || null
+                        ),
 
-                            value={
-                                (
-                                    currentStateName === 'entry'
-                                    ? (
-                                        adminPanel.current?.[currentStateName]?.id?.toString()
-                                    )
-                                    : (adminPanel.current[currentStateName])
-                                )
-                                || ( data.placeholder )
-                            }
-                            
-                            onChange={(event) => {
-                                return (
-                                    adminPanel.setCurrent(p => ({
-                                        ...p,
-                                        [currentStateName]: event.target.value}
-                                    ))
-                                )
-                            }}
-                            onBlur={(event) => {
-                                adminPanel.setCurrent(p => ({
-                                    ...p,
-                                    [currentStateName]:
-                                        isRightStateValue( event.target.value )
-                                        ? event.target.value
-                                        : (""),
-                                }))
-
-                            }}
-                            onKeyDown={(event) => {
-                                if ( event.key !== "Enter" ) {
-                                    return
-                                }
-
-                                adminPanel.setCurrent(p => ({
-                                    ...p,
-                                    [currentStateName]:
-                                        isRightStateValue(event.target.value)
-                                        ? event.target.value
-                                        : (""),
-                                }))
-                                
-
-                                
-                            }}
-                            
-                            {...navInputQueries}
-                        />
-
-                        {
-                            data.currentStateName !== 'entry' &&
-                            extraData[data.currentStateName]
-                            && (
-                                <InfoIcon
-                                    side="30px"
-                                    onClick={() => {
-                                        
-                                        window.alert(
-                                            extraData[data.currentStateName]
-                                        )
-                                        
-                                    }}
-                                />
+                        disabled() {
+                            return (
+                                !( this.current?.id )
                             )
                         }
                         
-                    </div>)
+                        
+                    },
+                ].map(( data , index ) => {
+
+                    var currentStateName = data.currentStateName;
+                    var value = `${data.value() || 'unknown'}`;
+
+                    
+                    return (
+                        <div
+                            className='navBlock'
+                        >
+                            <select
+                                key={ index }
+
+                                disabled={data.disabled()}
+                                value={value}
+                                
+                                onChange={(event) => {
+                                    return (
+                                        adminPanel.setCurrent(p => ({
+                                            ...p,
+                                            [currentStateName]: (
+                                                event.target.value === 'unknown' 
+                                                ? ( data.defaultValue )
+                                                : ( data.onChange( event.target.value ) )
+                                            )
+
+                                        }))
+                                    )
+                                }}
+                            >
+                                <option value="unknown">
+                                    {data.placeholder}
+                                </option>
+
+                                {
+                                    data.all?.map(o => {
+                                        
+                                        var v = data.value( o );
+
+                                        return (
+                                            <option
+                                                value={v}
+                                            >
+                                                {v}
+                                            </option>)
+                                    })
+                                }
+                            </select>
+
+                            {
+                                (
+                                    data.currentStateName !== 'entry' &&
+                                    extraData[data.currentStateName]
+                                )
+                                && (
+                                    <InfoIcon
+                                        side="30px"
+                                        onClick={() => {
+                                            
+                                            window.alert(
+                                                extraData[data.currentStateName]
+                                            )
+                                            
+                                        }}
+                                    />
+                                )
+                            }
+                            
+                        </div>
+                    )
 
                 })}
             </p>

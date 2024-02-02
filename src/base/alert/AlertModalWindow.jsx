@@ -13,10 +13,11 @@ function AlertModalWindow() {
 
     function alert(message) {
 
+        
         if ( !( basedTypes.includes( typeof message ) ) ) {
             message = `${message}`;
         }
-        else if (message instanceof Object) {
+        else if (message instanceof Object && !( "props" in message )) {
             message = JSON.stringify(message, null, 2);
         }
         
