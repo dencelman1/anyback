@@ -91,9 +91,11 @@ var DbManagRight = () => {
                         ),
 
                         disabled() {
+
                             return (
-                                !( this.current?.id )
-                            )
+                                !( this.all )
+                            );
+
                         }
                         
                         
