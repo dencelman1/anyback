@@ -196,9 +196,9 @@ var options = {
     })
   },
 
-  checkAuth: (
+  checkAuth(
     result, // token
-  ) => { // Promise<boolean> or boolean возвращает
+  ) { // Promise<boolean> or boolean возвращает
     return new Promise((res) => res(result === cachedToken))
     // 1 true
       // pass to admin panel
@@ -218,7 +218,7 @@ var options = {
     
   },
 
-  auth: (login, password) => {
+  auth(login, password) {
     // return true
 
     // 1

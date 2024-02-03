@@ -1,0 +1,31 @@
+
+
+.FormulaEditor {
+    flex: 1;
+    overflow:visible;
+
+    margin-bottom: -70%;
+    transition: .2s margin-bottom;
+
+    .closeOpen {
+        border-radius: 100%;
+        transform: rotate(180deg);
+    }
+
+    &.opened {
+        margin-bottom: 0;
+
+        .closeOpen {
+            transform: rotate(0);
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    outline: 1px solid gray;
+}

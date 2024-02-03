@@ -57,9 +57,13 @@ function deleteCookie(key) {
 	update(key, "", -1)
 }
 
+
 var Cookie = {
+	size: () => ( document.cookie.length ),
+	
     get,
     update,
+	
 
 	delete: deleteCookie,
 }

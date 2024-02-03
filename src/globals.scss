@@ -5,6 +5,15 @@
     align-items: center;
 }
 
+.closeOpen {
+    outline: 1px solid gray;
+    background-color: white;
+    border-radius: 20%;
+    width: 50px;
+    aspect-ratio: 1 / 1;
+
+}
+
 
 button {
     outline: none;

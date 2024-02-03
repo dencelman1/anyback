@@ -1,21 +1,38 @@
-import React from 'react';
+import { useCallback } from "react";
+import './JsEditor.scss';
 
-const JsEditor = ({
+
+var JsEditor = ({
+  className,
   onChange,
+  onKeyDown,
   ...props
 }) => {
   
-  const onChange_ = ( event ) => {
+  var onChange_ = useCallback(( event ) => {
     onChange && onChange( event );
 
     
-  };
+  }, [ onChange ]);
+
+  var onKeyDown_ = useCallback(( event ) => {
+    onKeyDown && onKeyDown( event );
+
+    if (event.key === "Escape")
+      event.target?.blur()
+
+  }, [ onKeyDown ]);
 
   return (
     <textarea
       {...props}
+      className={(
+        "JsEditor default-scroll-bar column row"+
+        (className ? ` ${className}`: "")
+      )}
 
       onChange={onChange_}
+      onKeyDown={onKeyDown_}
 
     />
   );
