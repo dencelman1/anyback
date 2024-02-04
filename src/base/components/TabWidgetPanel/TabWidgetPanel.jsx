@@ -10,10 +10,11 @@ export var getColorByDataType = (
         boolean: "rgb(31,54,162)",
         number: 'rgb(129,91,31)',
         string: 'rgb(129,31,31)',
-        object: 'rgb(199,203,16)',
+        object: 'black',
         function: 'rgb(206,68,93)',
     })[type]
 }
+
 
 
 var TabWidgetPanel = ({

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import './JsEditor.scss';
 
 
@@ -6,9 +6,13 @@ var JsEditor = ({
   className,
   onChange,
   onKeyDown,
+  forwardRef,
   ...props
 }) => {
   
+  var ref = forwardRef || useRef(null);
+
+
   var onChange_ = useCallback(( event ) => {
     onChange && onChange( event );
 
@@ -18,9 +22,10 @@ var JsEditor = ({
   var onKeyDown_ = useCallback(( event ) => {
     onKeyDown && onKeyDown( event );
 
-    if (event.key === "Escape")
+    if (event.key === "Escape") {
       event.target?.blur()
-
+    }
+    
   }, [ onKeyDown ]);
 
   return (
@@ -33,6 +38,8 @@ var JsEditor = ({
 
       onChange={onChange_}
       onKeyDown={onKeyDown_}
+      spellCheck={false}
+      ref={ref}
 
     />
   );

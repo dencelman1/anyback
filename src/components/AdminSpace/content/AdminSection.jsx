@@ -86,13 +86,16 @@ var data = [
         name: "Analytics",
         title: "Analytics",
         element: Analytics,
-        Logo: null,
-        hotkeys: [],
+        hotkeys: [
+            { keys: ["Ctrl", "S"], desc: 'Save and rerun formula', },
+            { keys: ["Ctrl", "Enter"], desc: "Create new"},
+        ],
 
         loadingMessage: 'Getting statistic and analytics 📃',
     },
     
 ]
+
 
 
 var AdminSection = {

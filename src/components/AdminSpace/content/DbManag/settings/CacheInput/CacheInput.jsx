@@ -37,16 +37,13 @@ var CacheInput = ({
 
                 value={ adminSection[ name ] || minValue }
                 onChange={(event) => {
-                    var v;
-                    CacheData[ name ] =
-                        ( v = ( parseFloat( event.target.value ) || minValue ) );
-
+                    var v = ( parseFloat( event.target.value ) || minValue );
+                    
                     if (!allowNeg) {
                         v = Math.abs( v );
                     }
 
                     adminSection.setValue( name, v );
-                    event.target.value = v;
                 }}
                 
             />

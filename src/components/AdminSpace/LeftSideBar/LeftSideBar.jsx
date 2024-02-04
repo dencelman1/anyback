@@ -6,11 +6,6 @@ import LogOutIcon from '../../svg/LogOut/LogOut'
 import SettingsIcon from '../../svg/Settings/Settings'
 import './LeftSideBar.scss'
 
-import AceEditor from 'react-ace';
-import JsEditor from '../../../base/builtIn/Textarea/JsEditor/JsEditor'
-
-
-
 
 var LeftSideBar = () => {
     var adminPanel = useAdminPanel()

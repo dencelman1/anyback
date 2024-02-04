@@ -1,5 +1,3 @@
-import { useEffect, useMemo } from 'react';
-import { Input } from '../../../../../base/builtIn';
 import './DbManagRight.scss';
 import Select from '../../../../../base/builtIn/Select/Select';
 import useAdminSection from '../../../../../hooks/useAdminSection';
@@ -26,7 +24,7 @@ var DbManagRight = () => {
         <div
             className="DbManagMain__right"
         >
-            <p
+            <div
                 className="navInputs"
             >
                 {[
@@ -195,7 +193,7 @@ var DbManagRight = () => {
                     )
 
                 })}
-            </p>
+            </div>
             
             
             <Select
@@ -266,10 +264,29 @@ var DbManagRight = () => {
                                             &&
                                             e.databaseName === d.name
                                         ))
-                                        .map(e => ({
-                                            title: e[ adminSection.currentEntryKey ]?.toString() || e.id?.toString(),
-                                            value: e,
-                                        })
+                                        .map(e => {
+                                            var title = e[ adminSection.currentEntryKey ];
+                                            var type = typeof title;
+
+                                            // TODO: перенести в Select
+                                            if (type === 'string') {
+                                                title = `"${title}"`
+                                            }
+                                            else if ([null, undefined].includes(title)) {
+                                                title = `${title}`;
+                                            }
+                                            else if (type === 'object') {
+                                                title = JSON.stringify(title, (_, v) => {
+                                                    return typeof v === "function" ? v.toLocaleString(): v
+                                                }, 2)
+                                            }
+
+                                            return {
+                                                title: title?.toString(),
+                                                type,
+                                                value: e,
+                                            }
+                                        }
                                     )}
 
                                     onOpen={() => {

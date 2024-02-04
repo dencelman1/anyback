@@ -4,10 +4,9 @@ import useDebounce from '../../../../../../hooks/useDebounce';
 import useAdminSection from '../../../../../../hooks/useAdminSection';
 import CheckMarkIcon from '../../../../../svg/CheckMark/CheckMark';
 import CrossIcon from '../../../../../svg/Cross/Cross';
-import Function_ from '../../../../../../base/utils/Function_';
+
 import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor';
 import TimeIcon from '../../../../../svg/Time/Time';
-import CacheData from '../../../../../../api/local/CacheData/CacheData';
 
 
 var DbManagToolbar = () => {

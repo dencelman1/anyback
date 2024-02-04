@@ -132,10 +132,13 @@ var options = {
     return (new Promise((res, rej) => {
       setTimeout(() => {
         
-        res(
-          LocalBackend.read(databaseName, tableName, where)
-          .slice(offset, ( offset + limit ))
-        )
+        
+          res(
+            LocalBackend.read(databaseName, tableName, where)
+            .slice(offset, ( offset + limit ))
+          )
+          
+        
 
       }, 1000)
     }))
@@ -251,7 +254,17 @@ var options = {
     console.log("logouted")
   },
 
+  analEnv: {
 
+    count(where) {
+      return new Promise((res, rej) => {
+        res(where?.isAdmin ? 15_000: 1_000_000);
+        
+      })
+      
+    },
+
+  }
 
 
 

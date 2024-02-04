@@ -4,24 +4,6 @@ import ArrowIcon from '../../../components/svg/Arrow/Arrow';
 import { getColorByDataType } from '../../components/TabWidgetPanel/TabWidgetPanel';
 
 
-export var definedDataTypeFromStr = (str) => {
-
-    try {
-        return (
-            JSON.parse(str, (key, value) => {
-                if (key !== '')
-                    return 'object'
-                
-                return ( typeof value );
-            })
-        )
-    } catch {
-        return 'string';
-    }
-
-}
-
-
 var Select = (
 
     {
@@ -67,7 +49,7 @@ var Select = (
                 title={title}
                 className='title'
                 onClick={() => (
-                    setSelect(p => {
+                    setTimeout(() => setSelect(p => {
 
                         newValue = !( p.opened );
 
@@ -77,7 +59,7 @@ var Select = (
                             ...p,
                             opened: newValue,
                         }
-                    })
+                    }), 0)
                 )}
             >
                 <ArrowIcon
@@ -95,15 +77,15 @@ var Select = (
                 {
                     options.map((o, key) => {
                         
-                        if ("props" in o) {
-                            return o
+                        if ('props' in o) {
+                            return o;
                         }
 
                         return (
                             <li
                                 key={key}
                                 style={{
-                                    color: getColorByDataType( definedDataTypeFromStr( o.title ) )
+                                    color: getColorByDataType( o.type )
                                 }}
                                 className={(
                                     "option"+
@@ -116,7 +98,7 @@ var Select = (
 
                                     setSelect(p => ({...p, currentOption: o}))
                                     if (onChange){
-                                        onChange(o);
+                                        setTimeout(() => onChange(o), 0);
                                     }
                                     
                                 }}

@@ -1,25 +1,30 @@
 import './AnalyticsView.scss';
-import useAdminSection from '../../../../../../hooks/useAdminSection';
 import AnalWidget from './AnalWidget/AnalWidget';
 
 
-var AnalyticsView = () => {
-    var adminSection = useAdminSection();
-
-
+var AnalyticsView = ({
+    adminSection,
+}) => {
     
     return (
         <div
-            className='AnalyticsView'
+            className="AnalyticsView default-scroll-bar column"
         >
-            <AnalWidget
-                name={"name"}
-                formula={`
-                    return ((1 + 1) * 4 )
-                `}
-                options={adminSection.options}
-
-            />
+            {
+                Array.isArray(adminSection?.formulas)
+                &&
+                adminSection.formulas?.map((f, i) => {
+                    return (
+                        <AnalWidget
+                            key={i}
+                            formula={f}
+                            adminSection={adminSection}
+                            
+                        />
+                    )
+                })
+                || 'Add your first anal formula :)'
+            }
         </div>
     )
 }

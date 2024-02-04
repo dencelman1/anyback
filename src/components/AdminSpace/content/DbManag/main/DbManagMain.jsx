@@ -1,22 +1,22 @@
-import { useEffect,  } from 'react';
+import { useEffect, useState,  } from 'react';
 import './DbManagMain.scss';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import Function_ from '../../../../../base/utils/Function_';
 
 import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
 import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
-import CacheData from '../../../../../api/local/CacheData/CacheData';
-
 
 
 var DbManagMain = () => {
     var adminSection = useAdminSection();
-    var cacheGet = adminSection.cacheGet;
+    var [isLoading, setIsLoading] = useState(true);
+
+    
 
     useEffect(() => {
-
+        var cacheGet = adminSection.cacheGet;
         
-
+        
 
         Function_.resolve(
 
@@ -44,17 +44,26 @@ var DbManagMain = () => {
                         [],
                         [],
 
-                        cacheGet( "currentEntryKey" ),
+                        cacheGet( "currentEntryKey", ),
                         
-                        cacheGet("offset"),
-                        cacheGet("limit"),
+                        cacheGet("offset",),
+                        cacheGet("limit", ),
                         
-                        cacheGet("searchDebounceDelay"),
+                        cacheGet("searchDebounceDelay", ),
                         {},
                     ],
 
                     () => {
+                        adminSection.setCachedKeys([
+                            'currentEntryKey',
+                            'limit',
+                            'offset',
+
+                            'searchDebounceDelay',
+                        ])
+
                         adminSection.finishLoad()
+                        setIsLoading(false)
                     }
                 )
 
@@ -63,6 +72,8 @@ var DbManagMain = () => {
         )
     }, [])
 
+    if (isLoading)
+        return null;
 
     return (
         <div

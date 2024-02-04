@@ -19,11 +19,15 @@ function update(
 		)
 	)
 	
-	value = ( JSON.stringify(value) || "undefined" );
+	value = ( encodeURIComponent(JSON.stringify(value)) || "undefined" );
 	
 	document.cookie = ( key + "=" + value + expires + "; path=/" )
 
 	return ( value );
+}
+
+function deleteCookie(key) {
+	update(key, "", -1)
 }
 
 function get(
@@ -45,17 +49,22 @@ function get(
 
 		if (c.indexOf(nameEQ) === 0) {
 			var value = c.substring(nameEQ.length, c.length)
-
-			return value === 'undefined' ? undefined: JSON.parse(value);
+			if (value === 'undefined') {
+				return undefined;
+			}
+			
+			return JSON.parse(
+				decodeURIComponent(
+					value
+				)
+			);
 		}
 
 	}
 	return undefined;
 }
 
-function deleteCookie(key) {
-	update(key, "", -1)
-}
+
 
 
 var Cookie = {

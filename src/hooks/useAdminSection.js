@@ -1,7 +1,8 @@
-import {  useCallback, useMemo } from "react";
+import {  useCallback, useMemo, useState } from "react";
 import { useAdminPanel } from "./useAdminPanel"
 import Function_ from "../base/utils/Function_";
 import CacheData from "../api/local/CacheData/CacheData";
+import useCacheState from "./useCacheState";
 
 
 
@@ -12,26 +13,56 @@ var useAdminSection = () => {
     var adminPanel = useAdminPanel();
     var options = adminPanel.options;
 
+    var section = adminPanel.current.section;
+
+
+    var getCacheKey = useCallback((key) => (
+        `${section?.name || "global"}_${key}`
+    ), [section])
+
+    var [localStorageKeys, setLocalStorageCachedKeys] = useCacheState([], getCacheKey('localStorageKeys'));
+    var [cachedValues, setCachedValues] = useCacheState([], getCacheKey("cachedValues"));
+    
+    
 
     var cacheGet = (
         name,
-        defaultValue
+        defaultValue,
+        type
     ) => {
+        type ||= 'cookie';
         defaultValue ||= options.defaultValue[name];
 
-        var v = CacheData[name];
-                        
-        if ( v === undefined ) {
-            CacheData[name] = (
-                v = defaultValue
-            );
+        console.log("cacheGet name 1", name)
+        name = getCacheKey( name );
+        console.log("cacheGet name 2", name)
+        
+        var v = {
+            cookie: (n) => CacheData[n],
+            localStorage: (n) => JSON.parse( localStorage.getItem(n) ),
         }
+        [type](name);
+        
+        var set = {
+            cookie: (key, value) => {
+                CacheData[key] = value;
+            },
+            localStorage: (key, value) => {
+                localStorage.setItem(
+                    key,
+                    JSON.stringify(value)
+                )
+            }
+        }[type];
+        
+        if ( [ undefined, null ].includes(v) ) {
+            v = defaultValue;
+            set(name, defaultValue)
+        };
 
         return v;
     }
     
-    var section = adminPanel.current.section;
-
     var getCurrentDatabase = ( databases ) => {
         return (
             (databases instanceof Object)
@@ -72,28 +103,40 @@ var useAdminSection = () => {
 
     
 
-    var cachedValues = useCallback(() => [
-        'currentEntryKey',
-        'limit',
-        'offset',
-    ], [])
     
-    function setValue (key, value, cb) {
+    
+    var setValue = (key, value, cb) => {
         var i;
 
-        var defineNewValue = ( s, value ) => (
+        var defineNewValue = ( k,v, s ) => (
 
-            ( value instanceof Function )
-            ? value( s[key] )
-            : value
+            ( v instanceof Function )
+            ? v( s[k] )
+            : v
 
         )
 
         var set = (k,v, s) => {
-            var newV = defineNewValue( s, v );
+            var newV = defineNewValue(k,v, s);
+            console.log("set", k)
+            console.dir(localStorageKeys);
+            console.dir(cachedValues);
 
-            if (cachedValues().includes( k )) {
-                CacheData[k] = newV;
+            if (localStorageKeys.includes( k )) {
+                console.log("set localStorageKeys", getCacheKey(k))
+
+                localStorage.setItem(
+                    getCacheKey(k),
+                    JSON.stringify(newV)
+                );
+
+            }
+
+            
+
+            else if (cachedValues.includes( k )) {
+                console.log("set cachedValues", getCacheKey(k))
+                CacheData[ getCacheKey(k) ] = newV;
             }
 
             s[k] = newV;
@@ -119,7 +162,7 @@ var useAdminSection = () => {
                         }
                     }
                     else {
-                        set(key, value,s)
+                        set( key, value,s )
                     }
 
                     return s;
@@ -204,10 +247,12 @@ var useAdminSection = () => {
         updateEntries,
         cacheGet,
 
+        setLocalStorageCachedKeys,
+
         currentEntries: (
             entries,
         ) => {
-            if (!(entries instanceof Array))
+            if (!(Array.isArray(entries)))
                 return [];
 
             return (
@@ -221,6 +266,7 @@ var useAdminSection = () => {
 
         getCurrentDatabase,
         getCurrentTable,
+        getCacheKey,
 
         currentDatabase,
         currentTable,
@@ -228,6 +274,17 @@ var useAdminSection = () => {
         isSectionChosen: Boolean( section ),
 
         adminPanel,
+
+        setCachedKeys(keys) {
+            if (typeof keys === "string") {
+                keys = [ keys ]
+            }
+            else if ( !( Array.isArray( keys ) ) ) {
+                throw TypeError("input param 'keys' must be have string[] or string type");
+            }
+            
+            setCachedValues( keys );
+        },
         
         finishLoad() {
             setValue("loaded", true);

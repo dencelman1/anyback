@@ -1,31 +1,67 @@
 
 
 .FormulaEditor {
-    flex: 1;
+    position: absolute;
+    
     overflow:visible;
 
-    margin-bottom: -70%;
     transition: .2s margin-bottom;
-
-    .closeOpen {
-        border-radius: 100%;
-        transform: rotate(180deg);
-    }
-
-    &.opened {
-        margin-bottom: 0;
-
-        .closeOpen {
-            transform: rotate(0);
-        }
-    }
+    box-shadow: 0 0 10px gray;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     align-items: center;
     justify-content: center;
+    left: 0;
+    width: 100%;
 
-    position: relative;
+
     outline: 1px solid gray;
+
+    transition: transform .1s, height;
+    transform: translateY(0);
+    
+    --delay: 30px;
+    background-color: whitesmoke;
+    height: 40%;
+    padding: 20px 0;
+    bottom: 0;
+
+    .closeOpen {
+        border-radius: 100%;
+        
+        transition: transform .1s;
+        transform: rotate(0);
+        left: 20px;
+    }
+
+    &.opened {
+        
+        transform: translateY(calc(110%));
+        
+        .closeOpen {
+
+            transform: translateY(calc(-1 * (var(--delay) + 40px))) rotate(180deg);
+            
+            
+        }
+    }
+
+    .editButtons {
+        margin-left: 10px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // width: 40px;
+            // aspect-ratio: 1/1;
+        }
+    }
+
+
 }
