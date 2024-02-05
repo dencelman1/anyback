@@ -63,6 +63,9 @@ button {
     &.thin {
         --width: 5px;
     }
+    &.medium {
+        --width: 10px;
+    }
     
     &.row::-webkit-scrollbar {
         

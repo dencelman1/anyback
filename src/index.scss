@@ -20,7 +20,10 @@
 body {
   
   position: fixed;
-  font-family: 'Jost', sans-serif;
+  
+  &, textarea {
+    font-family: 'Jost', sans-serif;
+  }
   
   &, #root {
     margin: 0;

@@ -32,7 +32,7 @@ var JsEditor = ({
     <textarea
       {...props}
       className={(
-        "JsEditor default-scroll-bar column row"+
+        "JsEditor default-scroll-bar column row medium"+
         (className ? ` ${className}`: "")
       )}
 

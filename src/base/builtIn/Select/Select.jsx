@@ -53,7 +53,7 @@ var Select = (
 
                         newValue = !( p.opened );
 
-                        (closeOpenHandler = (newValue ? onOpen : onClose)) && closeOpenHandler();
+                        (closeOpenHandler = (newValue ? onOpen : onClose)) && ( closeOpenHandler() );
 
                         return {
                             ...p,
@@ -77,10 +77,10 @@ var Select = (
                 {
                     options.map((o, key) => {
                         
-                        if ('props' in o) {
-                            return o;
-                        }
-
+                        if ("props" in o) {
+                            return ( o );
+                        };
+                        
                         return (
                             <li
                                 key={key}

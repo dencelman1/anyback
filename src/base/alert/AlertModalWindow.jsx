@@ -1,37 +1,146 @@
+import Button from '../builtIn/Button/Button';
 import './AlertModalWindow.scss';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+
+var basedTypes = [
+    'object',
+    "function",
+    "string",
+];
+
+var getMessage = (message) => {
+    if ( !( basedTypes.includes( typeof message ) ) ) {
+        message = `${message}`;
+    }
+    else if (message instanceof Object && !( "props" in message )) {
+        message = JSON.stringify(message, null, 2);
+    }
+    return message
+}
 
 
 function AlertModalWindow() {
-    var [text, setText] = useState("")
+    var [data, setData] = useState({
+        mode: 'alert',
+        message: '',
+        value: '',
+        cb: null,
+    })
 
-    var basedTypes = useMemo(() => [
-        'object',
-        "function",
-        "string",
-    ], [])
+    var inputRef = useRef(null);
 
-    function alert(message) {
 
+    useEffect(() => {
+
+        inputRef.current?.focus();
+
+    })
+    
+    var alert = useCallback((message, cb) => {
         
-        if ( !( basedTypes.includes( typeof message ) ) ) {
-            message = `${message}`;
-        }
-        else if (message instanceof Object && !( "props" in message )) {
-            message = JSON.stringify(message, null, 2);
-        }
+        setData(p => ({
+            ...p,
+            message: ( message = getMessage(message) ),
+            mode: 'alert',
+            cb,
+        }));
         
-        setText && setText(message);
+        return message;
+    }, []);
+
+
+    var confirm = useCallback((message, cb) => {
+        
+        setData(p => ({
+            ...p,
+            message: ( message = getMessage(message) ),
+            mode: 'confirm',
+            cb,
+        }))
 
         return message;
-    }
-    
-    useEffect(() => {
-        window.alert = alert;
     }, [])
 
+    var prompt = useCallback((message, defaultValue, cb) => {
+        
+        setData(p => ({
+            ...p,
+            mode: 'prompt',
+            message: ( message = getMessage(message) ),
+            value: defaultValue,
+            cb,
+        }))
+
+        return message;
+    }, [])
+
+
+    
+    useEffect(() => {
+
+        window.alert = ( alert );
+        window.confirm = ( confirm );
+        window.prompt = ( prompt );
+        
+    }, [])
+
+    var onOk = useCallback(() => {
+        setData(p => {
+            
+            p.cb && p.cb(
+                p.mode === 'prompt'
+                ? ( p.value )
+                : ( true )
+            )
+            
+            return {
+                ...p,
+                message: "",
+                cb: null,
+            };
+        })
+    }, []);
+
+    var onCancel = useCallback(() => {
+        setData(( p ) => {
+
+            (
+                p.mode !== 'prompt'
+                && p.cb
+            )
+            && ( p.cb( false ) );
+            
+            return {
+                ...p,
+                message: "",
+                cb: null,
+            }
+        })
+    }, [])
+    
+
+    var onKeyDown = useCallback((e) => {
+        
+        if (e.key === "Enter") {
+            onOk();
+        }
+        else if (e.key === "Escape") {
+            onCancel()
+        }
+        
+    }, [])
+
+
+    var onChange = useCallback((event) => {
+        setData(p => ({
+            ...p,
+            value: event.target.value,
+        }))
+    }, [])
+
+
     return (
-        text !== ''
+        data.message
 
         &&
         
@@ -44,14 +153,40 @@ function AlertModalWindow() {
                 <pre
                     className='alertText default-scroll-bar row column thin'
                 >
-                    {text}
+                    {data.message}
                 </pre>
-                <button
-                    className='okButton'
-                    onClick={() => ( alert("") )}
+                {
+                    data.mode === 'prompt' && (
+                        <input
+                            ref={inputRef}
+                            spellCheck={false}
+                            
+                            value={data.value}
+                            onChange={onChange}
+                            onKeyDown={onKeyDown}
+                        />
+                    )
+                }
+                <div
+                    className="actionButtons"
                 >
-                    OK
-                </button>
+                    <Button
+                        className='okButton'
+                        onClick={onOk}
+                    >
+                        ok
+                    </Button>
+
+                    {
+                        data.mode !== "alert" && (
+                            <Button
+                                onClick={onCancel}
+                            >
+                                cancel
+                            </Button>
+                        )
+                    }
+                </div>
 
             </div>
             

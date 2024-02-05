@@ -33,9 +33,7 @@ var useAdminSection = () => {
         type ||= 'cookie';
         defaultValue ||= options.defaultValue[name];
 
-        console.log("cacheGet name 1", name)
         name = getCacheKey( name );
-        console.log("cacheGet name 2", name)
         
         var v = {
             cookie: (n) => CacheData[n],
@@ -118,13 +116,9 @@ var useAdminSection = () => {
 
         var set = (k,v, s) => {
             var newV = defineNewValue(k,v, s);
-            console.log("set", k)
-            console.dir(localStorageKeys);
-            console.dir(cachedValues);
-
+            
             if (localStorageKeys.includes( k )) {
-                console.log("set localStorageKeys", getCacheKey(k))
-
+                
                 localStorage.setItem(
                     getCacheKey(k),
                     JSON.stringify(newV)
@@ -135,7 +129,6 @@ var useAdminSection = () => {
             
 
             else if (cachedValues.includes( k )) {
-                console.log("set cachedValues", getCacheKey(k))
                 CacheData[ getCacheKey(k) ] = newV;
             }
 
