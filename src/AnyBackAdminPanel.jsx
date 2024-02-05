@@ -187,5 +187,5 @@ export default AnyBackAdminPanel;
 // TODO:
 
 // Analytics:
-//    1 add and view formula and her code
-//    2 list as forlmulas calculated datas
+// - dark theme;
+// - npm;

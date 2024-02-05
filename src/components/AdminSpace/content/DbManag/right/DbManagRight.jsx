@@ -267,20 +267,20 @@ var DbManagRight = () => {
                                         .map(e => {
                                             var title = e[ adminSection.currentEntryKey ];
                                             var type = typeof title;
-
-                                            // TODO: перенести в Select
-                                            if (type === 'string') {
-                                                title = `"${title}"`
-                                            }
-                                            else if ([null, undefined].includes(title)) {
-                                                title = `${title}`;
-                                            }
-                                            else if (type === 'object') {
-                                                title = JSON.stringify(title, (_, v) => {
-                                                    return typeof v === "function" ? v.toLocaleString(): v
-                                                }, 2)
-                                            }
-
+                                            
+                                            title = (
+                                                ( title === undefined )
+                                                ? ( 'undefined' )
+                                                : (
+                                                    JSON.stringify(title, (_, v) => {
+                                                        if (typeof v === 'function') {
+                                                            return v.toLocaleString();
+                                                        }
+                                                        return v;
+                                                    }, 2)
+                                                )
+                                            );
+                                            
                                             return {
                                                 title: title?.toString(),
                                                 type,

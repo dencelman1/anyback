@@ -17,29 +17,36 @@ var FormulaEditor = ({
     var adminPanel = useAdminPanel();
 
     var createFormula = ( formula ) => {
-        var id = new Date().getTime()
+        window.prompt(
+            "Formula name",
+            "",
+            (name) => {
+                var id = new Date().getTime()
 
-        var newFormula = {
-            id: id,
-            name: `${id}`, // TODO: custom window.prompt();
-            formula,
-        };
-        
-        
-        adminSection.setValue(
-            [
-                'formulas',
-                "currentFormulaId"
-            ],
-            [
-                (prev) => (
+                var newFormula = {
+                    id: id,
+                    name,
+                    formula,
+                };
+                
+                
+                adminSection.setValue(
                     [
-                        ...prev,
-                        newFormula,
+                        'formulas',
+                        "currentFormulaId"
+                    ],
+                    [
+                        (prev) => (
+                            [
+                                ...prev,
+                                newFormula,
+                            ]
+                        ),
+                        ( id ),
                     ]
-                ),
-                ( id ),
-            ]
+                )
+            }
+
         )
     }
 
@@ -62,26 +69,34 @@ var FormulaEditor = ({
     ])
 
     var removeFormula = () => {
-        adminSection.setValue('formulas', (prev) => {
-                            
-            var newV = prev.filter(f => (
-                currentFormula?.id !== f.id
-            ));
+        
+
+        window.confirm(`Do you delete formula "${currentFormula.name}" ?`, (value) => {
+            ( console.log(value) );
             
-            if (newV.length > 0) {
-                setTimeout(() => {
-
-                    adminSection.setValue(
-                        "currentFormulaId",
-                        ( newV[newV.length - 1].id )
-                    )
-
-                }, 4)
-            }
-
-            return newV;
-
+            if (!(currentFormula && value)) return;
+            
+            adminSection.setValue('formulas', (prev) => {
+                            
+                var newV = prev.filter(f => (
+                    currentFormula.id !== f.id
+                ));
+                
+                if (newV.length > 0) {
+                    setTimeout(() => {
+    
+                        adminSection.setValue(
+                            "currentFormulaId",
+                            ( newV[newV.length - 1].id )
+                        )
+    
+                    }, 4)
+                }
+    
+                return newV;
+            })
         })
+        
     }
 
 
@@ -180,7 +195,8 @@ var FormulaEditor = ({
                     }
                     else if (k === "Enter") {
                         event.preventDefault();
-                        return createFormula( currentFormula ? "": event.target.value );
+
+                        return createFormula( currentFormula ? "": event.target.value );                            
 
                     }
                     
@@ -193,7 +209,6 @@ var FormulaEditor = ({
             >
                 <Button
                     onClick={(event) => {
-                        
                         createFormula( event.target.value );
 
                     }}
