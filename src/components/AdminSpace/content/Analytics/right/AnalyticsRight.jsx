@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Select } from '../../../../../base/builtIn';
 import useAdminSection from '../../../../../hooks/useAdminSection';
 import './AnalyticsRight.scss';
@@ -5,6 +6,15 @@ import './AnalyticsRight.scss';
 
 var AnalyticsRight = () => {
     var adminSection = useAdminSection();
+
+    var includesTitle = useCallback((k, getKey) => {
+        getKey ||= ( k => k );
+        
+        return (
+            `${k}${adminSection.editor?.value?.includes(getKey(k)) ? " ✅": ""}`
+            )
+    }, [adminSection.editor?.value]);
+
 
     return (
         <div
@@ -16,6 +26,8 @@ var AnalyticsRight = () => {
                 }}
                 title="Analytics"
                 options={[
+                    
+
                     <Select
                         title={<><b>options</b> enviroment</>}
                         onChange={(o) => {
@@ -25,7 +37,7 @@ var AnalyticsRight = () => {
                             Object.entries(adminSection.adminPanel.options)
                             .map(([k ,v ], index) => {
                                 return {
-                                    title: k,
+                                    title: includesTitle(k, ( k ) => ( `options.${k}` )),
                                     type: typeof v,
                                     value: (
                                         typeof v === "function"
@@ -48,7 +60,15 @@ var AnalyticsRight = () => {
                                 }
                             })
                         }
-                    />
+                    />,
+
+                    <Select
+                        title="Statements"
+                        options={[
+                            {title: includesTitle("return"), },
+                            {title: includesTitle("res"), },
+                        ]}
+                    />,
 
                 ]}
                 
