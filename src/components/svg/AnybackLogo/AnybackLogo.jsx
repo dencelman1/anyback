@@ -1,4 +1,5 @@
-var logoColor = "rgb(38,38,38)"
+import { useAdminPanel } from "../../../hooks/useAdminPanel";
+import { getThemeValue } from "../../AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect";
 
 
 function AnybackLogo({
@@ -7,7 +8,8 @@ function AnybackLogo({
     ...props
 
 }) {
-    
+    var adminPanel = useAdminPanel();
+
     side ||= "50px";
     
     var LogoWrapper = ({...wrapProps}) => (
@@ -41,7 +43,7 @@ function AnybackLogo({
 
             <img
                 
-                src="/anyback_logo.png"
+                src={ getThemeValue(adminPanel.userData.theme) === 'dark' ?  "/anyback_logo_dark.png": "/anyback_logo.png" }
                 className="AnybackLogo"
                 alt="The official logo of the open source admin panel called AnyBack"
                 

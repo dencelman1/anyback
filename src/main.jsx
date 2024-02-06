@@ -29,16 +29,18 @@ var options = {
   authTitle: 'Log in',
   
   defaultValue: {
+
     offset: 0,
     limit: 20,
 
     searchDebounceDelay: 100,
     currentEntryKey: "id",
+    
   },
 
   border: {
 
-    reqDelayMs: 100,
+    reqDelayMs: 1000,
     maxCreateManyEntry: 20,
 
   },
@@ -63,8 +65,8 @@ var options = {
               
               extra: {
                 count: 150,
-                hello: 'world'
-
+                hello: 'world',
+                
               },
 
               fields: [
@@ -93,7 +95,9 @@ var options = {
 
             {
               name: 'posts',
-              count: 10050,
+              extra: {
+                count: 10050
+              },
 
               fields: [
 
@@ -165,7 +169,7 @@ var options = {
 
     where,
   ) {
-
+    
     var response = {
       success:
         LocalBackend.delete_(databaseName, tableName, where),
@@ -193,10 +197,9 @@ var options = {
       }
       
       res(response.success)
-      
-      
-      
-    })
+    });
+
+
   },
 
   checkAuth(
@@ -254,9 +257,11 @@ var options = {
     console.log("logouted")
   },
 
+  
   analEnv: {
 
     count(where) {
+
       return new Promise((res, rej) => {
         res(where?.isAdmin ? 15_000: 1_000_000);
         
@@ -265,9 +270,6 @@ var options = {
     },
 
   }
-
-
-
 }
 
 

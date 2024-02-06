@@ -1,5 +1,20 @@
 
 
+.dark .SettingsModalBlock {
+    color: white;
+
+    background-color: var(--dark);
+
+    select, input {
+        background-color: var(--dark-gray);
+        &:focus {
+            outline: 1px solid white;
+            
+        }
+
+    }
+}
+
 .SettingsModalBlock {
     flex: 1;
     overflow: hidden;
@@ -17,6 +32,8 @@
 
     --title-height: 10px;
 
+
+
     button.nav {
         user-select: none;
         border-radius: 100%;
@@ -26,6 +43,10 @@
         aspect-ratio: 1/1;
         outline: 1px solid gray;
         font-weight: bold;
+        &:hover {
+            outline: 1px solid white;
+
+        }
     }
     
     .title {

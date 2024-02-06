@@ -1,4 +1,16 @@
 
+.dark {
+    .AlertModalWindow {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+
+        .contentModal {
+            background-color: var(--gray-dark);
+            
+        }
+    }
+}
+
 .AlertModalWindow {
     position: absolute;
     z-index: 200;
@@ -55,10 +67,6 @@
             gap: 10px;
 
             margin-left: auto;
-            
-            button {
-                outline: 1px solid gray;
-            }
         }
         
 

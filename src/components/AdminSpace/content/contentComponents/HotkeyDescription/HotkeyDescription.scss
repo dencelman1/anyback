@@ -1,0 +1,47 @@
+
+
+.dark .HotkeyDescription {
+    
+    .desc {
+        color: white !important;
+    }
+    .key {
+        color: black !important;
+    }
+}
+
+.HotkeyDescription {
+
+    user-select: none;
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    .hotkey {
+        margin: 0;
+        padding: 0;
+        margin-top: 10px;
+
+        .desc {
+            color: black;
+
+        }
+
+        .combo {
+            margin-left: 10px;
+    
+            .key {
+                background: gray;
+                color: white;
+                padding: 0 5px;
+                border-radius: 5px;
+            }
+    
+        }
+
+    }
+
+    
+
+    
+
+}

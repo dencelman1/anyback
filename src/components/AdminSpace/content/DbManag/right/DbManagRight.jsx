@@ -267,10 +267,12 @@ var DbManagRight = () => {
                                         .map(e => {
                                             var title = e[ adminSection.currentEntryKey ];
                                             var type = typeof title;
+
+                                            ( title === undefined ) && ( title ||= e?.id );
                                             
                                             title = (
                                                 ( title === undefined )
-                                                ? ( 'undefined' )
+                                                ? ( "undefined" )
                                                 : (
                                                     JSON.stringify(title, (_, v) => {
                                                         if (typeof v === 'function') {

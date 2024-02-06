@@ -198,6 +198,7 @@ var EntryView = ({
 
                                     <input
                                         spellCheck={false}
+                                        
                                         name={k}
                                         placeholder={k}
                                         type={{
@@ -207,6 +208,7 @@ var EntryView = ({
                                         }[type]}
                                         defaultValue={v}
                                         readOnly={k === 'id'}
+                                        
                                         style={{
                                             display: k === 'id' ? 'none': '',
                                             color: typeColor,
@@ -223,7 +225,7 @@ var EntryView = ({
             </div>
 
             <div
-                className="edit buttons"
+                className="edit buttons default-scroll-bar column "
             >
 
                 <Button
@@ -485,6 +487,7 @@ var EntryView = ({
                 >
                     Delete all
                 </Button>
+                    
                 
             </div>
 

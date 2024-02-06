@@ -12,9 +12,9 @@ import AlertModalWindow from './base/alert/AlertModalWindow'
 import { getThemeValue } from './components/AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect'
 
 
-function AnyBackAdminPanel({
+var AnyBackAdminPanel = ({
   options,
-}) {
+}) => {
 
   var [isPrepared, setIsPrepared] = useState(
     false
@@ -27,12 +27,12 @@ function AnyBackAdminPanel({
   })
 
   useEffect(() => {
-    CacheData.theme = userData.theme;
-    document.body.setAttribute(
-      "theme",
-      getThemeValue( userData.theme )
+
+    document.body.classList.value = (
+      getThemeValue(
+        CacheData.theme = ( userData.theme )
+      )
     );
-    
 
   }, [
     userData.theme

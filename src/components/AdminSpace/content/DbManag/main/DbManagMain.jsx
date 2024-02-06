@@ -9,6 +9,7 @@ import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
 
 var DbManagMain = () => {
     var adminSection = useAdminSection();
+    
     var [isLoading, setIsLoading] = useState(true);
 
     
@@ -63,6 +64,7 @@ var DbManagMain = () => {
                         ])
 
                         adminSection.finishLoad()
+
                         setIsLoading(false)
                     }
                 )
@@ -70,6 +72,11 @@ var DbManagMain = () => {
             }
 
         )
+
+
+        return () => {
+            adminSection.adminPanel.setCurrent(p => ({...p, entry: null}))
+        }
     }, [])
 
     if (isLoading)

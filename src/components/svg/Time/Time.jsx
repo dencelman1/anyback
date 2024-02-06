@@ -20,8 +20,10 @@ var TimeIcon = ({
                 d="M12 8V12L15 15"
                 stroke="black"
                 strokeWidth="2" strokeLinecap="round"
+                className='themed__stroke'
             />
             <circle
+                className='themed__stroke'
                 cx="12" cy="12"
                 r="9"
                 stroke="black" strokeWidth="2"

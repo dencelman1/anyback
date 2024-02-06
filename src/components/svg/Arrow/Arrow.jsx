@@ -16,6 +16,7 @@ var ArrowIcon = ({
         >
             <path 
                 d="M12 18L7 13M12 18L17 13"
+                className="themed__stroke"
                 stroke="#000000"
                 strokeWidth="2"
                 strokeLinecap="round"

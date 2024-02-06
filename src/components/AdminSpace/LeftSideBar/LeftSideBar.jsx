@@ -65,9 +65,12 @@ var LeftSideBar = () => {
             >
 
                 <Button
-                    onClick={() => adminPanel.logout(
-                        () => adminPanel.options.onLogout()
-                    )}
+                    onClick={() => {
+                        adminPanel.setCurrent(p => ({...p, entry: null}))
+                        adminPanel.logout(
+                            () => adminPanel.options.onLogout()
+                        )
+                    }}
                     className="logoutButton"
                     
                 >

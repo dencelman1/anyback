@@ -17,19 +17,42 @@
 
 
 :root {
-  --dark-theme-color: rgb(30,30,30);
+  --dark: rgb(30,30,30);
+  --gray-dark: rgb(53, 53, 53);
 
 }
 
 body {
   opacity: 1;
 
-  &[theme=""] {
+  &.loading {
     opacity: 0;
   }
-  &[theme="dark"] {
-    background-color: var(--dark-theme-color);
+  &.dark {
+
+    
+    .themed {
+      &__color {
+        color: white;
+      }
+      &__bgGray {
+        background-color: var(--gray-dark);
+      }
+      &__bg {
+        background-color: var(--dark);
+      }
+      &__stroke {
+        stroke: white;
+
+      }
+      &__fill {
+        fill: white;
+      }
+    }
+
+    background-color: var(--dark);
   }
+
   transition: .1s background-color;
   position: fixed;
   

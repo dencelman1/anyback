@@ -1,8 +1,23 @@
+
+.dark .Select {
+    color: white;
+
+    --hover-color: rgb(59, 59, 59);
+
+    --current-option--bg: rgb(45, 45, 45);
+
+}
+
 .Select {
     user-select: none;
 
     --ArrowIcon--rotate: 0deg;
     --options--height: fit-content;
+
+    --hover-color: rgb(232, 232, 232);
+
+    --current-option--bg: var(--light-gray);
+    
     
 
     text-align: left;
@@ -19,6 +34,7 @@
     }
     
     .option, .title {
+        
         padding: 2.5px 0;
         height: 20px;
         line-height: 20px;
@@ -26,7 +42,7 @@
         cursor: pointer;
 
         &:hover {
-            background-color: rgb(232, 232, 232);
+            background-color: var(--hover-color);
         }
     }
 
@@ -70,7 +86,7 @@
             text-overflow: ellipsis;
 
             &.current {
-                background-color: var(--light-gray);
+                background-color: var(--current-option--bg);
             }
         }
         

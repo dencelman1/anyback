@@ -1,4 +1,7 @@
 
+.dark .FormulaEditor {
+    background-color: var(--dark-gray);
+}
 
 .FormulaEditor {
     position: absolute;
@@ -15,7 +18,6 @@
     justify-content: center;
     left: 0;
     width: 100%;
-
 
     outline: 1px solid gray;
 

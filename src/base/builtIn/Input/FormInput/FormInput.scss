@@ -1,22 +1,23 @@
 
+
+.dark .FormInput {
+    --FormInput_label__background-color_hover: black;
+        --FormInput_input__outline_hover: 1px solid white;
+        --FormInput_input__color: white;
+
+}
+
 .FormInput {
     position: relative;
     height: fit-content;
     cursor: text;
     --FormInput__outline: 1px solid gray;
 
-    &.dark {
-        --FormInput_label__background-color_hover: black;
-        --FormInput_input__outline_hover: 1px solid white;
-        --FormInput_input__color: white;
-    }
-    &.white {
-        --FormInput_label__background-color_hover: white;
-        --FormInput_input__outline_hover: 1px solid black;
-        --FormInput_input__color: black;
-    }
-
     
+    --FormInput_label__background-color_hover: white;
+    --FormInput_input__outline_hover: 1px solid black;
+    --FormInput_input__color: black;
+
     outline: --FormInput_input__outline;
     
 
@@ -53,13 +54,11 @@
     &.filled {
         label {
             top: -55%;
-            // font-size: 1em;
-            // background-color: var(--FormInput_label__background-color_hover);
         }
     }
     &.focused {
         input {
-            outline: 1px solid #1a73e8;
+            outline: 1px solid #1a73e8 !important;
         }
         label {
             color: #1a73e8;

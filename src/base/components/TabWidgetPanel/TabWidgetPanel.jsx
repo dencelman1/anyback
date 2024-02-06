@@ -9,8 +9,8 @@ export var getColorByDataType = (
     return ({
         boolean: "rgb(31,54,162)",
         number: 'rgb(129,91,31)',
-        string: 'rgb(129,31,31)',
-        object: 'black',
+        string: 'rgb(203,21,21)',
+        object: 'gray',
         function: 'rgb(206,68,93)',
     })[type]
 }

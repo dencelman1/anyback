@@ -40,7 +40,7 @@ var SettingsModalBlock = ({
             {...props}
 
             className={(
-                "SettingsModalBlock "
+                "SettingsModalBlock"
                 + ( isOpened ? ' opened' : '' )
             )}
             
