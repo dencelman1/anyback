@@ -3,27 +3,10 @@ import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
 import './index.scss'
 import LocalBackend from './LocalBackend.js'
 
-// 1 нужно указывать useAdminSection().finishLoad() чтобы ваша секция бьла загружена, загрузите все данные секции до выполнения этого метода
-//   и также можно менять уведомление загрузки с помощью 
-//   useAdminSection().changeLoadingState("your loadingMessage["STATE"] in options.sections")
-// var adminSection = useAdminSection();
-// useEffect(() => {
-//   setTimeout(() => {
-//       adminSection.finishLoad();
-//   }, 5000);
-
-//   return () => {
-//       adminSection.startLoad();
-//   }
-// }, [])
 
 var cachedToken = "MY_TOKEN"
 var errorMessage = "Error: invalid password"
 
-// what user have:
-// 1 useAdminPanel
-// 2 useAdminSection
-// 3 options // + give
 
 var options = {
   authTitle: 'Log in',
@@ -273,10 +256,10 @@ var options = {
 }
 
 
-var rootElement = document.querySelector('#root');
-var root = ReactDOM.createRoot(rootElement);
-
-root.render(
+ReactDOM.createRoot(
+  document.querySelector('#root')
+)
+.render(
   <AnyBackAdminPanel
     options={options}
   />

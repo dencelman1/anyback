@@ -1,7 +1,7 @@
 {
-  "name": "anyback_admin_panel",
-  "private": true,
-  "version": "0.0.1",
+  "name": "anyback",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
