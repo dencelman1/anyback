@@ -4,7 +4,6 @@ npm install anyback-react
 ```
 
 # Getting started
-
 ```javascript
 
 import { AnyBackAdminPanel } from 'anyback-react';
@@ -22,7 +21,6 @@ ReactDOM.createRoot(
 
 ```
 
-Sources:
-
+# Sources:
 - [options](https://github.com/dencelman1/anyback-react/wiki/options)
 - [Other documentation](https://github.com/dencelman1/anyback-react/wiki)
