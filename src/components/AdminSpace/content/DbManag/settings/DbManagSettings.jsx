@@ -1,10 +1,8 @@
-import CacheData from '../../../../../api/local/CacheData/CacheData';
 import { Button } from '../../../../../base/builtIn';
-import { getColorByDataType } from '../../../../../base/components/TabWidgetPanel/TabWidgetPanel';
 import useAdminSection from '../../../../../hooks/useAdminSection';
-import CacheInput from './CacheInput/CacheInput';
+import CacheInput from '../../contentComponents/CacheInput/CacheInput';
+import CacheSelect from '../../contentComponents/CacheSelect/CacheSelect';
 import './DbManagSettings.scss';
-import Labeled from './Labeled/Labeled';
 
 
 var DbManagSettings = () => {
@@ -89,44 +87,20 @@ var DbManagSettings = () => {
                     {">"}
                 </Button>
             </div>
-
-            <Labeled
+            
+            <CacheSelect
+                cacheKey='currentEntryKey'
                 title="Current entry key"
-                type="string"
-            >
-                <select
-                    value={adminSection.currentEntryKey}
-                    style={{
-                        color: getColorByDataType( "string" )
-                    }}
-                    onChange={(event) => {
-                        
-                        adminSection.setValue(
-                            "currentEntryKey",
-                            event.target.value,
-                        )
+                adminSection={adminSection}
+                options={[
+                    'id',
+                    ...(
+                        (adminSection.currentTable?.fields || [])
+                        .map(( f ) => ( f.name )))
+                ]}
 
-                    }}
-                >
-                    <option value="id">id</option>
-                    
-                    {
+            />
 
-                        adminSection.currentTable?.fields
-                        ?.map((f, fI) => {
-                            return (
-                                <option
-                                    value={f.name}
-                                    key={fI}
-                                >
-                                    {f.name}
-                                </option>
-                            )
-                        })
-
-                    }
-                </select>
-            </Labeled>
         </div>
     )
 }

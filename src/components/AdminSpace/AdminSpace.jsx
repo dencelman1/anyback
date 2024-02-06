@@ -1,4 +1,3 @@
-import { useAdminPanel } from '../../hooks/useAdminPanel';
 import AuthForm from '../AuthForm/AuthForm';
 import './AdminSpace.scss';
 import SettingsModalBlock from './SettingsModalBlock/SettingsModalBlock';
@@ -7,17 +6,18 @@ import {
     Main, 
     LeftSideBar,
 } from './index'
-
+import useAdminSection from '../../hooks/useAdminSection';
 
 
 var AdminSpace = () => {
-    var adminPanel = useAdminPanel()
-
+    var adminSection = useAdminSection();
+    var adminPanel = adminSection.adminPanel;
+    
     var authed = adminPanel.userData.authed;
 
     var settingsOpened = adminPanel.opened.settings;
     var isSectionChosen = adminPanel.isSectionChosen();
-    
+
     return (
         <div 
             className={(

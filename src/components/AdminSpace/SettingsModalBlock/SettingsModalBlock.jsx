@@ -1,5 +1,6 @@
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 import SettingsIcon from '../../svg/Settings/Settings';
+import GlobalSettings from './GlobalSettings/GlobalSettings';
 import './SettingsModalBlock.scss';
 
 
@@ -21,16 +22,25 @@ var SettingsModalBlock = ({
     var adminPanel = useAdminPanel();
     var currentSection = adminPanel.current.section;
     
-    var SettingsContent =
-        ( currentSection?.element?.settings ) ||
-        ( NotIndicatedSettings )
+    var SettingsContent = (
+        (currentSection === null)
+        ? (
+            GlobalSettings
+        )
+        : (
+            ( currentSection?.element?.settings ) ||
+            ( NotIndicatedSettings )
+        )
+    );
+
+    
     
     return (
         <div
             {...props}
 
             className={(
-                "SettingsModalBlock"
+                "SettingsModalBlock "
                 + ( isOpened ? ' opened' : '' )
             )}
             

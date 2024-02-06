@@ -16,9 +16,21 @@
 
 
 
+:root {
+  --dark-theme-color: rgb(30,30,30);
+
+}
 
 body {
-  
+  opacity: 1;
+
+  &[theme=""] {
+    opacity: 0;
+  }
+  &[theme="dark"] {
+    background-color: var(--dark-theme-color);
+  }
+  transition: .1s background-color;
   position: fixed;
   
   & {

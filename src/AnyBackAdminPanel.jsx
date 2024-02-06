@@ -9,6 +9,7 @@ import Auth from './api/local/Auth/Auth'
 import CacheData from './api/local/CacheData/CacheData'
 import AdminSection from './components/AdminSpace/content/AdminSection'
 import AlertModalWindow from './base/alert/AlertModalWindow'
+import { getThemeValue } from './components/AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect'
 
 
 function AnyBackAdminPanel({
@@ -22,7 +23,22 @@ function AnyBackAdminPanel({
   var [userData, setUserData] = useState({
     authed: false,
     loadingMessage: "Entering",
+    theme: CacheData.theme || 'light',
   })
+
+  useEffect(() => {
+    CacheData.theme = userData.theme;
+    document.body.setAttribute(
+      "theme",
+      getThemeValue( userData.theme )
+    );
+    
+
+  }, [
+    userData.theme
+  ])
+
+  
 
   var [adminSections, setAdminSections] = useState( [...AdminSection.states()] );
 

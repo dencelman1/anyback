@@ -88,9 +88,9 @@ var useAdminSection = () => {
 
     var currentDatabase = useMemo(() => (
 
-        getCurrentDatabase( section.databases )
+        getCurrentDatabase( section?.databases )
 
-    ), [section.databases, adminPanel.current] );
+    ), [section?.databases, adminPanel.current] );
 
 
     var currentTable = useMemo(() => (

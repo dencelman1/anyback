@@ -1,4 +1,4 @@
-import { getColorByDataType } from "../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
+import { getColorByDataType } from "../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
 
 
 var Labeled = ({
