@@ -20,7 +20,7 @@ var AuthForm = () => {
     password: ""
   });
 
-  var [alertMessage, setAlertMessage] = useState("")// TODO: render to JSX element down
+  var [alertMessage, setAlertMessage] = useState("");
 
   var handleInputChange = (event) => {
     var name = event.target.name

@@ -1,3 +1,14 @@
+
+
+body.dark {
+    .AuthForm {
+        color: white;
+    }
+    .error-message {
+        color: rgb(255, 118, 118);
+    }
+}
+
 .AuthForm {
     
     box-sizing: border-box;
@@ -44,6 +55,7 @@
         
         width: fit-content;
         color: red;
+        
         cursor: pointer;
         
     }

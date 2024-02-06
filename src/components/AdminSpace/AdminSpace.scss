@@ -1,7 +1,13 @@
 
-.adminSpace {
-    --adminSpace__padding: 50px;
+.dark {
+    .adminSpace {
+        background-color: rgb(35, 35, 35);
+    }
+}
 
+.adminSpace {
+    --adminSpace__padding: 20px;
+    
     width: calc(100% - var(--adminSpace__padding));
     height: calc(100% - var(--adminSpace__padding));
 
@@ -13,10 +19,8 @@
         box-shadow: inset 0 0 40px gray;
     }
     box-shadow: none;
-    
-    
+
     display: flex;
-    
     gap: 10px;
 
     border-radius: 5px;

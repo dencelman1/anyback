@@ -1,0 +1,40 @@
+.DbManagMain__right {
+    width: 90%;
+    margin-left: auto;
+    height: 100%;
+    text-align: center;
+    
+    .navInputs {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        
+        .navBlock {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            select {
+                width: 100%;
+                margin-bottom: 10px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 20px;
+
+            }
+        }
+        
+        
+        
+    }
+
+    .dataSelect {
+        width: 100%;
+        height: calc(100% - ((40px * 3) + 50px) );
+        display: block;
+
+        overflow: auto;
+    }
+
+    
+}

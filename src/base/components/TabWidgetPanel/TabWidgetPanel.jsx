@@ -3,14 +3,32 @@ import CrossIcon from "../../../components/svg/Cross/Cross";
 import './TabWidgetPanel.scss'
 
 
-var TabWidgetPanel = (
+export var getColorByDataType = (
+    type,
+) => {
+    return ({
+        boolean: "rgb(31,54,162)",
+        number: 'rgb(129,91,31)',
+        string: 'rgb(203,21,21)',
+        object: 'gray',
+        function: 'rgb(206,68,93)',
+    })[type]
+}
+
+
+
+var TabWidgetPanel = ({
     widgetEntries,
     entryTitleKey,
     onSelect,
     onClose,
-    selectedEntry,
+    isSelectedEntry,
     flexDirection,
-) => {
+
+    defaultTitle,
+}) => {
+
+    defaultTitle ||= "....";
     flexDirection ||= "row";
 
     var selectedEntryRef = useRef({})
@@ -19,7 +37,8 @@ var TabWidgetPanel = (
     useEffect(() => {
         var container = containerRef.current
         var selectedBlock = selectedEntryRef.current
-        if (!selectedBlock)
+        
+        if ( !( selectedBlock && selectedBlock.getBoundingClientRect ))
             return
         
         var currentBlockRect = selectedBlock.getBoundingClientRect();
@@ -44,22 +63,36 @@ var TabWidgetPanel = (
             {
                 widgetEntries
                 .map((entry, index) => {
-                    var isSelectedEntry = selectedEntry === entry
+                    var v ;
+
+                    var isSelectedEntry_ = isSelectedEntry(entry)
+                    var titleText =
+                        entry.id === undefined
+                        ? defaultTitle
+                        : ( (v = entry[entryTitleKey])?.toString() || (v= entry.id)?.toString() );
 
                     return <div
                         key={index}
                         className={(
                             "tabWidget" +
-                            (isSelectedEntry ? " current": "")
+                            (isSelectedEntry_ ? " current": "")
                         )}
                         onClick={(event) => {
                             onSelect(entry, event)
                         }}
-                        ref={isSelectedEntry ? selectedEntryRef: selectedEntryRef.current = null}
+                        ref={isSelectedEntry_ ? selectedEntryRef: (
+                            selectedEntryRef.current = null
+                        )}
                     >
                         
-                        <span>
-                            {entry[entryTitleKey]}
+                        <span
+                            title={titleText}
+                            style={{
+                                color: getColorByDataType(typeof v)
+                            }}
+                            
+                        >
+                            {titleText}
                         </span>
 
                         <CrossIcon

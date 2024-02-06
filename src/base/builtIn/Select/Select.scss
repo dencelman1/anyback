@@ -1,0 +1,94 @@
+
+.dark .Select {
+    color: white;
+
+    --hover-color: rgb(59, 59, 59);
+
+    --current-option--bg: rgb(45, 45, 45);
+
+}
+
+.Select {
+    user-select: none;
+
+    --ArrowIcon--rotate: 0deg;
+    --options--height: fit-content;
+
+    --hover-color: rgb(232, 232, 232);
+
+    --current-option--bg: var(--light-gray);
+    
+    
+
+    text-align: left;
+
+    &.closed {
+        --ArrowIcon--rotate: -90deg;
+        --options--height: 0;
+    }
+
+
+    .ArrowIcon {
+        transform-origin: center;
+        transform: rotate(var(--ArrowIcon--rotate)) ;
+    }
+    
+    .option, .title {
+        
+        padding: 2.5px 0;
+        height: 20px;
+        line-height: 20px;
+        background-color: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--hover-color);
+        }
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            
+            width: calc(100% - 20px);
+            
+        }
+    }
+    
+    &:hover {
+        .options {
+            border-left: 1px solid gray;
+        }
+    }
+    .options {
+        margin: 0 0 0 9.5px;
+        border-left: 1px solid rgba(0,0,0,0);
+        
+        overflow-x: hidden;
+        overflow-y: hidden;
+
+        transition: 1s height;
+        list-style: none;
+        padding: 0;
+        
+        display: flex;
+        flex-direction: column;
+
+        height: var(--options--height);
+
+        .option {
+            padding-left: 5px;
+            text-overflow: ellipsis;
+
+            &.current {
+                background-color: var(--current-option--bg);
+            }
+        }
+        
+    }
+}

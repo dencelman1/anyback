@@ -8,9 +8,13 @@ var CacheData = new Proxy(
     {},
     {
         set(target, prop, newValue, receiver) {
-            return (
-                newValue !== target[prop] && ( target[prop] = set(prop, newValue) ) || true
-            );
+
+            if (newValue !== target[prop]) {
+                target[prop] = set(prop, newValue);
+            }
+    
+            return true;
+            
         },
 
         get(target, prop, receiver) {

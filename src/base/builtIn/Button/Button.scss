@@ -1,21 +1,50 @@
+
+body.dark .Button {
+
+    color: white;
+    &.current,
+    &:active,
+    &:hover {
+        background-color: var(--dark);
+        outline: 1px solid var(--dark);
+    }
+    &:focus {
+        --box-shadow: inset 0 0 4px gray;
+    }
+
+    &.current {
+        --box-shadow: none;
+    }
+    
+}
+
 .Button {
     font-size: 25px;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: none;
-    transition: .1s background-color;
+    transition: .1s background-color, .2s box-shadow;
     color: rgb(31, 31, 31);
+
+    --box-shadow: none;
+    box-shadow: var(--box-shadow);
+    outline: 1px solid gray;
+    
     &:hover {
+        background-color: rgb(230, 230, 230);
         color: black;
+    }
+
+    &:focus {
+        --box-shadow: inset 0 0 4px black;
     }
     
     &.current,
-    &:active,
-    &:focus {
+    &:active {
         color: black;
         background-color: rgb(201, 201, 201);
     }
     &.current {
-        box-shadow: inset 0 0 2px black;
+        --box-shadow: inset 0 0 2px black;
     }
 }

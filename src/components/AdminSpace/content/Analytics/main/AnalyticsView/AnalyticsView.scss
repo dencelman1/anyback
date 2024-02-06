@@ -1,0 +1,29 @@
+
+
+
+
+.AnalyticsView {
+    
+    overflow: auto;
+    width: calc(100% - 20px);
+    height: 100%;
+    transition: height 2s;
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+
+    
+    
+    .AnalWidget {
+        margin: 15px;
+        
+    }
+    
+    &:has(.FormulaEditor.opened) {
+        background-color: red;
+    }
+
+}

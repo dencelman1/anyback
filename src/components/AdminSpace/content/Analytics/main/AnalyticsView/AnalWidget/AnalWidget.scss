@@ -1,0 +1,103 @@
+
+.dark .AnalWidget {
+    
+    --after-outline: 5px solid rgb(35,35,35);
+
+}
+
+.AnalWidget {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+    
+
+    border-radius: 5px;
+    font-size: 20px;
+    white-space: nowrap;
+
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+
+
+    --outline-color: gray;
+
+    outline-width: 1px;
+    outline-color: var(--outline-color);
+    outline-style: solid;
+
+    display: flex;
+    flex-direction: row;
+    
+    transition: box-shadow .1s;
+    
+
+    span {
+        // flex: 1;
+
+    }
+
+    .key::after {
+        content: "=";
+        margin: 0 5px;
+    }
+
+    .value {
+        max-width: 100px;
+
+        height: fit-content;
+        width: fit-content;
+
+        display: inline-block;
+        
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        transition: 1s width, 1s height;
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px var(--outline-color);
+    }
+    
+    &::after {
+        content: "";
+        position: absolute;
+        
+        display: block;
+        
+        width: 10px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        right: -5px;
+        top: -5px;
+        transition: background-color .2s, outline .2s;
+        
+        
+    }
+
+    --after-outline: 5px solid whitesmoke;
+    
+    &.notSaved::after {
+        outline: var(--after-outline);
+        background-color: gray; 
+        color: white;
+    }
+    &.error {
+        --outline-color: red !important;
+
+        &::after {
+            outline: var(--after-outline);
+            background-color: red;
+            
+        }
+        
+    }
+
+    &.current {
+        --outline-color: rgb(116,172,188);
+        outline-width: 2px;
+        
+    }
+    
+}

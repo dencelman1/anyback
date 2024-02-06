@@ -1,35 +1,28 @@
+import './HotkeyDescription.scss';
 
 
-function HotkeyDescription ({
+var HotkeyDescription = ({
     hotkeys,
     ...props
-}) {
+}) => {
 
     return (
         <div
-            style={{
-                userSelect: 'none',
-                marginTop: '20px',
-                marginBottom: '50px',
-            }}
+            className="HotkeyDescription"
         >
             {hotkeys.map((hotkey, index) => (
                 <p
-                    style={{
-                        margin: '0',
-                        padding: '0',
-                        marginTop: '10px',
-                    }}
+                    className='hotkey'
                     key={index}
                 >
-                    <span>
+                    <span
+                        className="desc"
+                    >
                         {hotkey.desc}
                     </span>
                     
                     <span
-                        style={{
-                            marginLeft: '10px'
-                        }}
+                        className="combo"
                     >
                         {
                             hotkey.keys.map((k, index) => (
@@ -37,12 +30,7 @@ function HotkeyDescription ({
                                     key={index}
                                 >
                                     <span
-                                        style={{
-                                            background: 'gray',
-                                            color: 'white',
-                                            padding: '0 5px',
-                                            borderRadius: '5px'
-                                        }}
+                                        className="key"
                                     >
                                         {k}
                                     </span>

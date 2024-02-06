@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './AnyBackAdminPanel.scss'
 
 import AdminSpace from './components/AdminSpace/AdminSpace'
@@ -8,21 +8,37 @@ import Auth from './api/local/Auth/Auth'
 
 import CacheData from './api/local/CacheData/CacheData'
 import AdminSection from './components/AdminSpace/content/AdminSection'
+import AlertModalWindow from './base/alert/AlertModalWindow'
+import { getThemeValue } from './components/AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect'
 
 
-
-
-
-function AnyBackAdminPanel({
+var AnyBackAdminPanel = ({
   options,
-}) {
+}) => {
 
-  var [isPrepared, setIsPrepared] = useState(false)
-
+  var [isPrepared, setIsPrepared] = useState(
+    false
+  );
+  
   var [userData, setUserData] = useState({
     authed: false,
     loadingMessage: "Entering",
+    theme: CacheData.theme || 'light',
   })
+
+  useEffect(() => {
+
+    document.body.classList.value = (
+      getThemeValue(
+        CacheData.theme = ( userData.theme )
+      )
+    );
+
+  }, [
+    userData.theme
+  ])
+
+  
 
   var [adminSections, setAdminSections] = useState( [...AdminSection.states()] );
 
@@ -42,6 +58,7 @@ function AnyBackAdminPanel({
       current.section ? CacheData.opened__leftSideBar: true
     ),
     rightSideBar: Boolean(CacheData.opened__rightSideBar),
+    settings: CacheData.opened__settings || false,
   })
 
   
@@ -51,6 +68,7 @@ function AnyBackAdminPanel({
 
   useEffect(() => {
     CacheData.sectionIndex = adminSections.indexOf(current.section)
+    
   }, [
     current.section,
   ])
@@ -58,6 +76,7 @@ function AnyBackAdminPanel({
   useEffect(() => {
     CacheData.opened__leftSideBar = opened.leftSideBar;
     CacheData.opened__rightSideBar = opened.rightSideBar;
+    CacheData.opened__settings = opened.settings;
 
   }, [
     opened,
@@ -150,7 +169,6 @@ function AnyBackAdminPanel({
       setAdminSections,
     }
     
-    
     Object.setPrototypeOf(adminCtx, adminCtxProto);
     return adminCtx;
 
@@ -167,7 +185,7 @@ function AnyBackAdminPanel({
     <AdminPanelContext.Provider
       value={adminCtx}
     >
-      
+      <AlertModalWindow />
 
       <LoadingBar
         loadingMessage={userData.loadingMessage}
@@ -183,14 +201,7 @@ function AnyBackAdminPanel({
 export default AnyBackAdminPanel;
 
 // TODO:
-// DbManag:
-//    1 базы данных
-//    2 таблицы
-//    3 CRUD, bulk (CRUD)
-//    4 query search, auto update (with debounce), 
-//    5 pagination
-//    6 data about db - sizeMb, isEmpty, table - entriesAllCount, request - speedInSeconds
-//    7 entries, entry view
-//    8 field sorting, field order (for user personal settings)
 
-// + Excalidraw;
+// Analytics:
+// - dark theme;
+// - npm;

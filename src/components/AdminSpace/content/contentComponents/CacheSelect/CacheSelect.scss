@@ -1,0 +1,18 @@
+
+
+.CacheSelect {
+    padding: 5px;
+    font-size: 18px;
+
+    border: none;
+
+    outline: 1px solid gray;
+    cursor: pointer;
+    border-radius: 2px;
+    
+    transition: .2s ;
+
+    &:focus {
+        box-shadow: 0 0 10px gray;
+    }
+}

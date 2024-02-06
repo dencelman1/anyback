@@ -1,0 +1,12 @@
+.DbManagSettings {
+    --startPadding: 20px;
+
+    width: calc(100% - var(--startPadding));
+    height: calc(100% - var(--startPadding));
+    padding-top: var(--startPadding);
+    padding-left: var(--startPadding);
+
+    display: flex;
+    flex-direction: column;
+    
+}

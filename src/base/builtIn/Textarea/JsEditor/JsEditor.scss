@@ -1,0 +1,51 @@
+
+.dark .JsEditor {
+    background: none;
+    color: white;
+    
+    &:focus {
+        outline: 1px solid white;
+    }
+
+}
+
+.JsEditor {
+    min-width: 15px;
+    min-height: 15px;
+    resize: none;
+    overflow: auto;
+    white-space: nowrap;
+    
+    outline: 1px solid gray;
+    border: none;
+
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+
+    
+
+    &:focus {
+        outline: 1px solid black;
+    }
+
+
+    .statement {
+        color: red;
+    }
+
+    .function {
+        color: yellow;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .number {
+        color: black;
+    }
+    .string {
+        color: brown;
+    }
+}

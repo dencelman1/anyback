@@ -1,15 +1,17 @@
+import { useState } from "react";
 import Analytics from "./Analytics/Analytics";
 import DbManag from "./DbManag/DbManag";
 
 
 
 
-var getSectionStateValue = () => (
-    JSON.parse(`{
-        "loaded": false,
-        "loadingState": "main"
-    }`)
-);
+var getSectionStateValue = () => {
+    
+    return {
+        loaded: false,
+        loadingState: "main",
+    }
+};
 
 var defaultLoadingMessage = "Loading..";
 
@@ -62,7 +64,7 @@ var data = [
                     opacity: '.6',
                 }}
             />
-        ), // TODO: for custom sections
+        ),
         
         hotkeys: [
             { keys: ["Ctrl", "Shift"], desc: 'To previous', },
@@ -78,20 +80,22 @@ var data = [
             firstLoad: 'First load wait, please',
         },
         
-
     },
 
     {
         name: "Analytics",
         title: "Analytics",
         element: Analytics,
-        Logo: null,
-        hotkeys: [],
+        hotkeys: [
+            { keys: ["Ctrl", "S"], desc: 'Save and rerun formula', },
+            { keys: ["Ctrl", "Enter"], desc: "Create new"},
+        ],
 
         loadingMessage: 'Getting statistic and analytics 📃',
     },
     
 ]
+
 
 
 var AdminSection = {

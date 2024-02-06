@@ -1,9 +1,10 @@
-import { useCallback, useEffect } from 'react';
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 import './Main.scss'
 
 
-var Main = () => {
+var Main = ({
+    ...props
+}) => {
     var adminPanel = useAdminPanel()
 
     var currentSection = adminPanel.current.section
@@ -13,6 +14,7 @@ var Main = () => {
     
     return (
         <main
+            {...props}
             className="mainContent"
         >
             {<currentSection.element.main />}

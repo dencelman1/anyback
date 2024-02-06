@@ -1,68 +1,85 @@
 .leftSideBar {
     height: 100%;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+
+    gap: 10px;
+
     position: relative;
     user-select: none;
-    
-    
-    transition: .2s width, .1s box-shadow, .2s margin;
 
+    transition: .1s width, .1s box-shadow, .2s margin, .1s visibility;
+    
     --leftSideBar__width: 100%;
     --leftSideBar__background-color: none;
-
-    --sectionButtons__flex-direction: row;
-
     --openingLever__display: none;
     
-
     width: var(--leftSideBar__width);
     background-color: var(--leftSideBar__background-color);
 
-    .logoutButton {
+    .appButtons {
+        margin: auto 0 20px 0;
+        padding: 5px 0;
+
+
         display: flex;
         flex-direction: row;
-        position: absolute;
 
-        bottom: 10px;
+        width: 100%;
+        overflow: hidden;
+        height: fit-content;
 
-        left: 50%;
-        transform: translate(-50%, 0);
-
-        height: 50px;
-        padding: 0;
-        margin: 0;
-
-        padding: 0 10px;
+        align-items: center;
+        justify-content: center;
         
-        svg {
-            line-height: 45px;
-            margin: auto;
+
+        .settingsButton {
+            line-height: 40px;
+            margin-left: 10px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
         }
 
-        color: black;
-        background-color: none;
-        transition: .2s color, .2s background-color;
-        
+        .logoutButton {
+            display: flex;
+            flex-direction: row;
 
+            span {
+                white-space: nowrap;
+                line-height: 40px;
+                margin: 0 5px 0 10px;
+            }    
+        }
 
-        span {
-            display: block;
-            line-height: 50px;
-            margin-left: 10px;
-            white-space: nowrap;
-            font-size: 20px;
+        button {
+            padding: 5px 10px;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
-    
+
     &::before {
         display: none;
     }
+
     &.withChosenSection {
-        --sectionButtons__flex-direction: column;
+        justify-content: flex-start;
+
+        .sectionButtons {
+            width: 85%;
+
+            .sectionButton {
+                width: 100%;
+            }
+        }
+
+        
         --leftSideBar__width: 20%;
         --openingLever__display: block;
+        visibility: visible;
 
         &::before {
             z-index: 100;
@@ -74,7 +91,7 @@
             top: 50%;
             transform: translate(0, -50%);
     
-            height: 90%;
+            height: 95%;
             border-right: 2px solid gray;
             border-radius: 100%;
         }
@@ -82,6 +99,7 @@
         
     }
     &.closed {
+        visibility: hidden;
         &::before {
             display: none;
         }
@@ -91,14 +109,45 @@
 
     .openingLever {
         display: var(--openingLever__display);
+        visibility: visible;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        right: -5px;
     }
 
     .sectionButtons {
+        margin-top: 20px;
+        margin-left: 5px;
+
+        padding: 20px 5px;
+        
+        overflow: auto;
+
         display: flex;
-        flex-direction: var(--sectionButtons__flex-direction);
-        width: fit-content;
+        flex-direction: column;
+        justify-content: center;
+
         height: fit-content;
+        width: 100%;
+        
         gap: 5px;
+        direction: rtl;
+
+
+        .sectionButton {
+            
+            overflow: hidden;
+            text-overflow: ellipsis;
+            direction: ltr;
+            width: 50%;
+            margin: 0 auto;
+            
+
+            white-space: nowrap;
+            min-height: 40px;
+
+        }
 
     }
     

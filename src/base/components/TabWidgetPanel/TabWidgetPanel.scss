@@ -6,6 +6,9 @@
     overflow: auto;
 
     .tabWidget {
+        span {
+            white-space: nowrap;
+        }
         &:nth-child(1) {
             border-left: 1px solid gray;
         }

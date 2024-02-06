@@ -1,3 +1,12 @@
+.dark .Input {
+
+    
+    &.with-hover-outline:hover {
+        outline: 1px solid white;
+    }
+
+}
+
 .Input {
     border: none;
     height: 55px;
@@ -14,6 +23,5 @@
     &:active,
     &:focus {
         outline: 2px solid #1a73e8;
-
     }
 }

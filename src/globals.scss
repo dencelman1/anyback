@@ -1,8 +1,45 @@
+.dark {
+    .closeOpen {
+        background-color: var(--dark);
+        &:hover {
+            outline: 1px solid white !important;
+
+        }
+        
+
+    }
+
+    .defaultFormInputElements {
+        color: white;
+        
+        select, input {
+            background-color: var(--dark);
+            color: white;
+
+            &:focus {
+                outline: 1px solid white;
+
+            }
+            
+
+        }
+
+    }
+}
 
 .full-centered {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.closeOpen {
+    outline: 1px solid gray;
+    background-color: white;
+    border-radius: 20%; 
+    width: 50px;
+    aspect-ratio: 1 / 1;
+
 }
 
 
@@ -13,31 +50,77 @@ button {
     cursor: pointer;
 }
 
+.defaultFormInputElements {
+    
+    label {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        user-select: none;
+
+        span {
+            min-height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+    }
+    select, input[type="checkbox"], label {
+        cursor: pointer;
+    }
+    input:not(input[type="checkbox"]), select {
+        min-width: 200px;
+        min-height: 30px;
+        border-radius: 5px;
+        outline: 1px solid gray;
+        border: none;
+        padding: 0 5px;
+        
+    }
+}
+
+@property --scrollBarBackground {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #88888800;
+}
+
 .default-scroll-bar {
     --width: 20px;
+    transition: --scrollBarBackground .5s;
     
     &.thin {
         --width: 5px;
     }
-
+    &.medium {
+        --width: 10px;
+    }
+    
     &.row::-webkit-scrollbar {
-        overflow-x: auto;
+        
+        overflow-x: scroll;
         height: var(--width);
     }
     &.column::-webkit-scrollbar {
-        overflow-y: auto;
+        background: rgba(0,0,0,.1);
+        overflow-y: scroll;
         width: var(--width);
     }
     
-    &::-webkit-scrollbar-track {
-        background: none;
+    &:hover {
+        --scrollBarBackground: #888888;
     }
     
     &::-webkit-scrollbar-thumb {
-        background: #888;
+        background: var(--scrollBarBackground);
         border-radius: 4px;
+        
         &:hover {
-            background: #555;
+            --scrollBarBackground: #6b6b6b;
         }
     }
+
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+
 }

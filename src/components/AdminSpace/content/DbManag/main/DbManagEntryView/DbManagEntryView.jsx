@@ -5,6 +5,9 @@ import { TabWidgetPanel } from '../../../../../../base/components';
 import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
 
 import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
+import useAdminSection from '../../../../../../hooks/useAdminSection';
+import AddEntryForm from './AddEntryForm/AddEntryForm';
+import EntryView from './EntryView/EntryView';
 
 
 var moveEntryKeysWithCtrl = [
@@ -14,37 +17,45 @@ var moveEntryKeysWithCtrl = [
 
 
 var DbManagEntryView = () => {
-    var [chosenEntries, setChosenEntries] = useState(
-        Array.from({ length: 1 }, (v, id) => ({id, name: `${id}`}))
-    )
-    var currentEntryKey = 'name'
-    var adminPanel = useAdminPanel()
-
     
-        
+    
+
+    var adminPanel = useAdminPanel()
+    var adminSection = useAdminSection();
+    var currentEntryKey = adminSection.currentEntryKey;
+    
     var currentEntry = 
         adminPanel.current.entry
     
-    
+    var chosenEntries = adminSection.chosenEntries || [];
+
+    var setChosenEntries = (newValue) => {
+        adminSection.setValue("chosenEntries", newValue)
+    }
+
     var onKeyDown = (event) => {
 
         if (!(event.ctrlKey))
             return
         
         if (event.key === "Enter") {
-
-            setChosenEntries(prev => {
+            
+            adminPanel.setCurrent(p => {
                 var newEntry = {
-                    id: prev.length,
-                    name: `${prev.length}`,
+                    id: undefined,
                 }
 
-                setTimeout(() => adminPanel.setCurrent(p => ({
+                setTimeout(() => setChosenEntries(prevChosenEntries => {
+                    var newEntryId = prevChosenEntries.indexOf(p.entry)
+                    prevChosenEntries.splice((( newEntryId + 1 ) || 0), 0, newEntry)
+
+                    return [...prevChosenEntries];
+                }), 0)
+
+                return {
                     ...p,
                     entry: newEntry,
-                })), 0)
-
-                return [...prev, newEntry]
+                }
             })
 
         }
@@ -130,6 +141,10 @@ var DbManagEntryView = () => {
         }
     }, [])
 
+
+    if (! ( adminSection.loaded ))
+        return null
+
     return (
         <article
             className="DbManag__entryView"
@@ -141,15 +156,24 @@ var DbManagEntryView = () => {
                 }}
             >
             {
-                TabWidgetPanel(
-                    chosenEntries,
-                    currentEntryKey,
+                <TabWidgetPanel
+                    widgetEntries={chosenEntries}
+                    entryTitleKey={ currentEntryKey }
 
-                    (entry, event) => {
-                        adminPanel.setCurrent(p => ({...p, entry }));
-                    },
+                    onSelect={(entry, event) => (
 
-                    (entry, event) => {
+                        
+
+                        adminPanel.setCurrent(p => ({
+                            ...p,
+                            entry,
+                            databaseName: ( ( entry?.id ? entry: p).databaseName ),
+                            tableName: ( ( entry?.id ? entry: p).tableName ),
+                        }))
+
+                    )}
+
+                    onClose={(entry, event) => {
                         adminPanel.setCurrent(p => {
                             var currentEntry = p.entry;
                             var isDeletingChosen = currentEntry === entry;
@@ -160,12 +184,31 @@ var DbManagEntryView = () => {
 
                             return {
                                 ...p,
-                                entry: isDeletingChosen ? (newChosenEntries[0]): (currentEntry),
+                                entry:
+                                    isDeletingChosen
+                                    ? ( newChosenEntries[0] )
+                                    : ( currentEntry )
+                                ,
                             }
                         });
-                    },
-                    currentEntry,
-                )
+                    }}
+                    isSelectedEntry={(entry) => currentEntry === entry}
+
+                    defaultTitle={
+                        <span
+                            style={{
+                                color: 'white',
+                                background: 'gray',
+                                padding: '0 5px',
+                                margin: '0 5px',
+                                borderRadius: '4px',
+                            }}
+                            title="Enter the data"
+                        >
+                            {">_"}
+                        </span>
+                    }
+                />
             }
             </div>  
 
@@ -185,18 +228,41 @@ var DbManagEntryView = () => {
             >
                 {
                     currentEntry
-                    ? null
+                    ? (() => {
+
+                        return (
+                            (currentEntry.id === undefined) 
+                            ? (
+                                <AddEntryForm
+                                    style={{
+                                        paddingTop: '20px',
+                                        width: 'calc(100% - 20px)',
+                                        paddingLeft: '20px',
+                                    }}
+                                />
+                            )
+                            : (
+                                <EntryView
+                                    entry={currentEntry}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%'
+                                    }}
+                                />
+                            )
+                        )
+
+                    })()
                     : (<>
                         <AnybackLogo
                             side="200px"
                             style={{
-                                // margin: 'auto',
                                 marginTop: '20px',
                                 opacity: '.6',
                             }}
                         />
                         <HotkeyDescription
-                            hotkeys={adminPanel.sections[0].hotkeys}
+                            hotkeys={adminSection.hotkeys}
                         />
                         
                     </>)
