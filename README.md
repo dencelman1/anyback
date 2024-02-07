@@ -1,4 +1,4 @@
-> Admin panel for any backend (React version)
+> Admin panel for any backend (React version) ;
 
 # Installation
 ```
