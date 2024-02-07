@@ -3,6 +3,16 @@
   "private": false,
   "version": "1.0.0",
   "type": "module",
+  
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/dencelman1/anyback-react.git"
+  },
+  "author": {
+    "email": "dencelman@gmail.com",
+    "name": "dencelman"
+  },
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,14 +20,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
+    
     "create-vite": "^5.1.0",
     "dotenv": "^16.3.2",
     "react": "^18.2.0",
-    "react-ace": "^10.1.0",
-    "react-cookie": "^7.0.1",
     "react-dom": "^18.2.0",
-    "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.69.7",
     "yarn": "^1.22.21"
   },

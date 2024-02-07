@@ -1,3 +1,5 @@
+> Admin panel for any backend (React version)
+
 # Installation
 ```
 npm install anyback-react
