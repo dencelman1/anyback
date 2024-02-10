@@ -2,19 +2,29 @@
 
 # Installation
 ```
-npm install anyback-react
+npm install -g create-vite
+
+npx create-vite project-name
+
+cd project-name
+
+npm install
+npm install -g anyback-react
+
+npm run dev
+
 ```
 
 # Getting started
 ```javascript
 
-import { AnyBackAdminPanel } from 'anyback-react';
+import AnyBack from 'anyback-react';
 
 ReactDOM.createRoot(
   document.querySelector('#root') // or other
 )
 .render(
-  <AnyBackAdminPanel
+  <AnyBack.AdminPanel
     options={{
         // ...your options
     }}
@@ -22,6 +32,9 @@ ReactDOM.createRoot(
 )
 
 ```
+
+# And you have an admin panel associated with your backend
+- [Full example is here](https://github.com/dencelman1/anyback-react/blob/main/src/main.jsx)
 
 # Sources:
 - [options](https://github.com/dencelman1/anyback-react/wiki/options)

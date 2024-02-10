@@ -4,7 +4,26 @@
   "version": "1.0.8",
   "type": "module",
 
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+
+  "files": [
+    "lib",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+
+  "keywords": [
+    "dom", "html",
+    "css", "js",
+    "analytics", "database",
+    "javascript", "react",
+    "admin panel", "admin",
+    "react admin panel",
+    "open-source"
+  ],
+
 
   "repository": {
     "url": "https://github.com/dencelman1/anyback-react.git"

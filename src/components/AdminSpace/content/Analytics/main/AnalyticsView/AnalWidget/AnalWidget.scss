@@ -31,12 +31,6 @@
     
     transition: box-shadow .1s;
     
-
-    span {
-        // flex: 1;
-
-    }
-
     .key::after {
         content: "=";
         margin: 0 5px;
