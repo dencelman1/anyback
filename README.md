@@ -1,7 +1,7 @@
 > Admin panel for any backend (React version) ;
 
 # Installation
-```
+```shell
 npm install -g create-vite
 
 npx create-vite project-name
