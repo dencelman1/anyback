@@ -9,7 +9,7 @@ npx create-vite project-name
 cd project-name
 
 npm install
-npm install -g anyback-react
+npm install anyback-react
 
 npm run dev
 
