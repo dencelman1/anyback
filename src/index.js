@@ -1,10 +1,5 @@
-import AnyBackAdminPanel from './AnyBackAdminPanel.jsx'
-import { useAdminPanel } from './hooks/useAdminPanel.js';
-import useAdminSection from './hooks/useAdminSection.js';
+import AnyBackAdminPanel  from './AnyBackAdminPanel.jsx';
 
 export default AnyBackAdminPanel;
-export {
-  useAdminPanel,
-  useAdminSection
-}
-
+export { useAdminPanel } from './hooks/useAdminPanel.js';
+export { default as useAdminSection } from './hooks/useAdminSection.js';
