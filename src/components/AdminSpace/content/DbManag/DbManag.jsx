@@ -1,6 +1,6 @@
-import DbManagMain from "./main/DbManagMain";
-import DbManagRight from "./right/DbManagRight";
-import DbManagSettings from "./settings/DbManagSettings";
+import DbManagMain from "./main/DbManagMain.jsx";
+import DbManagRight from "./right/DbManagRight.jsx";
+import DbManagSettings from "./settings/DbManagSettings.jsx";
 
 
 var DbManag = {

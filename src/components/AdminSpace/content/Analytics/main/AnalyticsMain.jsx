@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import useAdminSection from "../../../../../hooks/useAdminSection";
-import { FormulaEditor, AnalyticsView } from "./index";
+import useAdminSection from "../../../../../hooks/useAdminSection.js";
+import { FormulaEditor, AnalyticsView } from "./index.js";
 import "./AnalyticsMain.scss";
 
 

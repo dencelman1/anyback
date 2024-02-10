@@ -1,7 +1,6 @@
-import CacheData from "../../../../../api/local/CacheData/CacheData";
-import { getColorByDataType } from "../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
-import { useAdminPanel } from "../../../../../hooks/useAdminPanel";
-import Labeled from "../../../content/contentComponents/Labeled/Labeled";
+import { getColorByDataType } from "../../../../../base/components/TabWidgetPanel/TabWidgetPanel.jsx";
+import { useAdminPanel } from "../../../../../hooks/useAdminPanel.js";
+import Labeled from "../../../content/contentComponents/Labeled/Labeled.jsx";
 
 
 export var getThemeValue = (theme) => {

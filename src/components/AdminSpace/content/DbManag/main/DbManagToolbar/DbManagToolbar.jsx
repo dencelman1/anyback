@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import './DbManagToolbar.scss';
-import useDebounce from '../../../../../../hooks/useDebounce';
-import useAdminSection from '../../../../../../hooks/useAdminSection';
-import CheckMarkIcon from '../../../../../svg/CheckMark/CheckMark';
-import CrossIcon from '../../../../../svg/Cross/Cross';
+import useDebounce from '../../../../../../hooks/useDebounce.js';
+import useAdminSection from '../../../../../../hooks/useAdminSection.js';
+import CheckMarkIcon from '../../../../../svg/CheckMark/CheckMark.jsx';
+import CrossIcon from '../../../../../svg/Cross/Cross.jsx';
 
-import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor';
-import TimeIcon from '../../../../../svg/Time/Time';
+import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor.jsx';
+import TimeIcon from '../../../../../svg/Time/Time.jsx';
 
 
 var DbManagToolbar = () => {

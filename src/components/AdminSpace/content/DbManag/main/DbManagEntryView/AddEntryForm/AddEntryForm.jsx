@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { Button } from "../../../../../../../base/builtIn";
 
-import useAdminSection from "../../../../../../../hooks/useAdminSection";
+import useAdminSection from "../../../../../../../hooks/useAdminSection.js";
 import './AddEntryForm.scss';
-import Function_ from "../../../../../../../base/utils/Function_";
-import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
-import { allowedEntryDataTypes } from "../../../../../../../config";
+import Function_ from "../../../../../../../base/utils/Function_.js";
+import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel.jsx";
+import { allowedEntryDataTypes } from "../../../../../../../config.js";
 
 
 var AddEntryForm = (

@@ -1,5 +1,5 @@
-import AnalyticsView from "./AnalyticsView/AnalyticsView";
-import FormulaEditor from "./FormulaEditor/FormulaEditor";
+import AnalyticsView from "./AnalyticsView/AnalyticsView.jsx";
+import FormulaEditor from "./FormulaEditor/FormulaEditor.jsx";
 
 
 export {

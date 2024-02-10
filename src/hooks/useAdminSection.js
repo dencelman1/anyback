@@ -1,8 +1,8 @@
 import {  useCallback, useMemo, useState } from "react";
-import { useAdminPanel } from "./useAdminPanel"
-import Function_ from "../base/utils/Function_";
-import CacheData from "../api/local/CacheData/CacheData";
-import useCacheState from "./useCacheState";
+import { useAdminPanel } from "./useAdminPanel.js"
+import Function_ from "../base/utils/Function_.js";
+import CacheData from "../api/local/CacheData/CacheData.js";
+import useCacheState from "./useCacheState.js";
 
 
 

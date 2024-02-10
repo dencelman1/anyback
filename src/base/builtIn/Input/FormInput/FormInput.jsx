@@ -1,8 +1,8 @@
 
 
-import React, { ReactNode, useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import "./FormInput.scss"
-import Input from "../input"
+import Input from "../Input.jsx"
 
 
 var count = 0

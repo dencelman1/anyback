@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import OpeningLever from '../../../base/components/OpeningLever/OpeningLever';
-import { useAdminPanel } from '../../../hooks/useAdminPanel';
+import OpeningLever from '../../../base/components/OpeningLever/OpeningLever.jsx';
+import { useAdminPanel } from '../../../hooks/useAdminPanel.js';
 import './RightSideBar.scss'
 
 

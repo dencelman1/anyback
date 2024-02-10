@@ -1,10 +1,10 @@
 import { useEffect, useState,  } from 'react';
 import './DbManagMain.scss';
-import useAdminSection from '../../../../../hooks/useAdminSection';
-import Function_ from '../../../../../base/utils/Function_';
+import useAdminSection from '../../../../../hooks/useAdminSection.js';
+import Function_ from '../../../../../base/utils/Function_.js';
 
-import DbManagToolbar from './DbManagToolbar/DbManagToolbar';
-import DbManagEntryView from './DbManagEntryView/DbManagEntryView';
+import DbManagToolbar from './DbManagToolbar/DbManagToolbar.jsx';
+import DbManagEntryView from './DbManagEntryView/DbManagEntryView.jsx';
 
 
 var DbManagMain = () => {

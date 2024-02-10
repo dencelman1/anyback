@@ -1,5 +1,5 @@
-import { useAdminPanel } from "../../../hooks/useAdminPanel";
-import { getThemeValue } from "../../AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect";
+import { useAdminPanel } from "../../../hooks/useAdminPanel.js";
+import { getThemeValue } from "../../AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect.jsx";
 
 
 function AnybackLogo({

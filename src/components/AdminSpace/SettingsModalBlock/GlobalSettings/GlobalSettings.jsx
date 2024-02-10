@@ -1,6 +1,6 @@
 import './GlobalSettings.scss';
 
-import ThemeSelect from './ThemeSelect/ThemeSelect';
+import ThemeSelect from './ThemeSelect/ThemeSelect.jsx';
 
 
 var GlobalSettings = () => {

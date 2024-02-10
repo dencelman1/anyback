@@ -1,10 +1,10 @@
 import './AuthForm.scss';
 import { useState } from 'react';
-import { useAdminPanel } from '../../hooks/useAdminPanel';
-import { Button, FormInput } from '../../base/builtIn';
-import Auth from '../../api/local/Auth/Auth';
-import Text from '../../base/utils/Text';
-import AnybackLogo from '../svg/AnybackLogo/AnybackLogo';
+import { useAdminPanel } from '../../hooks/useAdminPanel.js';
+import { Button, FormInput } from '../../base/builtIn/index.js';
+import Auth from '../../api/local/Auth/Auth.js';
+import Text from '../../base/utils/Text.js';
+import AnybackLogo from '../svg/AnybackLogo/AnybackLogo.jsx';
 
 
 

@@ -1,6 +1,6 @@
-import { getColorByDataType } from "../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
-import useAdminSection from "../../../../../hooks/useAdminSection";
-import Labeled from "../Labeled/Labeled";
+import { getColorByDataType } from "../../../../../base/components/TabWidgetPanel/TabWidgetPanel.jsx";
+import useAdminSection from "../../../../../hooks/useAdminSection.js";
+import Labeled from "../Labeled/Labeled.jsx";
 
 
 

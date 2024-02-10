@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import CrossIcon from "../../../components/svg/Cross/Cross";
+import CrossIcon from "../../../components/svg/Cross/Cross.jsx";
 import './TabWidgetPanel.scss'
 
 

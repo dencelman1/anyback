@@ -1,6 +1,6 @@
-import LeftSideBar from "./LeftSideBar/LeftSideBar"
-import Main from "./Main/Main"
-import RightSideBar from "./RightSideBar/RightSideBar"
+import LeftSideBar from "./LeftSideBar/LeftSideBar.jsx"
+import Main from "./Main/Main.jsx"
+import RightSideBar from "./RightSideBar/RightSideBar.jsx"
 
 export {
     LeftSideBar,

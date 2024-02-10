@@ -1,5 +1,5 @@
-import AnalyticsMain from "./main/AnalyticsMain";
-import AnalyticsRight from "./right/AnalyticsRight";
+import AnalyticsMain from "./main/AnalyticsMain.jsx";
+import AnalyticsRight from "./right/AnalyticsRight.jsx";
 
 
 var Analytics = {

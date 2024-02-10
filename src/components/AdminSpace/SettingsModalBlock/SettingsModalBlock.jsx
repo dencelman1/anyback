@@ -1,6 +1,6 @@
-import { useAdminPanel } from '../../../hooks/useAdminPanel';
-import SettingsIcon from '../../svg/Settings/Settings';
-import GlobalSettings from './GlobalSettings/GlobalSettings';
+import { useAdminPanel } from '../../../hooks/useAdminPanel.js';
+import SettingsIcon from '../../svg/Settings/Settings.jsx';
+import GlobalSettings from './GlobalSettings/GlobalSettings.jsx';
 import './SettingsModalBlock.scss';
 
 

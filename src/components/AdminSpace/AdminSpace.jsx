@@ -1,12 +1,12 @@
-import AuthForm from '../AuthForm/AuthForm';
+import AuthForm from '../AuthForm/AuthForm.jsx';
 import './AdminSpace.scss';
-import SettingsModalBlock from './SettingsModalBlock/SettingsModalBlock';
+import SettingsModalBlock from './SettingsModalBlock/SettingsModalBlock.jsx';
 import {
     RightSideBar,
     Main, 
     LeftSideBar,
-} from './index'
-import useAdminSection from '../../hooks/useAdminSection';
+} from './index.js'
+import useAdminSection from '../../hooks/useAdminSection.js';
 
 
 var AdminSpace = () => {

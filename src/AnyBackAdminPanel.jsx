@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import './AnyBackAdminPanel.scss'
+import './AnyBackAdminPanel.scss';
+import './index.scss';
 
-import AdminSpace from './components/AdminSpace/AdminSpace'
-import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel'
-import LoadingBar from './components/svg/LoadingBar/LoadingBar'
-import Auth from './api/local/Auth/Auth'
+import AdminSpace from './components/AdminSpace/AdminSpace.jsx'
+import { AdminPanelContext, adminCtxProto } from './hooks/useAdminPanel.js'
+import LoadingBar from './components/svg/LoadingBar/LoadingBar.jsx'
+import Auth from './api/local/Auth/Auth.js'
 
-import CacheData from './api/local/CacheData/CacheData'
-import AdminSection from './components/AdminSpace/content/AdminSection'
-import AlertModalWindow from './base/alert/AlertModalWindow'
-import { getThemeValue } from './components/AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect'
+import CacheData from './api/local/CacheData/CacheData.js'
+import AdminSection from './components/AdminSpace/content/AdminSection.jsx'
+import AlertModalWindow from './base/alert/AlertModalWindow.jsx'
+import { getThemeValue } from './components/AdminSpace/SettingsModalBlock/GlobalSettings/ThemeSelect/ThemeSelect.jsx'
 
 
 var AnyBackAdminPanel = ({

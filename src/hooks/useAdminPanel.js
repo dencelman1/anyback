@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import Auth from "../api/local/Auth/Auth";
+import React, { useContext, } from "react";
+import Auth from "../api/local/Auth/Auth.js";
 
 var AdminPanelContext = React.createContext(null)
 

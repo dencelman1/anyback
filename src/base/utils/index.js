@@ -1,4 +1,4 @@
-import Cookie from "./Cookie";
+import Cookie from "./Cookie.js";
 
 export {
     Cookie

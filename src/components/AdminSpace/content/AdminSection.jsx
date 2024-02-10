@@ -1,6 +1,5 @@
-import { useState } from "react";
-import Analytics from "./Analytics/Analytics";
-import DbManag from "./DbManag/DbManag";
+import Analytics from "./Analytics/Analytics.jsx";
+import DbManag from "./DbManag/DbManag.jsx";
 
 
 

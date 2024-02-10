@@ -1,12 +1,12 @@
-import { Button } from '../../../../../../base/builtIn/index';
-import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor';
-import ArrowIcon from '../../../../../svg/Arrow/Arrow';
+import { Button } from '../../../../../../base/builtIn/index.js';
+import JsEditor from '../../../../../../base/builtIn/Textarea/JsEditor/JsEditor.jsx';
+import ArrowIcon from '../../../../../svg/Arrow/Arrow.jsx';
 import './FormulaEditor.scss';
-import AddIcon from '../../../../../svg/Add/Add';
-import RemoveIcon from '../../../../../svg/Remove/Remove';
+import AddIcon from '../../../../../svg/Add/Add.jsx';
+import RemoveIcon from '../../../../../svg/Remove/Remove.jsx';
 import { useCallback, useEffect } from 'react';
-import HelpIcon from '../../../../../svg/Help/Help';
-import { useAdminPanel } from '../../../../../../hooks/useAdminPanel';
+import HelpIcon from '../../../../../svg/Help/Help.jsx';
+import { useAdminPanel } from '../../../../../../hooks/useAdminPanel.js';
 
 
 var FormulaEditor = ({

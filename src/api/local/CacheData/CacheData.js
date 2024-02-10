@@ -1,4 +1,4 @@
-import { Cookie } from "../../../base/utils";
+import { Cookie } from "../../../base/utils/index.js";
 
 var get = Cookie.get;
 var set = Cookie.update;

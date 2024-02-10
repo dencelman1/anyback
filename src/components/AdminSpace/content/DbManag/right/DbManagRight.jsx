@@ -1,8 +1,8 @@
 import './DbManagRight.scss';
-import Select from '../../../../../base/builtIn/Select/Select';
-import useAdminSection from '../../../../../hooks/useAdminSection';
-import Filter_ from '../../../../../base/utils/Filter_';
-import InfoIcon from '../../../../svg/Info/Info';
+import Select from '../../../../../base/builtIn/Select/Select.jsx';
+import useAdminSection from '../../../../../hooks/useAdminSection.js';
+import Filter_ from '../../../../../base/utils/Filter_.js';
+import InfoIcon from '../../../../svg/Info/Info.jsx';
 
 
 

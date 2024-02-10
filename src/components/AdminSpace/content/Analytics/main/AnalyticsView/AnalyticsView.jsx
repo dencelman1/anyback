@@ -1,5 +1,5 @@
 import './AnalyticsView.scss';
-import AnalWidget from './AnalWidget/AnalWidget';
+import AnalWidget from './AnalWidget/AnalWidget.jsx';
 
 
 var AnalyticsView = ({

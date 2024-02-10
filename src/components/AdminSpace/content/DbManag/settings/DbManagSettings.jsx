@@ -1,7 +1,7 @@
-import { Button } from '../../../../../base/builtIn';
-import useAdminSection from '../../../../../hooks/useAdminSection';
-import CacheInput from '../../contentComponents/CacheInput/CacheInput';
-import CacheSelect from '../../contentComponents/CacheSelect/CacheSelect';
+import { Button } from '../../../../../base/builtIn/index.js';
+import useAdminSection from '../../../../../hooks/useAdminSection.js';
+import CacheInput from '../../contentComponents/CacheInput/CacheInput.jsx';
+import CacheSelect from '../../contentComponents/CacheSelect/CacheSelect.jsx';
 import './DbManagSettings.scss';
 
 

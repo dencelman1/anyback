@@ -1,6 +1,6 @@
-import Button from '../builtIn/Button/Button';
+import Button from '../builtIn/Button/Button.jsx';
 import './AlertModalWindow.scss';
-import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 var basedTypes = [
     'object',

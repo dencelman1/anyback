@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Button from '../../../base/builtIn/Button/Button'
-import { OpeningLever } from '../../../base/components'
-import { useAdminPanel } from '../../../hooks/useAdminPanel'
-import LogOutIcon from '../../svg/LogOut/LogOut'
-import SettingsIcon from '../../svg/Settings/Settings'
+import Button from '../../../base/builtIn/Button/Button.jsx'
+import { OpeningLever } from '../../../base/components/index.js'
+import { useAdminPanel } from '../../../hooks/useAdminPanel.js'
+import LogOutIcon from '../../svg/LogOut/LogOut.jsx'
+import SettingsIcon from '../../svg/Settings/Settings.jsx'
 import './LeftSideBar.scss'
 
 

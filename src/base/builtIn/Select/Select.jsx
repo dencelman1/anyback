@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Select.scss';
-import ArrowIcon from '../../../components/svg/Arrow/Arrow';
-import { getColorByDataType } from '../../components/TabWidgetPanel/TabWidgetPanel';
+import ArrowIcon from '../../../components/svg/Arrow/Arrow.jsx';
+import { getColorByDataType } from '../../components/TabWidgetPanel/TabWidgetPanel.jsx';
 
 
 var Select = (

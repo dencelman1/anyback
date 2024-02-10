@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { Button } from "../../../../../../../base/builtIn";
-import Function_ from "../../../../../../../base/utils/Function_";
-import useAdminSection from "../../../../../../../hooks/useAdminSection";
+import { Button } from "../../../../../../../base/builtIn/index.js";
+import Function_ from "../../../../../../../base/utils/Function_.js";
+import useAdminSection from "../../../../../../../hooks/useAdminSection.js";
 import './EntryView.scss';
-import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel";
-import { allowedEntryDataTypes } from "../../../../../../../config";
+import { getColorByDataType } from "../../../../../../../base/components/TabWidgetPanel/TabWidgetPanel.jsx";
+import { allowedEntryDataTypes } from "../../../../../../../config.js";
 
 
 

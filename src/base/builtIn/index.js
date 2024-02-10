@@ -1,8 +1,8 @@
-import Button from "./Button/Button";
-import CheckBox from "./CheckBox/CheckBox";
-import FormInput from "./Input/FormInput/FormInput";
-import Input from "./Input/input";
-import Select from "./Select/Select";
+import Button from "./Button/Button.jsx";
+import CheckBox from "./CheckBox/CheckBox.jsx";
+import FormInput from "./Input/FormInput/FormInput.jsx";
+import Input from "./Input/Input.jsx";
+import Select from "./Select/Select.jsx";
 
 
 export {

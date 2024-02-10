@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, } from 'react';
 import './DbManagEntryView.scss';
-import { useAdminPanel } from '../../../../../../hooks/useAdminPanel';
-import { TabWidgetPanel } from '../../../../../../base/components';
-import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo';
+import { useAdminPanel } from '../../../../../../hooks/useAdminPanel.js';
+import { TabWidgetPanel } from '../../../../../../base/components/index.js';
+import AnybackLogo from '../../../../../svg/AnybackLogo/AnybackLogo.jsx';
 
-import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription';
-import useAdminSection from '../../../../../../hooks/useAdminSection';
-import AddEntryForm from './AddEntryForm/AddEntryForm';
-import EntryView from './EntryView/EntryView';
+import HotkeyDescription from '../../../contentComponents/HotkeyDescription/HotkeyDescription.jsx';
+import useAdminSection from '../../../../../../hooks/useAdminSection.js';
+import AddEntryForm from './AddEntryForm/AddEntryForm.jsx';
+import EntryView from './EntryView/EntryView.jsx';
 
 
 var moveEntryKeysWithCtrl = [
