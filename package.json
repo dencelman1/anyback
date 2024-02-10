@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build-lib": "webpack --config webpack.config.js",
+    "lib": "webpack --config webpack.config.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
