@@ -1,19 +1,15 @@
 {
   "name": "anyback-react",
   "private": false,
-  "version": "1.0.5",
+  "version": "1.0.7",
   "type": "module",
+
   "main": "src/index.js",
+
   "repository": {
     "url": "https://github.com/dencelman1/anyback-react.git"
   },
-  "files": [
-    "lib/*",
-    "src/*",
-    "LICENSE.txt",
-    "package.json",
-    "README.md"
-  ],
+  
   "author": {
     "email": "dencelman@gmail.com",
     "name": "dencelman"

@@ -1,6 +1,6 @@
 
 .dark .FormulaEditor {
-    background-color: var(--dark-gray);
+    background-color: var(--dark);
 }
 
 .FormulaEditor {
@@ -20,6 +20,8 @@
     width: 100%;
 
     outline: 1px solid gray;
+    z-index: 100;
+
 
     transition: transform .1s, height;
     transform: translateY(0);
@@ -40,7 +42,7 @@
 
     &.opened {
         
-        transform: translateY(calc(110%));
+        transform: translateY( 110% );
         
         .closeOpen {
 
