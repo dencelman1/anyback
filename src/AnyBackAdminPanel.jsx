@@ -41,7 +41,10 @@ var AnyBackAdminPanel = ({
 
   
 
-  var [adminSections, setAdminSections] = useState( [...AdminSection.states()] );
+  var [
+    adminSections,
+    setAdminSections
+  ] = useState( [...( AdminSection.states() )] );
 
 
   var [current, setCurrent] = useState({
