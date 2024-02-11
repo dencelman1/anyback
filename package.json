@@ -1,14 +1,16 @@
 {
   "name": "anyback-react",
   "private": false,
-  "version": "1.0.10",
+  "version": "1.0.11",
   "type": "module",
+  "license": "MIT",
 
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "src/index.js",
+  "typings": "src/index.d.ts",
 
   "files": [
-    "lib",
+    "src",
+    "public",
     "LICENSE",
     "package.json",
     "README.md"
