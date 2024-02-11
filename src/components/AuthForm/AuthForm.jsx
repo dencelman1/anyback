@@ -75,7 +75,7 @@ var AuthForm = () => {
             }}
           >
             <AnybackLogo
-              href={import.meta.env.VITE__ANYBACK_PROJECT_URL}
+              href="https://github.com/dencelman1/anyback-react/tree/main"
               side="46px"
               
               style={{

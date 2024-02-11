@@ -1,7 +1,4 @@
-declare interface AnyBack {
-    AdminPanel: ({ options }) => React.ReactNode,
-    useAdminPanel: () => object,
-    useAdminSection: () => object,
-}
 
-export default AnyBack;
+export declare var AdminPanel: ({ options }) => React.ReactNode;
+export declare var useAdminPanel: () => object;
+export declare var useAdminSection: () => object;
