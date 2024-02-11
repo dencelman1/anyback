@@ -30,11 +30,10 @@ ReactDOM.createRoot(
     }}
   />
 )
-
 ```
 
 # And you have an admin panel associated with your backend
-- [Full example is here](https://github.com/dencelman1/anyback-react/blob/main/src/main.jsx)
+- [Full example is here](https://github.com/dencelman1/anyback-react/wiki/options)
 
 # Sources:
 - [options](https://github.com/dencelman1/anyback-react/wiki/options)
